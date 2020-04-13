@@ -6,7 +6,7 @@ main:
 	mov	ebp, esp   ;set the Top as the Base of the stack
 
 ;************* Start ***********************
-    mov eax, [esp + 4]  ;giving the eax the value of the input (one Step after the ebp on the Stack)
+    mov eax, [esp + 8]  ;giving the eax the value of the input (two Steps after the ebp and the retunValue on the Stack)
     push esi ; saving the Value of esi in Stack (nach gcc-Convention)
     push edi ; saving the Value of edi in Stack (nach gcc-Convention)
     push edx ; saving the Value of edx in Stack (nach gcc-Convention)
