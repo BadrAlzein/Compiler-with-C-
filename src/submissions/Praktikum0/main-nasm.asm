@@ -11,7 +11,7 @@ main:
     push edi ; saving the Value of edi in Stack (nach gcc-Convention)
     push edx ; saving the Value of edx in Stack (nach gcc-Convention)
 
-;+++++++++++++++++++++++++Test Input ++++++++++++++++++++
+;+++++++++++++++++++++++++ Test Input ++++++++++++++++++++
 
 ;Step 1) TEST THE INPUT
     cmp eax,eax    ;test Input if its Signed/unsigned
