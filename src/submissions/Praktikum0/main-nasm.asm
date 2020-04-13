@@ -1,11 +1,11 @@
 
-global main
- 
-main:
+global mainWithWhileLoop ;find DivSum using while loop
+global mainWithtForLoop ;find DivSum using For loop
+
+;****************************Part 1 **********************
+mainWithWhileLoop:
 	push ebp    ;push the basepointer to Stack 
 	mov	ebp, esp   ;set the Top as the Base of the stack
-
-;************* Start ***********************
     mov eax, [esp + 8]  ;giving the eax the value of the input (two Steps after the ebp and the retunValue on the Stack)
     push esi ; saving the Value of esi in Stack (nach gcc-Convention)
     push edi ; saving the Value of edi in Stack (nach gcc-Convention)
@@ -31,7 +31,7 @@ is_bigger_Than_Two:
 ;+++++++++++++++++++++++++ Start ++++++++++++++++++++++
 
 ;Step 2) GET THE DEVIDERS for Positive Input>2
-findSumDiv:  ; this will finde the sum of the Divs
+findSumDiv:  ; this will finde the sum of the Divs using while loop
     ;init the loop 1
         
         
@@ -40,6 +40,26 @@ findSumDiv:  ; this will finde the sum of the Divs
 exit: 
     mov eax, eax 
     ret
+    
+;this will clean the Stack 
+	mov	eax, 0  ;claaen up eax
+	pop	ebp     ; push the base out 
+	ret
+
+
+
+;**************************** Part2 **********************
+
+mainWithtForLoop:
+	push ebp    ;push the basepointer to Stack 
+	mov	ebp, esp   ;set the Top as the Base of the stack
+    mov eax, [esp + 12]  ;giving the eax the value of the input (two Steps after the ebp and the retunValue on the Stack)
+    push esi ; saving the Value of esi in Stack (nach gcc-Convention)
+    push edi ; saving the Value of edi in Stack (nach gcc-Convention)
+    push edx ; saving the Value of edx in Stack (nach gcc-Convention)
+   
+    
+   
     
 ;****************************End **********************
 ;this will clean the Stack 
