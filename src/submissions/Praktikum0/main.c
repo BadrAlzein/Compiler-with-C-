@@ -21,25 +21,17 @@ printf("***** Program: dividers Sum of a given Nummber ***** \n");
 printf("Enter the Nummber ");
 scanf("%llu",&num);
 
-//test if the num in Range else err 
-if (num>=0) {
 // giving the value of the two imported funcs from assm to the two vars
 sumWithPointers = mainWithWhileLoop(numInteger);
 mainWithtForLoop (num, pointerAddress);
-sumWithPointers = *pointerAddress;
 
-//Outtro
+//Outtro the num 
 printf("***** For the Nummber %llu is ***** \n" , num);
 
 //output result of the two funcs
 printf("the Sum of the dividers without Pointers %d is \n", sumWithoutPointers);
 
 printf("the Sum of the dividers with pointers %d is \n", sumWithPointers);
-
-}else {
-    //if the num is too big or too small or negative throw an err 
-    printf("Type mismatch. The inserted Nummber is out of Range! \n");
-}
 
     return 0;
 }
