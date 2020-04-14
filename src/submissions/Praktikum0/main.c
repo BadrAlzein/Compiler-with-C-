@@ -24,12 +24,11 @@ numInteger = (int) num;
 sumWithPointers = mainWithWhileLoop(numInteger);
 
 //Outtro the num 
-printf("***** For the Nummber %llu is ***** \n" , num);
+printf("*****  the Sum of the Div. is *****  \n");
 //output result of the two funcs
 printf("the Sum of the dividers without Pointers %d is \n", sumWithPointers);
 
 mainWithtForLoop (num, pointerAddress);
 printf("the Sum of the dividers with pointers %u is \n", *pointerAddress);
-
     return 0;
 }
