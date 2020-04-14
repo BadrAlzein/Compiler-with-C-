@@ -10,9 +10,9 @@ mainWithWhileLoop:
 	jle is_negative	;convert Input to positive and continue
 	jng is_it_lessThanTwo
 	
-	is_it_lessThanTwo:	;input < 2 then output the Input itself 
+	is_it_lessThanTwo:	;input <= 2 then output the Input itself 
 		cmp eax, 2  
-		jle exit_Program_One	;ja->output Input
+		jle exit_Program_One	;ja-> output Input
 		jmp findSumDiv_WithWhileLoop ; else start Prog1
 
 	is_negative:
@@ -22,7 +22,8 @@ mainWithWhileLoop:
     findSumDiv_WithWhileLoop: ;will find the sum of div using for 
         
         
-        mov eax, 4711 ;For Test Only
+        mov eax, 4711 ;For Test Only Input over 2 will resolve 4711
+
 
         ;Obada Code 
 
@@ -38,30 +39,9 @@ mainWithWhileLoop:
 
 ;**************************** Part2 **********************
 mainWithtForLoop:
-	mov eax, [esp + 4] ; get Input from Stack to eax
-	cmp eax, -1  ;input < 0
-	jle is_negative_Program2;convert Input to positive and continue
-	jng is_it_lessThanTwo_Program2
-	
-	is_it_lessThanTwo_Program2:	;input < 2 then output the Input itself 
-		cmp eax, 2  
-		jle exit_Program_One	;ja->output Input
-		jmp findSumDiv_WithForLoop ; else start Prog1
-
-	is_negative_Program2:
-		imul eax,-1		; negative Input convert -> X (-1)
-		jmp is_it_lessThanTwo	; try the test again
-
-    findSumDiv_WithForLoop: 
-        
-        
 
 
         ;Brishna Code 
 
-
-
-
-        jmp exit_Program_Two
 	exit_Program_Two:
 		ret
