@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-//import the two funcs from the assm Code
+//import the two funcs from the asm Code
 extern int mainWithWhileLoop(unsigned int value);
 extern void mainWithtForLoop(int value, int* result);
 
