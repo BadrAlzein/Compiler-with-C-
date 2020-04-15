@@ -1,0 +1,21 @@
+
+Obj 
+
+nasm -f elf -o main.o main-nasm.asm 
+ld -m elf_i386 -s -o run2 main2.o 
+
+normal linking 
+nasm -f elf -o main.o main-nasm.asm 
+ld filename.o -m runFilename
+
+
+
+
+c + asm 
+
+nasm -f elf -o main.o main-nasm.asm 
+gcc -m32 -c -o c.o main.c
+gcc -m32 -o run main.o c.o
+./run
+
+
