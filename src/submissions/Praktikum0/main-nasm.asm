@@ -5,7 +5,9 @@ global mainWithtForLoop ;find DivSum using For loop
 ;****************************Part 1 **********************
 
 mainWithWhileLoop:
-	mov eax, [esp + 4] ; get Input from Stack to eax
+	push ebp			; calling convention save non-fluent registers and baspointer
+	mov	ebp, esp
+	mov eax, [esp + 8] ; get Input from Stack to eax
 	cmp eax, 2  
 	jle exit_Program_One	;ja-> output Input
 	jmp findSumDiv_WithWhileLoop ; else start Prog1
@@ -23,6 +25,7 @@ findSumDiv_WithWhileLoop: ;will find the sum of div using for
 
         jmp exit_Program_One
 	exit_Program_One:
+		pop ebp
 		ret
 
 
