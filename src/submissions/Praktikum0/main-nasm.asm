@@ -6,18 +6,9 @@ global mainWithtForLoop ;find DivSum using For loop
 
 mainWithWhileLoop:
 	mov eax, [esp + 4] ; get Input from Stack to eax
-	cmp eax, -1  ;input < 0
-	jle is_negative	;convert Input to positive and continue
-	jng is_it_lessThanTwo
-	
-	is_it_lessThanTwo:	;input <= 2 then output the Input itself 
-		cmp eax, 2  
-		jle exit_Program_One	;ja-> output Input
-		jmp findSumDiv_WithWhileLoop ; else start Prog1
-
-	is_negative:
-		imul eax,-1		; negative Input convert -> X (-1)
-		jmp is_it_lessThanTwo	; try the test again
+	cmp eax, 2  
+	jle exit_Program_One	;ja-> output Input
+	jmp findSumDiv_WithWhileLoop ; else start Prog1
 
 findSumDiv_WithWhileLoop: ;will find the sum of div using for 
         
@@ -48,19 +39,9 @@ mainWithtForLoop:
 	mov ecx, 1	    	; divisor counter
 	mov ebx, [ebp+8]	; save in ebx because division result will overwrite eax
 
-	;test Input (negative -> positive && Input ==0 then exit)
-	
-	cmp ebx,0			;test if the Input = 0 
-	je	exit 			; if it is exit 
-
-	cmp ebx, 0  		;test if the input equal or less than 0 negative
-	je is_negative_2	; y? convert it and start the loop
-
-	is_negative_2:
-		imul ebx,-1		; negative Input convert -> X (-1)
-
-	;end test Input
-
+	cmp ebx,0			;see if input is 0 
+	jle exit			;ja? then out the default value of sum dividers
+	jmp loop			;nein? start looping 
 loop:
 	mov eax, ebx		; put ebx into eax for division
 	mov edx, 0			; set edx(modulo) zero otherwise error
