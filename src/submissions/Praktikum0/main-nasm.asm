@@ -5,17 +5,17 @@ global mainWithtForLoop ;find DivSum using For loop
 ;****************************Part 1 **********************
 
 mainWithWhileLoop:
-	push ebp			; calling convention save non-fluent registers and baspointer
+	push ebp					; calling convention save non-fluent registers and baspointer
 	mov	ebp, esp
-	mov eax, [esp + 8] ; get Input from Stack to eax
+	mov eax, [esp + 8] 			; get Input from Stack to eax
 	cmp eax, 2  
-	jle exit_Program_One	;ja-> output Input
+	jle exit_Program_One		;ja-> output Input
 	jmp findSumDiv_WithWhileLoop ; else start Prog1
 
-findSumDiv_WithWhileLoop: ;will find the sum of div using for 
+findSumDiv_WithWhileLoop: 		;will find the sum of div using for 
         
         
-        mov eax, 4711 ;For Test Only Input over 2 will resolve 4711
+     mov eax, 4711 ;For Test Only Input over 2 will resolve 4711
 
 
         ;Obada Code 
@@ -24,12 +24,10 @@ findSumDiv_WithWhileLoop: ;will find the sum of div using for
 
 
         jmp exit_Program_One
-	exit_Program_One:
-		pop ebp
-		ret
-
-
-
+		
+exit_Program_One:
+	pop ebp
+	ret
 
 ;**************************** Part2 **********************
 mainWithtForLoop:
