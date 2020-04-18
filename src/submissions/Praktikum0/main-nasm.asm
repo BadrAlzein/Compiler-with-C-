@@ -16,7 +16,7 @@ findSumDiv_WithWhileLoop: 		;will find the sum of div using for
 		mov ecx,eax ; i = num (inverted for loop)
 		jmp while_loop
 while_body_loop: 
-		inc eax
+		;inc eax zum Testen
 
 			;Obada Operations
 
