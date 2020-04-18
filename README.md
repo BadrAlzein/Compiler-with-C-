@@ -14,4 +14,11 @@
    
 2. ### Crashcurs: 
    https://www-docs.b-tu.de/fg-betriebssysteme/btuauth/bs1/sonstig/doc/assembler.html
-   
+
+
+C Compiling Comands 
+---
+nasm -f elf -o main.o main-nasm.asm 
+gcc -m32 -c -o c.o main.c
+gcc -m32 -o run main.o c.o
+./run
