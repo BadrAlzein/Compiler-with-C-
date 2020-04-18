@@ -5,34 +5,34 @@ global mainWithtForLoop ;find DivSum using For loop
 ;****************************Part 1 **********************
 
 mainWithWhileLoop:
-	push ebp					; calling convention save non-fluent registers and baspointer
-	mov	ebp, esp
-	push ebx
+	push ebp				; calling convention save non-fluent registers and baspointer
+	mov	ebp, esp					
+	push ebx				;ebx will be used so save it acording to gcc convention
+	mov ebx, [ebp + 8] 		; get Input from Stack to eax
 
-	mov eax, [ebp + 8] 			; get Input from Stack to eax
+findSumDiv_WithWhileLoop: 	;will find the sum of div using while loop
+		push 0			;the sum of the dividers 	
+		mov ecx,eax ; make i = num (inverted for loop) from num to 0 
+		jmp while_loop	;start the loop
+while_body_loop: 	
+		mov eax,ebx	;save the value of num in eax every time the loop starts
+		mov edx,0	;give the register that have the mod a default value of 0 
+		idiv ecx 	;divide eax onto i and save it in eax and the rest of the division in edx
+		dec ecx		;i--
+		cmp edx,0 	;if the mod==0 then save it  
+		je foundend ;inc the sum dividers of 1 
+while_loop:				
+		cmp ecx, 0		;if the loop i =0 then stop the loop 
+		je exit_Program_One	; stop the loop and show the answer
+		jmp while_body_loop	;
 
-findSumDiv_WithWhileLoop: 		;will find the sum of div using for 
-		push 0 ; sum devision 
-		mov ecx,eax ; i = num (inverted for loop)
-		jmp while_loop
-while_body_loop: 
-		pop eax ;Test
-		add eax,3 ;Test
-		push eax;test
+foundend:	 ; this will inc the sum dividers by 1 
+		pop eax 	
+		inc eax 
+		push eax 
+		jmp while_loop ;continue the loop 
 
 
-			;Obada Operations
-
-
-
-
-
-		dec ecx
-while_loop:
-		cmp ecx, 0
-		je exit_Program_One
-		jmp while_body_loop
-		
 exit_Program_One:
 	pop eax ; save sum dividers in eax (the return Value)
 	pop ebx	
