@@ -51,9 +51,8 @@ loop:
 	je  if				; jump to if condition if module comparison with 0 true
 	cmp ecx, ebx    	; compare ecx loop iterator with input integer
 	jae exit			; goto finish	
-	inc ecx      		; Increment
-	cmp ecx,ebx    		; Compare cx to the limit
-	jle loop   			; Loop while less or equal
+	inc ecx      		; Increment i++
+	jmp loop   			; repait the loop
 if:	
 	pop eax				; get current divisor-count from stack into eax
 	add eax, 1			; increment counter of divisor by 1
