@@ -12,11 +12,14 @@ mainWithWhileLoop:
 	mov eax, [ebp + 8] 			; get Input from Stack to eax
 
 findSumDiv_WithWhileLoop: 		;will find the sum of div using for 
-		;push 0 ; sum devision 
+		push 0 ; sum devision 
 		mov ecx,eax ; i = num (inverted for loop)
 		jmp while_loop
 while_body_loop: 
-		;inc eax zum Testen
+		pop eax ;Test
+		add eax,3 ;Test
+		push eax;test
+
 
 			;Obada Operations
 
@@ -31,7 +34,8 @@ while_loop:
 		jmp while_body_loop
 		
 exit_Program_One:
-	pop ebx
+	pop eax ; save sum dividers in eax (the return Value)
+	pop ebx	
 	pop ebp
 	ret
 
