@@ -26,7 +26,7 @@ while_loop:
 	je exit_Program_One		; stop the loop and show the answer
 	jmp while_body_loop	;
 
-foundDiv_found:	 			; this will inc the sum dividers by 1 
+Div_found:	 			; this will inc the sum dividers by 1 
 	pop eax					; pop the sum dividers into eax 	
 	inc eax 				; inc eax by 1
 	push eax 				; push the sum again to stack 
