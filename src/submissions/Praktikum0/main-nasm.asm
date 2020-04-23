@@ -20,7 +20,7 @@ while_body_loop:
 	idiv ecx			 	; divide eax onto i and save it in eax and the rest of the division in edx
 	dec ecx					; i--
 	cmp edx,0 				; if the mod==0 then save it  
-	je Div_found 			; inc the sum dividers of 1 
+	je foundDiv_found 			; inc the sum dividers of 1 
 while_loop:				
 	cmp ecx, 0				; if the loop i =0 then stop the loop 
 	je exit_Program_One		; stop the loop and show the answer
