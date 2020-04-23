@@ -8,7 +8,7 @@ mainWithWhileLoop:
 	push ebp				; calling convention save non-fluent registers and baspointer
 	mov	ebp, esp				
 	push ebx				; ebx will be used so save it acording to gcc convention
-	mov ebx, [ebp + 8] 		; get Input from Stack to eax
+	mov ebx, [esp + 12] 		; get Input from Stack to eax
 
 findSumDiv_WithWhileLoop: 	; will find the sum of div using while loop
 	push 0					; the sum of the dividers 	
