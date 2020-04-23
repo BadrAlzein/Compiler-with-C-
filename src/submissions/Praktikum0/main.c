@@ -6,7 +6,7 @@ extern void mainWithtForLoop(int value, int *result);
 
 int main()
 {
-    int num; //def the num of the entered Num
+    long long num; //def the num of the entered Num
     int pointer = 0;
     int *pointerAddress = &pointer;
 
@@ -15,13 +15,14 @@ int main()
 
     //Input num
     printf("Enter the Number:  ");
-    scanf("%d", &num);
+    scanf("%llu", &num);
 
-    if (num < 0 || num > 2147483647)
+    if (num < 0) 
     {
         printf("ERROR 4711: wrong Input \n");
-    }
-    else
+    }else if (num > 2147483647){
+          printf("ERROR 4711: wrong Input \n");
+     } else
     {
         //Outtro the num
         printf("*****  the Sum of the Div. is *****  \n");
