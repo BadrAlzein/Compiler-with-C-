@@ -2,12 +2,15 @@ your Job is to edit the files in vorgabe/src. please leave main.cc and initfini.
 
 1. navigate to /vorgabe/bin 
     1.1. type (make clean bootdisk) in terminal without ()
-    1.2. type bochs in terminal to check the answer
+    1.2. type bocks in terminal to check the answer
 
 
 * for testing try Martin version 
 
 * the following .cc should be used and modified : 
+PrintStream.h
+CgaChannel.h
+CgaScreen.h
 PrintStream.cc
 CgaChannel.cc
 CgaScreen.cc 
