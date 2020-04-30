@@ -5,12 +5,12 @@
 
 /*
  * CgaChar:
- * 
  *	Diese Klasse stellt den Prototyp eines
  *	Zeichens des Bildschirms dar.
  *	Dieses besteht aus darstellbarem Zeichen
  *	und Darstellungsattributen.
  */
+
 
 
 class CgaChar {
@@ -35,7 +35,7 @@ private:
 	ein Attribut, der die For-und bg Color und blinker besteht (seheCgaAttr.h)
 	insgesammt 2 Bit je Zeichen
 	*/
-	char c; //das Zeichen 
+	char charachter; //das Zeichen 
 	CgaAttr attr;	//das Attribut 
 };
 

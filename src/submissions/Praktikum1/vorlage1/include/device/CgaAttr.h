@@ -73,43 +73,43 @@ public:
 	// setzen der Schriftfarbe
 	void setForeground(Color col)
 	{
-		/*the format of any charachter is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
+		/*the format of any attr is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
 		changing Y means: 
-		1. mask the current charachter to change all Y's to 0000
+		1. mask the current attr to change all Y's to 0000
 		2. change old Y with new Y with the or | operation
 		ps. Y is already in the right place and dont need shifting because the entered color value 
-		should look like this: 0b 0 000 YYYY and the current character is 0b B XXX YYYY 
+		should look like this: 0b 0 000 YYYY and the current attr is 0b B XXX YYYY 
 		so no shifting is needed.
 		*/
-		this->character = col | (FOREGROUND_mask & this->character);
+		this->attr = col | (FOREGROUND_mask & this->attr);
 	}
 
 	// setzen der Hintergrundfarbe
 	void setBackground(Color col)
 	{
-		/*the format of any charachter is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
+		/*the format of any attr is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
 		changing X means: 
-		1. mask the current charachter to change all X's to 000
+		1. mask the current attr to change all X's to 000
 		2. X is not in the right place and need shifting because the entered color value 
-		should look like this: 0b 0 000 0XXX and the current character is 0b B XXX YYYY 
+		should look like this: 0b 0 000 0XXX and the current attr is 0b B XXX YYYY 
 		so shifting is needed so shift (0b 0 000 0XXX) 4 places to the left --> 0b 0 XXX 0000.
 		3. change old X with new X with the or | operation
 		*/
-		this->character = (col<<4) | (BACKGROUND_mask & this->character);
+		this->attr = (col<<4) | (BACKGROUND_mask & this->attr);
 	}
 
 	// setzen blinkender/nicht blinkender Text
 	void setBlinkState(bool blink)
 	{
-		/*the format of any charachter is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
+		/*the format of any attr is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
 		changing B means: 
-		1. mask the current charachter to change the B to 0 in the current one
+		1. mask the current attr to change the B to 0 in the current one
 		2. Y is not in the right place and need shifting because the entered color value 
-		should look like this: 0b 0 000 00b and the current character is 0b B XXX YYYY 
+		should look like this: 0b 0 000 00b and the current attr is 0b B XXX YYYY 
 		so shifting is needed so shift (0b 0 000 00b) 7 places to the left --> 0b b 000 0000.
 		3. change old b with new b with the or | operation
 		*/
-		this->character = (blink<<7) | (BLINK_mask & this->character);
+		this->attr = (blink<<7) | (BLINK_mask & this->attr);
 	}
 
 	// setzen aller Attribute
@@ -129,21 +129,21 @@ public:
 	// ermitteln der Schriftfarbe
 	Color getForeground()
 	{
-		/*the format of any charachter is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
+		/*the format of any attr is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
 		returning Y means: 
-		1. mask the current charachter -> change everything but Y's to 0 than means
+		1. mask the current attr -> change everything but Y's to 0 than means
 		0b 0 000 YYYY
 		2. caste it (from bits to color) and return it
 		*/
-			return (Color) (this->character & FOREGROUND);
+			return (Color) (this->attr & FOREGROUND);
 	}
 
 	// ermitteln der Hintergrundfarbe
 	Color getBackground()
 	{
-		/*the format of any charachter is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
+		/*the format of any attr is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
 		returning Y means: 
-		1. mask the current charachter -> change everything but X's to 0 than means
+		1. mask the current attr -> change everything but X's to 0 than means
 		0b 0 XXX 0000
 		2. the output should be 0b 0 000 0XXX (X's on the right side) that mean shifting to the right 
 		is needed
@@ -151,31 +151,31 @@ public:
 		4. caste it (from bits to color) and return it
 		*/
 
-			return (Color) ((this->character & BACKGROUND)>>4);
+			return (Color) ((this->attr & BACKGROUND)>>4);
 	}
 
 	// ermitteln ob Blink-Flag gesetzt ist
 	bool getBlinkState()
 	{
-			/*the format of any charachter is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
+			/*the format of any attr is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
 		returning Y means: 
-		1. mask the current charachter -> change everything but b to 0 than means
+		1. mask the current attr -> change everything but b to 0 than means
 		0b b 000 0000
 		2. the output should be 0b 0 000 000b (b on the right side) that mean shifting to the right 
 		is needed
 		3. change 0b b 000 0000 to 0b 0 000 000b by shifting 7 digits to the right
 		4. caste it (from bits to bool) and return it
 		*/
-			return (bool) ((this->character & BLINK)>>7);
+			return (bool) ((this->attr & BLINK)>>7);
 	}
 
 	/*getter for the attribut*/
 	char getCharacter(){
-		return this->character;
+		return this->attr;
 	}
 
 private:
-	char character;
+	char attr; //the attribut of the zeichen 
 };
 
 #endif
