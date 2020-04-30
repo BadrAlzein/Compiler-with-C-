@@ -14,8 +14,8 @@ class CgaAttr {
 private:
 	enum AttrMaskAndShifts {
 
-		//die drei attr sind true also FOREGROUND | BACKGROUND | BLINK = 0b 1 111 1111
-		//used to get only one color from the attribut
+		//die drei Farben sind true also FOREGROUND | BACKGROUND | BLINK = 0b 1 111 1111
+		//used to get only one color from the attribut 
 		FOREGROUND = 0b00001111,
 		BACKGROUND = 0b01110000,
 		BLINK = 0b10000000,
@@ -169,7 +169,7 @@ public:
 			return (bool) ((this->character & BLINK)>>7);
 	}
 
-	/*getter for the char attribut*/
+	/*getter for the attribut*/
 	char getCharacter(){
 		return this->character;
 	}
