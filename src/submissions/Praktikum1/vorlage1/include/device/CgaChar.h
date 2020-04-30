@@ -30,8 +30,13 @@ public:
 	CgaAttr getAttr();
 
 private:
-
-
+	/*
+	jeder Zeichen in CGA Screens besteht aus Zeichen aus dem ascii Tabelle + 
+	ein Attribut, der die For-und bg Color und blinker besteht (seheCgaAttr.h)
+	insgesammt 2 Bit je Zeichen
+	*/
+	char c; //das Zeichen 
+	CgaAttr attr;	//das Attribut 
 };
 
 #endif

@@ -40,7 +40,7 @@ private:
 
 
 public:
-	/** 	Diese Aufzählung enthält die CGA-Farben als Farbkonstanten
+	/** 	Diese Aufzï¿½hlung enthï¿½lt die CGA-Farben als Farbkonstanten
 	 *	Tragt hier *alle* CGA Farben mit den richtigen Werten ein
 	 */
 	enum Color {
@@ -66,7 +66,7 @@ public:
 	};
 
 
-	/** Konstruktor. Erzeugt ein CgaAttr-Objekt mit den uebergebenen Werten für
+	/** Konstruktor. Erzeugt ein CgaAttr-Objekt mit den uebergebenen Werten fï¿½r
 	  * Vorder- und Hintergrundfarbe. Werden keine Parameter uebergeben,
 	  * so werden die Defaultwerte (Vordergrund weiss, Hintergrund schwarz, Blinken deaktiviert)
 	  * verwendet.
