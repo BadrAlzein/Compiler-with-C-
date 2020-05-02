@@ -21,7 +21,7 @@ CgaChannel::CgaChannel(const CgaAttr& attr)
 
 // Hinweis: der Rückgabewert spiegelt die Anzahl der ausgegebenen Zeichen wieder
 // Die von OutputChannel deklarierte Ausgaberoutine
-// size is the size of bytes of the word
+// size is the size of bytes that the word takes
 // char* data takes the adress of an char
 int CgaChannel::write(const char* data, int size)
 {

@@ -14,7 +14,7 @@
 // setzen des Zeichens
 void CgaChar::setChar(char c)
 {
-this->c=c;
+    this->c = c;
 
 }
 

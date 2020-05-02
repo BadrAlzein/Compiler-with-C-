@@ -17,6 +17,7 @@ class CgaChar {
 
 public:
 
+	char c;
 	// setzen des Zeichens
 	void setChar(char c);
 	

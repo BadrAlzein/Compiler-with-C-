@@ -29,7 +29,7 @@ public:
 	// auslesen der Darstellungsattribute
 	CgaAttr getAttr();
 
-private:
+private: //
 	char c;
 	CgaAttr attr;
 };
