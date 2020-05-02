@@ -170,7 +170,7 @@ public:
 	}
 
 	/*getter for the attribut*/
-	char getCharacter(){
+	char getAttr(){
 		return this->attr;
 	}
 
