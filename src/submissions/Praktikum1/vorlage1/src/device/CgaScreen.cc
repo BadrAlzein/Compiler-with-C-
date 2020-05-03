@@ -227,11 +227,11 @@ void CgaScreen::show(char ch, const CgaAttr &attr)
 	getCursor(col,row);
 	char* cursor_address; //the curser Adress
 
-	/* (pending)
+	// (pending)
 	//get the cursor address (*2 because of the attribut "attribut+char = 2 ")
 	cursor_address = (char*) (2 * (col + row * COLUMNS));
 	cursor_address += OFFSET0; //add the starting offset 
-	*/
+	
 
 	/* if Input is a new Line */
 	if (ch =='\n' && row < 25) { 
