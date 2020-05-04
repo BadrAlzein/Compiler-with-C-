@@ -16,15 +16,16 @@
 // Standardattribute waehlen und Bildschirm loeschen
 CgaScreen::CgaScreen() : index(INDEX), data(DATA)
 {
+
 	/* Standardattribute waehlen
 this will create a default (standard) attribut and set the character attribut with it 
 let the paramets on default ->  fg=WHITE bg=BLACK  blink=false
 */
 	CgaAttr attribut = CgaAttr();
-	setAttr(attribut);
+	this->setAttr(attribut);
 
 	//pass the starting adress of the charachter to the video-RAM
-	screen = (CgaChar *)OFFSET0;
+	this->screen = (CgaChar *)OFFSET0;
 
 	//Bildschirm loeschen
 	clear();
@@ -37,10 +38,10 @@ CgaScreen::CgaScreen(CgaAttr attr) : index(INDEX), data(DATA)
 Angegebene Attribute setzen
 just set the given attribut using setAttr() from Class CgaScreen
 */
-	setAttr(attr);
+	this->setAttr(attr);
 
 	//pass the starting adress of the charachter to the video-RAM
-	screen = (CgaChar *)OFFSET0;
+	this->screen = (CgaChar *)OFFSET0;
 
 	//delete the screen
 	clear();
@@ -68,9 +69,9 @@ void CgaScreen::clear()
 	for (int i = 0; i < screenSize; i++)
 	{
 		//set the attribut to default
-		screen[i].setAttr(attr);
+		this->screen[i].setAttr(attr);
 		//set the "zeichen" to blank
-		screen[i].setChar(blank);
+		this->screen[i].setChar(blank);
 	}
 	//reset the cursor to the starting position x=0, y = 0
 	setCursor(cursorPos, cursorPos);
@@ -98,7 +99,7 @@ void CgaScreen::scroll()
 	//move every caracter one row downwords
 	for (int i = 0; i < newScreenSize; i++)
 	{
-		screen[i] = screen[i + COLUMNS];
+		this->screen[i] = this->screen[i + COLUMNS];
 	}
 
 	/* delete the last row from the screen 
@@ -114,11 +115,11 @@ void CgaScreen::scroll()
 	{
 		if (i % 2 == 0)
 		{
-			screen[i].setChar(blank);
+			this->screen[i].setChar(blank);
 		}
 		else if (i % 2 != 0)
 		{
-			screen[i].setAttr(attr);
+			this->screen[i].setAttr(attr);
 		}
 	}
 }
