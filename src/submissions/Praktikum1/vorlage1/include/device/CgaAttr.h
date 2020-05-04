@@ -68,6 +68,7 @@ public:
 		setBackground(bg);
 		setBlinkState(blink);
 		setForeground(fg);
+		
 	}
 
 	// setzen der Schriftfarbe
