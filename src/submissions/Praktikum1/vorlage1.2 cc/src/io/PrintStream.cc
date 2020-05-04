@@ -26,12 +26,12 @@ void PrintStream::print(const char* str)
 	// str is the pointer on a char
 	// &str is the adress of the pointer of str
 	// virtual int write(const char* data, int size) = 0;
-	while(*str != 0) {
+	for (;*str !='\0';(char*)str++) {
 		// char value of pointer has always the size of 1 bytes so 1
 		// print only one char, this char which the pointer shows on
 		this->channel.write(*str);
 		// sets the char pointer str 1 byte above 
-		(char*) str++;
+		//(char*) str++;
 	}
 }
 
@@ -106,9 +106,9 @@ void PrintStream::print(int x, int base)
 		this->print((unsigned) x, base);
 	}*/
 	if (x < 0) {
-	    x = -1 * x;
-	    this->print('-');
-	    this->print((unsigned) x, base);
+	    x*= (-1);
+	    print('-');
+	   print((unsigned) x, base);
 	} else {
 		this->print((unsigned) x, base);
 	}
@@ -122,24 +122,61 @@ void PrintStream::print(unsigned x, int base)
 	// for unsigned integer size of 32 numbers 
 	// 4 Bytes for u integer -> 4 * 8 bit = 32 
 
-
+    char output[32];
+	int length = 0;
+	const char characters[] ={"0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F"};
 	if (base == BINARY) {
 		this->print("0b");
+
+		while(x){
+			output[length]=characters[(x%base)];
+			x /=base;
+			length++;
+		}
+			while (length){
+				channel.write(output[length-1]);
+				length--;
+			}
 			
-	} else if (base == HEX) {
+			}
+			
+	 else if (base == HEX) {
 		this->print("0x");
+		if(x==0){
+			channel.write('0');
+		}
+			while(x){
+			output[length]=characters[(x%base)];
+			x /=base;
+			length++;
+		}
+			while (length){
+				channel.write(output[length-1]);
+				length--;
+			}
+			
 		
 	} else if (base == DECIMAL) {
+			while(x){
+			output[length]=characters[(x%base)];
+			x /=base;
+			length++;
+		}
+			while (length){
+				channel.write(output[length-1]);
+				length--;
+			}
+
 		
 	} else {
 		print("Eine erlaubte Basis aussuchen");
 		return;
 	}
 
-	char output[32];
+	
 	// A = 10 , B = 11, C = 12 .....
 	// will never change the field that is why const 
-	const char characters[] = { "0123456789ABCDEF" };
+	//const char characters[] = { "0123456789ABCDEF" };
 	// BINARY = 2,
 	// DECIMAL = 10,
 	// HEX = 16
@@ -148,7 +185,7 @@ void PrintStream::print(unsigned x, int base)
 	// init array from 0 to length always!
 	// dowhile because for output[0] you need a value 
 	// inits with 0 IS VERY IMPORTANT
-	int dynamicLength = 0;
+	/*int dynamicLength = 0;
 	if (x == 0) {
 		this->channel.write('0');
 	}
@@ -172,9 +209,9 @@ void PrintStream::print(unsigned x, int base)
 			return write(&c, sizeof(c));
 		}
 		*/
-		this->channel.write(output[dynamicLength - 1]);
-		dynamicLength--;
-	}
+		//this->channel.write(output[dynamicLength - 1]);
+		//dynamicLength--;
+	//}
 
 /*
 if (base == DECIMAL || base == BINARY || base == HEX)
