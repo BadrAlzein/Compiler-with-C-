@@ -202,30 +202,13 @@ void PrintStream::print(unsigned x, int base)
 	// reversed because needed output increase from 0 to length
 	// COMPARISON WITH INT CAST IS VERY IMPORTANT
 	while(dynamicLength) {
-		/*
+		
 		this is in OutputChannel.h implemented
 		int write(char c)
 		{
 			return write(&c, sizeof(c));
 		}
-		*/
-		//this->channel.write(output[dynamicLength - 1]);
-		//dynamicLength--;
-	//}
-
-/*
-if (base == DECIMAL || base == BINARY || base == HEX)
-    {
-        int zahl[32]; //Ein int hat maximal 32 Stellen
-        if (base == BINARY)
-        {
-            print("0b");
-        }
-        else if (base == HEX)
-        {
-            print("0x");
-        }
-
+		
         if (x == 0)
         {
             print('0');
