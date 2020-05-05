@@ -3,13 +3,14 @@
 
 /*
     constants for the waiting time 
-    50000 = 5s
-    100000 = 10s 
-    500000 = 50 s
+    30000 = 3s
+    50000 = 5s 
+    100000 = 10 s
 */
-#define SHORT_WAIT 50000
-#define NORMAL_WAIT 100000
-#define LONG_WAIT 500000
+#define OneSecound_WAIT 5000
+#define SHORT_WAIT 30000
+#define NORMAL_WAIT 50000
+#define LONG_WAIT 100000
 
 CgaChannel cga;        // unser CGA-Ausgabekanal
 PrintStream out(cga);    // unseren PrintStream mit Ausgabekanal verknuepfen
@@ -80,7 +81,7 @@ int main()
     out.println("\n");
    
     //delay for 5s 
-    wait(SHORT_WAIT);
+    wait(NORMAL_WAIT);
     
     //~ int i = 0;
 	bool sharpBlink = false;	
@@ -174,7 +175,7 @@ int main()
 	cga.setAttr(attr);
 	
     //delay for 5s 
-    wait(SHORT_WAIT);
+    wait(NORMAL_WAIT);
 
     cga.setAttr(CgaAttr());
     cga.clear();
@@ -202,7 +203,7 @@ int main()
 
 
     //delay for 5s 
-    wait(SHORT_WAIT);
+    wait(NORMAL_WAIT);
     
     out.print("\r ");
 	
@@ -215,14 +216,26 @@ int main()
     
     out.println("Das ist ein Testsatz, der laenger als 80 Zeichen sein soll. Mal sehen, ob der Zeilenumbruch klappt. Haha Haha Haha Haha Haha Haha Haha Haha.\n");
     
-    out.println("Gleich wird das Scrollen getestet. Das Scrollen sollte uebrigens mit der selber zu schreibenden memcpy-Methode geloest werden - Zusatzaufgabe (und nicht mit einer einfachen Zuweisung).");
-    out.println("\n");
-    //kurze Pause
-    
-    //delay for 5s 
+     //delay for 5s 
+    wait(NORMAL_WAIT);
+     cga.clear();
+   /******************Scrolling Test ******************/ 
+    cga.setAttr(CgaAttr());
+    out.println(" Scrolling Test will start in \n");
     wait(SHORT_WAIT);
+      out.println(" 5 \n");
+    wait(OneSecound_WAIT);
+      out.println(" 4 \n");
+    wait(OneSecound_WAIT);
+      out.println(" 3 \n");
+    wait(OneSecound_WAIT);
+    out.println(" 2 \n");
+      wait(OneSecound_WAIT);
+    out.println(" 1 \n");
+    //delay for 5s 
+    wait(OneSecound_WAIT);
     
-    for (int i = 0; i < 40; i++)
+    for (int i = 0; i < 100; i++)
     {
         cga.setAttr(CgaAttr((CgaAttr::Color) (i % 16), (CgaAttr::Color) (8), (CgaAttr::Color) false));
         out.print("Gleich wird das Scrollen getestet. Das Scrollen sollte uebrigens mit der selber zu schreibenden memcpy-Methode geloest werden - Zusatzaufgabe (und nicht mit einer einfachen Zuweisung).");
@@ -230,14 +243,14 @@ int main()
     };
 
     //delay for 5s 
-    wait(SHORT_WAIT); 
+    wait(NORMAL_WAIT); 
 
 /******************Blue-Screen Test ******************/   
 
-    cga.blueScreen("Error 101: \n  This is a Test of the blue Screen from the cga. \n powerd by Team 14. ");
+    cga.blueScreen("Error 101:\n This is a Test of the blue Screen from the cga.\n powerd by Team 14. \n ");
 
     //delay for 5s 
-    wait(SHORT_WAIT);
+    wait(NORMAL_WAIT);
 
 /******************Sonderzeichen Test ******************/
     cga.clear();
@@ -273,7 +286,7 @@ int main()
 
 
     //delay for 5s 
-    wait(SHORT_WAIT); 
+    wait(NORMAL_WAIT); 
     
     for (;;);
     return 0;
