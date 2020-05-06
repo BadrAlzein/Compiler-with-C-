@@ -253,7 +253,7 @@ void CgaScreen::show(char ch, const CgaAttr &attr)
 
 		//1. show the char
 		*cursor_address = ch; //add the char on the memory of the address 
-		cursor_address++; //inc address 
+		cursor_address++; //inc address (go to the right to set the attribut)
 
 		//2. show the Attribut
 		setAttr(attr); //set the given Attribut 
