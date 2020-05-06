@@ -6,13 +6,13 @@
 # 'Betriebssysteme 1' an der BTU-Cottbus im SS11
 # -----------------------------------------------------------------------------
 #
-# Folgende Make-Targets sind möglich
+# Folgende Make-Targets sind mï¿½glich
 #
-# depend 	: überprüft alle Abhängigkeiten und schreibt diese in eine Datei
+# depend 	: ï¿½berprï¿½ft alle Abhï¿½ngigkeiten und schreibt diese in eine Datei
 # system.img 	: erstellt das Speicherabbild des Betriebssystems
 # bootdisk.img	: erstellt das Speicherabbild des Betriebssystem + Bootcode
-# bootdisk	: kopiert das bootfähig Speicherabbild auf Diskette
-# clean		: löscht alle generierten Dateien
+# bootdisk	: kopiert das bootfï¿½hig Speicherabbild auf Diskette
+# clean		: lï¿½scht alle generierten Dateien
 #
 # -----------------------------------------------------------------------------
 #LINUX and CYGWIN so far
@@ -42,7 +42,7 @@ SYSTEM_CC = \
         device/CgaChar.cc \
 	device/CgaChannel.cc \
         device/CgaScreen.cc \
-	AusgabeTestMain.cc
+	main.cc
 
 
 ##############################################################################
@@ -96,7 +96,7 @@ LDTAIL = $(shell $(CXX) -m32 --print-file-name=crtend.o && \
 endif
 
 # -------------------------------------------------------------------------
-# Die Targets für die Kompilierung
+# Die Targets fï¿½r die Kompilierung
 
 %.o : %.asm
 	$(AS) $(ASFLAGS) -o $@ $<
@@ -119,7 +119,7 @@ bootdisk: system
 	grub-mkrescue -d /usr/lib/grub/i386-pc -o costubs.iso isodir
 
 
-# Bekanntmachen von Targets die keine Abhängigkeiten haben
+# Bekanntmachen von Targets die keine Abhï¿½ngigkeiten haben
 .PHONY: clean depend
 
 depend:
@@ -143,11 +143,11 @@ clean:
 	@rm -f system
 	@rm -f $(DEPENDENCIES_FILE)
 
-# erstellt die Datei mit den Abhängigkeiten
+# erstellt die Datei mit den Abhï¿½ngigkeiten
 $(DEPENDENCIES_FILE):
 	touch $(DEPENDENCIES_FILE)
 	$(MAKE) depend
 
-# einbinden der Datei mit den aktuellen Abhängigkeiten
+# einbinden der Datei mit den aktuellen Abhï¿½ngigkeiten
 sinclude $(DEPENDENCIES_FILE)
 

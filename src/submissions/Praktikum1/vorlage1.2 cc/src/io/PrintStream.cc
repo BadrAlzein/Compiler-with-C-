@@ -190,14 +190,6 @@ void PrintStream::print(unsigned x, int base)
 	// reversed because needed output increase from 0 to length
 	// COMPARISON WITH INT CAST IS VERY IMPORTANT
 	
-	//this->channel.write(output[Length - 1]);
-	//Length--;
-	//}
-
-	/*
-
-
-   
 */
 }
 
