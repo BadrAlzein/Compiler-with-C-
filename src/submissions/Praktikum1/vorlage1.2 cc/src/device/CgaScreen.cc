@@ -96,7 +96,8 @@ void CgaScreen::scroll()
 	//the screen size after deleting + the deleted row = full screen size
 	int fullScreenSize = newScreenSize + RowBytes;
 
-	//move every caracter one row downwords
+	//move every caracter one row upwords
+	//copy loop
 	for (int i = 0; i < newScreenSize; i++)
 	{
 		this->screen[i] = this->screen[i + COLUMNS];
