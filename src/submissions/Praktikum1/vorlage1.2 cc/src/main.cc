@@ -47,33 +47,21 @@ int main()
         }
     }
     
-    out.println();
-    out.print("Test mit falscher Basis: out.print(133,7): ");
-    out.print(133, 7);
-    out.println();    
-    out.print("Test mit falscher Basis: out.print(133,1): ");
-    out.print(133, 1);
-    out.println();    
-    out.print("Test mit falscher Basis: out.print(133,0): ");
-    out.print(133, 0);
-    out.println();    
-    out.print("Test mit falscher Basis: out.print(133,-2): ");
-    out.print(133, -2);
-    out.println();    
-    out.print("Test mit falscher Basis: out.print(133,120): ");
-    out.print(133, 120);
+    
     out.println();    
 
     out.println();        
-    out.println("Es folgen alle Farbkombinationen:");
+    out.println("Checkking for color combinations:");
     for(int blink = 0; blink < 2; blink++)
     {
-        for(int bg = 0; bg < 8; bg++)
+        //rows
+        for(int bg = 0; bg < 18; bg++)
         {
-            for(int fg = 0; fg < 16; fg++)
+            //columns
+            for(int fg = 0; fg < 80; fg++)
             {
                 cga.setAttr(CgaAttr((CgaAttr::Color) (fg), (CgaAttr::Color) (bg), (CgaAttr::Color) blink));
-                out.print("X");
+                out.print("BB07");
             }
         }
     }
@@ -90,7 +78,7 @@ int main()
 	cga.clear();
 	cga.setAttr(CgaAttr((CgaAttr::Color) CgaAttr::WHITE, (CgaAttr::Color) CgaAttr::BLACK, (CgaAttr::Color) false));
 	out.println();
-	out.println("Hier Bildschirm sollten im unteren Bereich bunte Spalten erscheinen. Bei diesen sollten jeweils im Wechsel acht Spalten ohne und acht Spalten mit dem #-Zeichen versehen sein. Darueber hinaus sollten diese kaskadierend blinken. Das Bild muss mit einer schwarzen Spalte beginnen.");
+	out.println("Screen will start with a black column.eight of the columns with BB07- letter and eight without BB07 will appear. and it will blink.");
 	out.println();
 	
 	
@@ -133,40 +121,44 @@ int main()
 				attr.setBackground(attr.LIGHT_GRAY);
 				break;
 			case 8:
+            attr.setForeground(attr.LIGHT_BLUE);
+				attr.setBackground(attr.LIGHT_BLUE);
+				
+				break;
+			case 9:
 				attr.setForeground(attr.GRAY);
 				attr.setBackground(attr.GRAY);
 				break;
-			case 9:
-				attr.setForeground(attr.LIGHT_BLUE);
-				attr.setBackground(attr.LIGHT_BLUE);
-				break;
 			case 10:
-				attr.setForeground(attr.LIGHT_GREEN);
-				attr.setBackground(attr.LIGHT_GREEN);
+            	attr.setForeground(attr.LIGHT_CYAN);
+				attr.setBackground(attr.LIGHT_CYAN);
+				
 				break;
 			case 11:
-				attr.setForeground(attr.LIGHT_CYAN);
-				attr.setBackground(attr.LIGHT_CYAN);
+			attr.setForeground(attr.LIGHT_GREEN);
+				attr.setBackground(attr.LIGHT_GREEN);
 				break;
 			case 12:
+            attr.setForeground(attr.LIGHT_MAGENTA);
+				attr.setBackground(attr.LIGHT_MAGENTA);
+				
+				break;
+			case 13:
 				attr.setForeground(attr.LIGHT_RED);
 				attr.setBackground(attr.LIGHT_RED);
 				break;
-			case 13:
-				attr.setForeground(attr.LIGHT_MAGENTA);
-				attr.setBackground(attr.LIGHT_MAGENTA);
-				break;
 			case 14:
-				attr.setForeground(attr.YELLOW);
-				attr.setBackground(attr.YELLOW);
-				break;
-			case 15:
-				attr.setForeground(attr.WHITE);
+            attr.setForeground(attr.WHITE);
 				attr.setBackground(attr.WHITE);
 				break;
+				
+			case 15:
+			attr.setForeground(attr.YELLOW);
+				attr.setBackground(attr.YELLOW);
+				break;	
 		}
 		cga.setAttr(attr);
-		out.print('#');
+		out.print('BB07');
 	}
 
 	attr.setForeground(attr.WHITE);
