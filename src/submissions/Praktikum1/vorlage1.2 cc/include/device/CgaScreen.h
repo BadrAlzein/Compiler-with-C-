@@ -94,11 +94,9 @@ public:
 
 
 protected:
-	// hopefully we call the constructor of CgaAttr here (suppose)
 	CgaAttr attr;
 	IOPort8 index;
-	IOPort8 data;
-	// start adresse vom video ram  im konstruktor setzen 
+	IOPort8 data; 
 	CgaChar* screen;
 };
 

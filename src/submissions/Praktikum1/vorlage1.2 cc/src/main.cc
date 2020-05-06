@@ -20,7 +20,7 @@ PrintStream out(cga);    // unseren PrintStream mit Ausgabekanal verknuepfen
 void wait(int time){
       for(int i = 0; i < time; i++)
     {
-        out.print("\r|\r\\\r-\r/");
+        out.print("\r\r\r\r\r\r");
     };
 
 }
@@ -219,10 +219,17 @@ int main()
      //delay for 5s 
     wait(NORMAL_WAIT);
      cga.clear();
+     
+     /******************Blue-Screen Test ******************/   
+
+    cga.blueScreen("Error 101:\n This is a Test of the blue Screen from the cga.\n powerd by Team 14. \n ");
+
+    //delay for 5s 
+    wait(NORMAL_WAIT);
+     cga.clear();
    /******************Scrolling Test ******************/ 
     cga.setAttr(CgaAttr());
-    out.println(" Scrolling Test will start in \n");
-    wait(SHORT_WAIT);
+    out.println(" Scrolling Test will start in:: \n");
       out.println(" 5 \n");
     wait(OneSecound_WAIT);
       out.println(" 4 \n");
@@ -235,27 +242,29 @@ int main()
     //delay for 5s 
     wait(OneSecound_WAIT);
     
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 120; i++)
     {
-        cga.setAttr(CgaAttr((CgaAttr::Color) (i % 16), (CgaAttr::Color) (8), (CgaAttr::Color) false));
-        out.print("Gleich wird das Scrollen getestet. Das Scrollen sollte uebrigens mit der selber zu schreibenden memcpy-Methode geloest werden - Zusatzaufgabe (und nicht mit einer einfachen Zuweisung).");
-        
+        if (i%2==0){
+             cga.setAttr(CgaAttr(CgaAttr::WHITE, CgaAttr::BLACK, false));
+        }
+        else if (i%3==0){
+             cga.setAttr(CgaAttr(CgaAttr::RED, CgaAttr::BLACK, false));
+        }
+        else{
+             cga.setAttr(CgaAttr(CgaAttr::BLUE, CgaAttr::BLACK, false));
+        }
+        out.print("this line will test Scrolling. so now the Scrolling will is be tested. Team 14 \n");
+        out.println("\n");
     };
-
     //delay for 5s 
-    wait(NORMAL_WAIT); 
+    wait(SHORT_WAIT); 
 
-/******************Blue-Screen Test ******************/   
-
-    cga.blueScreen("Error 101:\n This is a Test of the blue Screen from the cga.\n powerd by Team 14. \n ");
-
-    //delay for 5s 
-    wait(NORMAL_WAIT);
-
-/******************Sonderzeichen Test ******************/
+/******************Special character Test ******************/
     cga.clear();
     cga.setAttr(CgaAttr(CgaAttr::WHITE, CgaAttr::BLACK, false));
-    out.println("\n\nSonderzeichentest:\näöü;,:.-_");
+    out.println("Sonderzeichentest:\näöü;,:.-_");
+    
+     out.println("***************** Special character Test *****************");
     
     out.println();
 
@@ -268,10 +277,14 @@ int main()
     out.print("; y: ");
     out.print(&y);
 	out.println("\n");
-
-/******************Grenzwerten Test ******************/
-
-    out.println("Test von Grenzwerten:");
+    //delay for 5s 
+    wait(NORMAL_WAIT); 
+/****************** Limit Test ******************/
+    cga.clear();
+    out.println("\n");
+    out.println("***************** Limit Test *****************");
+    out.println("\n");
+     
     unsigned ux = 0;
     out.print("0x0: ");
     out.print(ux, 16);
@@ -281,13 +294,13 @@ int main()
     out.print(ux, 16);
 
     out.println("\n");
-    out.println("Ende.");
+    out.println("***************** CGA Test Is Over *****************");
     out.println("\n");
-
 
     //delay for 5s 
     wait(NORMAL_WAIT); 
     
-    for (;;);
+    //wait until the user close the window
+   while(true){};
     return 0;
 }

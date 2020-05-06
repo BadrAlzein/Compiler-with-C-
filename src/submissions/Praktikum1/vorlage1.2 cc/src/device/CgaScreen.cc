@@ -96,7 +96,8 @@ void CgaScreen::scroll()
 	//the screen size after deleting + the deleted row = full screen size
 	int fullScreenSize = newScreenSize + RowBytes;
 
-	//move every caracter one row downwords
+	//move every caracter one row upwords
+	//copy loop
 	for (int i = 0; i < newScreenSize; i++)
 	{
 		this->screen[i] = this->screen[i + COLUMNS];
@@ -253,7 +254,7 @@ void CgaScreen::show(char ch, const CgaAttr &attr)
 
 		//1. show the char
 		*cursor_address = ch; //add the char on the memory of the address 
-		cursor_address++; //inc address 
+		cursor_address++; //inc address (go to the right to set the attribut)
 
 		//2. show the Attribut
 		setAttr(attr); //set the given Attribut 
