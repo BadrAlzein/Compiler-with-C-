@@ -30,13 +30,14 @@ void PrintStream::print(const char *str)
 	//So for example, "hi" is the same as {'h', 'i', '\0'}.
 
 	for (; *str != '\0'; (char *)str++)
+   
 	{
 
 		//is str a null term character? no : then increament
 		// if its a null term charc then terminate the functon
 		this->channel.write(*str);
 
-		//(char*) str++;
+	
 	}
 }
 // just write the char on channel
@@ -50,9 +51,10 @@ void PrintStream::print(char ch)
 // Ausgabe eines Strings mit anschliessendem Zeilenvorschub
 void PrintStream::println(const char *str)
 {
-	// two chars so two bytes
-	this->print(str);
-	this->println();
+	
+	//setCursor(row+1,0);
+	print(str);
+	println();
 }
 
 // Zeilenvorschub
@@ -60,7 +62,7 @@ void PrintStream::println(const char *str)
 //insert new line
 void PrintStream::println()
 {
-	this->channel.write('\n');
+	channel.write('\n');
 }
 
 enum Base
@@ -96,127 +98,17 @@ void PrintStream::print(int x, int base)
 	}
 }
 
-void PrintStream::print(unsigned x, int base)
-{
-	// maximal reserved number chars length of 32 chars
-	// for unsigned integer size of 32 numbers
-	// 4 Bytes for u integer -> 4 * 8 bit = 32
-
-	if (base == BINARY)
-	{
-		print("0b");
-	}
-	else if (base == HEX)
-	{
-		print("0x");
-	}
-	else if (base == DECIMAL)
-	{
-	}
-	else
-	{
-		print("pleae insert a valid base");
-	}
-	// int has 32 bit max so we take aray of size 32
-	char output[32];
-	int length = 0;
-	const char characters[] = {"0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F"};
-
-	if (x == 0)
-	{
-		channel.write('0');
-	}
-	while (x > 0)
-	{
-		output[length] = characters[(x % base)];
-		x = x / base;
-		length++;
-	}
-	while (length)
-	{
-		channel.write(output[length - 1]);
-		length--;
-	}
-
-}
-// Zeigertypen werden immer zur Basis 16 ausgegeben!
-void PrintStream::print(void *p)
-{
-	// p is an address so we pass the pointer address
-	this->print((unsigned)p, HEX);
-}
-// if(x == 0){
-	// 		this->channel.write('0');
-
-	// if (base == BINARY)
-	// {
-	// 	this->print("0b");
-	// }
-
-	// 	while (x)
-	// 	{
-	// 		output[length] = characters[(x % base)];
-	// 		//x=x/base;
-	// 		x /= base;
-	// 		length++;
-	// 	}
-	// 	while (length)
-	// 	{
-	// 		channel.write(output[length - 1]);
-	// 		length--;
-	// 	}
-
-	// else if (base == HEX)
-	// {
-	// 	this->print("0x");
-	// }
-	// //	if (x == 0)
-	// //	{
-	// 	//	channel.write('0');
-	// //	}
-	// 	while (x)
-	// 	{
-	// 		output[length] = characters[(x % base)];
-	// 		x /= base;
-	// 		length++;
-	// 	}
-	// 	while (length)
-	// 	{
-	// 		channel.write(output[length - 1]);
-	// 		length--;
-	// 	}
-
-	// else if (base == DECIMAL)
-	// {
-	// 	while (x)
-	// 	{
-	// 		output[length] = characters[(x % base)];
-	// 		x /= base;
-	// 		length++;
-	// 	}
-	// 	while (length)
-	// 	{
-	// 		channel.write(output[length - 1]);
-	// 		length--;
-	// 	}
-	// }
-	// else
-	// {
-	// 	print("please enter a valid base");
-	// 	return;
-	// }
 
 	// A = 10 , B = 11, C = 12 .....
-	// will never change the field that is why const
 	//const char characters[] = { "0123456789ABCDEF" };
 	// BINARY = 2,
 	// DECIMAL = 10,
 	// HEX = 16
 	// initializing Length and output array
 	//  example x = 29
-	// init array from 0 to length always!
-	// dowhile because for output[0] you need a value
-	// inits with 0 IS VERY IMPORTANT
+	// array starts from 0 
+	//  output[0] 
+	
 	/*
 	  29 % 2 = 1 (LSB), 14 % 2 = 0;..... so character [1]
 	  29/2= 14,..
@@ -233,3 +125,88 @@ void PrintStream::print(void *p)
 	// COMPARISON WITH INT CAST IS VERY IMPORTANT
 	
 */
+
+void PrintStream::print(unsigned x, int base)
+{
+	// maximal reserved number chars length of 32 chars
+	// for unsigned integer size of 32 numbers
+	// 4 Bytes for u integer -> 4 * 8 bit = 32
+    char output[32];
+	int length = 0;
+	const char characters[] = {"0123456789ABCDEF"};
+
+	// int has 32 bit max so we take aray of size 32
+	
+    if (base == BINARY){
+        print("0b");
+    
+	if (x == 0)
+	{
+		channel.write('0');
+	}
+	while (x > 0)
+	{
+		output[length] = characters[(x % base)];
+		x = x / base;
+		length++;
+	}
+	while (length)
+	{
+		channel.write(output[length - 1]);
+		length--;
+	}
+    }
+///////////////////////////////////////////test for HEX//////////////////////////////
+  else if (base == HEX){
+        print("0x");
+    
+	if (x == 0)
+	{
+		channel.write('0');
+	}
+	while (x > 0)
+	{
+		output[length] = characters[(x % base)];
+		x = x / base;
+		length++;
+	}
+	while (length)
+	{
+		channel.write(output[length - 1]);
+		length--;
+	}
+  }
+	///////////////////////////////////////DEC///////////////////////
+	 else if (base == DECIMAL){
+    
+	if (x == 0)
+	{
+		channel.write('0');
+	}
+	while (x > 0)
+	{
+		output[length] = characters[(x % base)];
+		x = x / base;
+		length++;
+	}
+	while (length)
+	{
+		channel.write(output[length - 1]);
+		length--;
+	}
+     }
+	else
+	{
+		print("pleae insert a valid base");
+        return;
+	}
+}
+// Zeigertypen werden immer zur Basis 16 ausgegeben!
+void PrintStream::print(void *p)
+{
+	// p is an address so we pass the pointer address
+	this->print((unsigned)p, HEX);
+}
+
+
+
