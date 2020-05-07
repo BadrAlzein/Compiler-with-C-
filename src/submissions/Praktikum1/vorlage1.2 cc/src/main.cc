@@ -31,8 +31,8 @@ int main()
     
 /****************** Converstions Test ******************/   
 
-    out.println("Test der formatierten Ausgabe zur Basis:");
-
+    out.println("Converstions Test: now the Output will be formated to a given Base");
+    out.println();
     for(int i = -30; i < 30; i++)
     {
         if (i % 6 == 0)
@@ -46,12 +46,15 @@ int main()
             out.println();
         }
     }
-    
-    
-    out.println();    
-
+        out.println(); 
+        //delay for 5s 
+    wait(NORMAL_WAIT);
+    cga.clear();
+       
+/*****************  Color Combination Test **************/
     out.println();        
-    out.println("Checkking for color combinations:");
+    out.println("Checking for color combinations:");
+    out.println();
     for(int blink = 0; blink < 2; blink++)
     {
         //rows
@@ -63,14 +66,13 @@ int main()
                 cga.setAttr(CgaAttr((CgaAttr::Color) (fg), (CgaAttr::Color) (bg), (CgaAttr::Color) blink));
                 out.print("BB07");
             }
+              wait(OneSecound_WAIT -500);
         }
     }
 
-    out.println("\n");
-   
     //delay for 5s 
     wait(NORMAL_WAIT);
-    
+    cga.clear();
     //~ int i = 0;
 	bool sharpBlink = false;	
 	CgaAttr attr;
@@ -193,7 +195,8 @@ int main()
     out.println("Test der Sonderzeicheninterpretation:");
     out.println("Hier stehen jetzt fuenf Worte\nund auf der naechsten Zeile geht es weiter.\nHier wird gleich \"Hier\" ueberschrieben");
 
-
+ /******************Grenze Test ******************/   
+ 
     //delay for 5s 
     wait(NORMAL_WAIT);
     
@@ -271,7 +274,7 @@ int main()
 	out.println("\n");
     //delay for 5s 
     wait(NORMAL_WAIT); 
-/****************** Limit Test ******************/
+/****************** Limitions Test ******************/
     cga.clear();
     out.println("\n");
     out.println("***************** Limit Test *****************");
