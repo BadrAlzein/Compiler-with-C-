@@ -21,29 +21,21 @@ private:
 
 	// Die I/O-Ports des Grafikcontrollers
 	enum Ports  {
-		// TODO Ask if Port is really 3d4 or hexadecimal 0x3d4
-		// decimal => 980
 		INDEX = 0x3d4, 
-		// decimal => 981
 		DATA = 0x3d5
 	};
 
-	// Die Kommandos zum Cursor setzen
 	enum Cursor {
-		// cursor index not sure if costubs meant hexadecimal => 0x14 = 20
-		// sets the cursor one above (high byte)
 		CURSOR_HIGH = 14,
-		// sets the cursor one below (low byte)
 		CURSOR_LOW = 15
 	};
 
-	// Die Adresse des Video RAMs
 	enum Video  {
 		OFFSET0 = 0xb8000
 	};
 
 public:
-	// Die Bildschirmdimensionen
+
 	enum Screen {
 		ROWS = 25,
 		COLUMNS = 80
