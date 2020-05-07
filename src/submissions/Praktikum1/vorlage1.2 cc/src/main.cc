@@ -30,7 +30,7 @@ int main()
 {
     
 /****************** Converstions Test ******************/   
-
+	    out.println();
     out.println("Converstions Test: now the Output will be formated to a given Base");
     out.println();
     for(int i = -30; i < 30; i++)
@@ -50,7 +50,41 @@ int main()
         //delay for 5s 
     wait(NORMAL_WAIT);
     cga.clear();
-       
+    
+ /******************Scrolling Test ******************/ 
+    cga.setAttr(CgaAttr());
+    out.println(" Scrolling Test will start in:: \n");
+      out.println(" 5 \n");
+    wait(OneSecound_WAIT);
+      out.println(" 4 \n");
+    wait(OneSecound_WAIT);
+      out.println(" 3 \n");
+    wait(OneSecound_WAIT);
+    out.println(" 2 \n");
+      wait(OneSecound_WAIT);
+    out.println(" 1 \n");
+    //delay for 5s 
+    wait(OneSecound_WAIT);
+    
+    for (int i = 0; i < 120; i++)
+    {
+        if (i%2==0){
+             cga.setAttr(CgaAttr(CgaAttr::WHITE, CgaAttr::BLACK, false));
+        }
+        else if (i%3==0){
+             cga.setAttr(CgaAttr(CgaAttr::RED, CgaAttr::BLACK, false));
+        }
+        else{
+             cga.setAttr(CgaAttr(CgaAttr::BLUE, CgaAttr::BLACK, false));
+        }
+        out.print("this line will test Scrolling. so now the Scrolling will is be tested. Team 14 \n");
+        out.println("\n");
+    };
+ 
+    out.println("\n");
+ wait(NORMAL_WAIT);
+cga.clear();
+    
 /*****************  Color Combination Test **************/
     out.println();        
     out.println("Checking for color combinations:");
@@ -174,6 +208,15 @@ int main()
     cga.setAttr(CgaAttr());
     cga.clear();
     
+
+/******************Grenze Test ******************/   
+    out.println("/******************Grenze Test ******************/ .\n");
+   out.println();
+  out.println();
+           
+    out.println("/*************************more than 80 Caracter line  ***************************/ .\n");
+    out.println();
+
     cga.setAttr(CgaAttr(CgaAttr::BLUE, CgaAttr::CYAN, false));
     for(int i = 0; i < 80; i++)
     {
@@ -182,27 +225,7 @@ int main()
         }
     }
     cga.setCursor(0,11);
-    cga.setAttr(CgaAttr());
-
-    out.println("Test der Sonderzeicheninterpretation:");
-    out.println("Hier stehen jetzt fuenf Worte\nund auf der naechsten Zeile geht es weiter.\nHier wird gleich \"Hier\" ueberschrieben");
-
- /******************Grenze Test ******************/   
- 
-    //delay for 5s 
-    wait(NORMAL_WAIT);
-    
-    out.print("\r ");
-	
-	int row, column;
-	cga.getCursor(column, row);
-	cga.setCursor(column,row - 1);
-    cga.setAttr(CgaAttr(CgaAttr::GREEN, CgaAttr::BLUE, false));
-    
-    out.println("\rDort\n");
-    
-    out.println("Das ist ein Testsatz, der laenger als 80 Zeichen sein soll. Mal sehen, ob der Zeilenumbruch klappt. Haha Haha Haha Haha Haha Haha Haha Haha.\n");
-    
+  
      //delay for 5s 
     wait(NORMAL_WAIT);
      cga.clear();
@@ -214,73 +237,7 @@ int main()
     //delay for 5s 
     wait(NORMAL_WAIT);
      cga.clear();
-   /******************Scrolling Test ******************/ 
-    cga.setAttr(CgaAttr());
-    out.println(" Scrolling Test will start in:: \n");
-      out.println(" 5 \n");
-    wait(OneSecound_WAIT);
-      out.println(" 4 \n");
-    wait(OneSecound_WAIT);
-      out.println(" 3 \n");
-    wait(OneSecound_WAIT);
-    out.println(" 2 \n");
-      wait(OneSecound_WAIT);
-    out.println(" 1 \n");
-    //delay for 5s 
-    wait(OneSecound_WAIT);
-    
-    for (int i = 0; i < 120; i++)
-    {
-        if (i%2==0){
-             cga.setAttr(CgaAttr(CgaAttr::WHITE, CgaAttr::BLACK, false));
-        }
-        else if (i%3==0){
-             cga.setAttr(CgaAttr(CgaAttr::RED, CgaAttr::BLACK, false));
-        }
-        else{
-             cga.setAttr(CgaAttr(CgaAttr::BLUE, CgaAttr::BLACK, false));
-        }
-        out.print("this line will test Scrolling. so now the Scrolling will is be tested. Team 14 \n");
-        out.println("\n");
-    };
-    //delay for 5s 
-    wait(SHORT_WAIT); 
-
-/******************Special character Test ******************/
-    cga.clear();
-    cga.setAttr(CgaAttr(CgaAttr::WHITE, CgaAttr::BLACK, false));
-    out.println("Sonderzeichentest:\näöü;,:.-_");
-    
-     out.println("***************** Special character Test *****************");
-    
-    out.println();
-
-    out.println("Ausgabe von Adressen...");
-    out.println("Wie weit liegen sie auseinander? Warum?");
-    int x = 5;
-    int y = 6;
-    out.print("x: ");
-    out.print(&x);
-    out.print("; y: ");
-    out.print(&y);
-	out.println("\n");
-    //delay for 5s 
-    wait(NORMAL_WAIT); 
-/****************** Limitions Test ******************/
-    cga.clear();
-    out.println("\n");
-    out.println("***************** Limit Test *****************");
-    out.println("\n");
-     
-    unsigned ux = 0;
-    out.print("0x0: ");
-    out.print(ux, 16);
-    out.println();
-    ux = 0x8;
-    out.print("0xFFFFFFFF: ");
-    out.print(ux, 16);
-
-    out.println("\n");
+  
     out.println("***************** CGA Test Is Over *****************");
     out.println("\n");
 

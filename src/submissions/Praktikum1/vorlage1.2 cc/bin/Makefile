@@ -42,7 +42,7 @@ SYSTEM_CC = \
         device/CgaChar.cc \
 	device/CgaChannel.cc \
         device/CgaScreen.cc \
-	AusgabeTestMain.cc
+	main.cc
 
 
 ##############################################################################

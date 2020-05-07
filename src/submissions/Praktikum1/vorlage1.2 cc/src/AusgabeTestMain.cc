@@ -2,7 +2,7 @@
 #include "io/PrintStream.h"
 
 //der Wert sollte variiert werden oder man bastelt sich lieber eine rein "zeitabhängige" Pause ;)
-#define PAUSE 500000
+#define PAUSE 5000
 
 
 CgaChannel cga;        // unser CGA-Ausgabekanal
@@ -25,7 +25,7 @@ int main()
             out.println();
         }
     }
-    
+/*
     out.println();
     out.print("Test mit falscher Basis: out.print(133,7): ");
     out.print(133, 7);
@@ -42,7 +42,7 @@ int main()
     out.print("Test mit falscher Basis: out.print(133,120): ");
     out.print(133, 120);
     out.println();    
-
+ */
     out.println();        
     out.println("Es folgen alle Farbkombinationen:");
     for(int blink = 0; blink < 2; blink++)
@@ -63,7 +63,7 @@ int main()
     {
         out.print("\r|\r\\\r-\r/");
     };
-    
+  
     //~ int i = 0;
 	bool sharpBlink = false;	
 	CgaAttr attr;
@@ -73,7 +73,7 @@ int main()
 	out.println();
 	out.println("Hier Bildschirm sollten im unteren Bereich bunte Spalten erscheinen. Bei diesen sollten jeweils im Wechsel acht Spalten ohne und acht Spalten mit dem #-Zeichen versehen sein. Darueber hinaus sollten diese kaskadierend blinken. Das Bild muss mit einer schwarzen Spalte beginnen.");
 	out.println();
-	
+
 	
 	for (int k = 0; k < ((19 * 80) -1); k++) {
 		
@@ -153,13 +153,11 @@ int main()
 	attr.setForeground(attr.WHITE);
 	attr.setBackground(attr.BLACK);
 	attr.setBlinkState(false);
-	cga.setAttr(attr);
-	
+	cga.setAttr(attr);	
     for(int i = 0; i < PAUSE; i++)
     {
         out.print("\r|\r\\\r-\r/");
     };
-
     cga.setAttr(CgaAttr());
     cga.clear();
     cga.setAttr(CgaAttr(CgaAttr::RED, CgaAttr::YELLOW, false));
@@ -270,7 +268,7 @@ int main()
         out.print("\r|\r\\\r-\r/");
     };
 
-    
+
     for (;;);
     return 0;
     
