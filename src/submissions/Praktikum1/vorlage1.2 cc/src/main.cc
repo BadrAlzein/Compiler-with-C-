@@ -174,20 +174,12 @@ int main()
     cga.setAttr(CgaAttr());
     cga.clear();
     
-    cga.setAttr(CgaAttr(CgaAttr::RED, CgaAttr::YELLOW, false));
-    for(int i = 0; i < 19; i++)
+    cga.setAttr(CgaAttr(CgaAttr::BLUE, CgaAttr::CYAN, false));
+    for(int i = 0; i < 80; i++)
     {
-	    cga.setCursor(i, (i < 9)?i:(18-i));
-        out.println("x");
-		
-        cga.setCursor(i+19, (i < 9)?i:(18-i));
-        out.println("x");
-
-        cga.setCursor(i+38, (i < 9)?i:(18-i));
-        out.println("x");
-
-        cga.setCursor(i+57, (i < 9)?i:(18-i));
-        out.println("x");
+        for(int i = 0; i < 8; i++){
+            out.print("x");
+        }
     }
     cga.setCursor(0,11);
     cga.setAttr(CgaAttr());
@@ -284,7 +276,7 @@ int main()
     out.print("0x0: ");
     out.print(ux, 16);
     out.println();
-    ux = 0xFFFFFFFF;
+    ux = 0x8;
     out.print("0xFFFFFFFF: ");
     out.print(ux, 16);
 
