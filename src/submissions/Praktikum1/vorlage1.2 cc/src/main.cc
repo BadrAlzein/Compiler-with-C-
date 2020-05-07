@@ -1,38 +1,17 @@
 #include "device/CgaChannel.h"
 #include "io/PrintStream.h"
 
-/*
-    constants for the waiting time 
-    30000 = 3s
-    50000 = 5s 
-    100000 = 10 s
-*/
-#define OneSecound_WAIT 5000
-#define SHORT_WAIT 30000
-#define NORMAL_WAIT 50000
-#define LONG_WAIT 100000
+//der Wert sollte variiert werden oder man bastelt sich lieber eine rein "zeitabhängige" Pause ;)
+#define PAUSE 500000
+
 
 CgaChannel cga;        // unser CGA-Ausgabekanal
 PrintStream out(cga);    // unseren PrintStream mit Ausgabekanal verknuepfen
 
-
-/* this func will make the screen wait until a given Time in secounds*/
-void wait(int time){
-      for(int i = 0; i < time; i++)
-    {
-        out.print("\r\r\r\r\r\r");
-    };
-
-}
-
-
 int main()
 {
-    
-/****************** Converstions Test ******************/   
+    out.println("Test der formatierten Ausgabe zur Basis:");
 
-    out.println("Converstions Test: now the Output will be formated to a given Base");
-    out.println();
     for(int i = -30; i < 30; i++)
     {
         if (i % 6 == 0)
@@ -46,33 +25,45 @@ int main()
             out.println();
         }
     }
-        out.println(); 
-        //delay for 5s 
-    wait(NORMAL_WAIT);
-    cga.clear();
-       
-/*****************  Color Combination Test **************/
-    out.println();        
-    out.println("Checking for color combinations:");
+    
     out.println();
+    out.print("Test mit falscher Basis: out.print(133,7): ");
+    out.print(133, 7);
+    out.println();    
+    out.print("Test mit falscher Basis: out.print(133,1): ");
+    out.print(133, 1);
+    out.println();    
+    out.print("Test mit falscher Basis: out.print(133,0): ");
+    out.print(133, 0);
+    out.println();    
+    out.print("Test mit falscher Basis: out.print(133,-2): ");
+    out.print(133, -2);
+    out.println();    
+    out.print("Test mit falscher Basis: out.print(133,120): ");
+    out.print(133, 120);
+    out.println();    
+
+    out.println();        
+    out.println("Es folgen alle Farbkombinationen:");
     for(int blink = 0; blink < 2; blink++)
     {
-        //rows
-        for(int bg = 0; bg < 18; bg++)
+        for(int bg = 0; bg < 8; bg++)
         {
-            //columns
-            for(int fg = 0; fg < 80; fg++)
+            for(int fg = 0; fg < 16; fg++)
             {
                 cga.setAttr(CgaAttr((CgaAttr::Color) (fg), (CgaAttr::Color) (bg), (CgaAttr::Color) blink));
-                out.print("BB07");
+                out.print("X");
             }
-              wait(OneSecound_WAIT -500);
         }
     }
 
-    //delay for 5s 
-    wait(NORMAL_WAIT);
-    cga.clear();
+    out.println("\n");
+    //kurze Pause
+    for(int i = 0; i < PAUSE; i++)
+    {
+        out.print("\r|\r\\\r-\r/");
+    };
+    
     //~ int i = 0;
 	bool sharpBlink = false;	
 	CgaAttr attr;
@@ -80,7 +71,7 @@ int main()
 	cga.clear();
 	cga.setAttr(CgaAttr((CgaAttr::Color) CgaAttr::WHITE, (CgaAttr::Color) CgaAttr::BLACK, (CgaAttr::Color) false));
 	out.println();
-	out.println("Screen will start with a black column.eight of the columns with BB07- letter and eight without BB07 will appear. and it will blink.");
+	out.println("Hier Bildschirm sollten im unteren Bereich bunte Spalten erscheinen. Bei diesen sollten jeweils im Wechsel acht Spalten ohne und acht Spalten mit dem #-Zeichen versehen sein. Darueber hinaus sollten diese kaskadierend blinken. Das Bild muss mit einer schwarzen Spalte beginnen.");
 	out.println();
 	
 	
@@ -123,44 +114,40 @@ int main()
 				attr.setBackground(attr.LIGHT_GRAY);
 				break;
 			case 8:
-            attr.setForeground(attr.LIGHT_BLUE);
-				attr.setBackground(attr.LIGHT_BLUE);
-				
-				break;
-			case 9:
 				attr.setForeground(attr.GRAY);
 				attr.setBackground(attr.GRAY);
 				break;
-			case 10:
-            	attr.setForeground(attr.LIGHT_CYAN);
-				attr.setBackground(attr.LIGHT_CYAN);
-				
+			case 9:
+				attr.setForeground(attr.LIGHT_BLUE);
+				attr.setBackground(attr.LIGHT_BLUE);
 				break;
-			case 11:
-			attr.setForeground(attr.LIGHT_GREEN);
+			case 10:
+				attr.setForeground(attr.LIGHT_GREEN);
 				attr.setBackground(attr.LIGHT_GREEN);
 				break;
-			case 12:
-            attr.setForeground(attr.LIGHT_MAGENTA);
-				attr.setBackground(attr.LIGHT_MAGENTA);
-				
+			case 11:
+				attr.setForeground(attr.LIGHT_CYAN);
+				attr.setBackground(attr.LIGHT_CYAN);
 				break;
-			case 13:
+			case 12:
 				attr.setForeground(attr.LIGHT_RED);
 				attr.setBackground(attr.LIGHT_RED);
 				break;
+			case 13:
+				attr.setForeground(attr.LIGHT_MAGENTA);
+				attr.setBackground(attr.LIGHT_MAGENTA);
+				break;
 			case 14:
-            attr.setForeground(attr.WHITE);
+				attr.setForeground(attr.YELLOW);
+				attr.setBackground(attr.YELLOW);
+				break;
+			case 15:
+				attr.setForeground(attr.WHITE);
 				attr.setBackground(attr.WHITE);
 				break;
-				
-			case 15:
-			attr.setForeground(attr.YELLOW);
-				attr.setBackground(attr.YELLOW);
-				break;	
 		}
 		cga.setAttr(attr);
-		out.print("BB07");
+		out.print('#');
 	}
 
 	attr.setForeground(attr.WHITE);
@@ -168,18 +155,27 @@ int main()
 	attr.setBlinkState(false);
 	cga.setAttr(attr);
 	
-    //delay for 5s 
-    wait(NORMAL_WAIT);
+    for(int i = 0; i < PAUSE; i++)
+    {
+        out.print("\r|\r\\\r-\r/");
+    };
 
     cga.setAttr(CgaAttr());
     cga.clear();
-    
-    cga.setAttr(CgaAttr(CgaAttr::BLUE, CgaAttr::CYAN, false));
-    for(int i = 0; i < 80; i++)
+    cga.setAttr(CgaAttr(CgaAttr::RED, CgaAttr::YELLOW, false));
+    for(int i = 0; i < 19; i++)
     {
-        for(int i = 0; i < 8; i++){
-            out.print("x");
-        }
+	    cga.setCursor(i, (i < 9)?i:(18-i));
+        out.println("x");
+		
+        cga.setCursor(i+19, (i < 9)?i:(18-i));
+        out.println("x");
+
+        cga.setCursor(i+38, (i < 9)?i:(18-i));
+        out.println("x");
+
+        cga.setCursor(i+57, (i < 9)?i:(18-i));
+        out.println("x");
     }
     cga.setCursor(0,11);
     cga.setAttr(CgaAttr());
@@ -187,10 +183,12 @@ int main()
     out.println("Test der Sonderzeicheninterpretation:");
     out.println("Hier stehen jetzt fuenf Worte\nund auf der naechsten Zeile geht es weiter.\nHier wird gleich \"Hier\" ueberschrieben");
 
- /******************Grenze Test ******************/   
- 
-    //delay for 5s 
-    wait(NORMAL_WAIT);
+
+    //kurze Pause zum Test
+    for(int i = 0; i < PAUSE; i++)
+    {
+        out.print("\r|\r\\\r-\r/");
+    };
     
     out.print("\r ");
 	
@@ -203,55 +201,39 @@ int main()
     
     out.println("Das ist ein Testsatz, der laenger als 80 Zeichen sein soll. Mal sehen, ob der Zeilenumbruch klappt. Haha Haha Haha Haha Haha Haha Haha Haha.\n");
     
-     //delay for 5s 
-    wait(NORMAL_WAIT);
-     cga.clear();
-     
-     /******************Blue-Screen Test ******************/   
-
-    cga.blueScreen("Error 101:\n This is a Test of the blue Screen from the cga.\n powerd by Team 14. \n ");
-
-    //delay for 5s 
-    wait(NORMAL_WAIT);
-     cga.clear();
-   /******************Scrolling Test ******************/ 
-    cga.setAttr(CgaAttr());
-    out.println(" Scrolling Test will start in:: \n");
-      out.println(" 5 \n");
-    wait(OneSecound_WAIT);
-      out.println(" 4 \n");
-    wait(OneSecound_WAIT);
-      out.println(" 3 \n");
-    wait(OneSecound_WAIT);
-    out.println(" 2 \n");
-      wait(OneSecound_WAIT);
-    out.println(" 1 \n");
-    //delay for 5s 
-    wait(OneSecound_WAIT);
+    out.println("Gleich wird das Scrollen getestet. Das Scrollen sollte uebrigens mit der selber zu schreibenden memcpy-Methode geloest werden - Zusatzaufgabe (und nicht mit einer einfachen Zuweisung).");
+    out.println("\n");
+    //kurze Pause
     
-    for (int i = 0; i < 120; i++)
+    for(int i = 0; i < PAUSE; i++)
     {
-        if (i%2==0){
-             cga.setAttr(CgaAttr(CgaAttr::WHITE, CgaAttr::BLACK, false));
-        }
-        else if (i%3==0){
-             cga.setAttr(CgaAttr(CgaAttr::RED, CgaAttr::BLACK, false));
-        }
-        else{
-             cga.setAttr(CgaAttr(CgaAttr::BLUE, CgaAttr::BLACK, false));
-        }
-        out.print("this line will test Scrolling. so now the Scrolling will is be tested. Team 14 \n");
-        out.println("\n");
+        out.print("\r|\r\\\r-\r/");
     };
-    //delay for 5s 
-    wait(SHORT_WAIT); 
+    
+    for (int i = 0; i < 40; i++)
+    {
+        cga.setAttr(CgaAttr((CgaAttr::Color) (i % 16), (CgaAttr::Color) (8), (CgaAttr::Color) false));
+        out.print("Gleich wird das Scrollen getestet. Das Scrollen sollte uebrigens mit der selber zu schreibenden memcpy-Methode geloest werden - Zusatzaufgabe (und nicht mit einer einfachen Zuweisung).");
+        for(int j = 0; j < 5000000; j++){
+            
+        }
+    };
 
-/******************Special character Test ******************/
+    for(int i = 0; i < PAUSE; i++)
+    {
+        out.print("\r|\r\\\r-\r/");
+    };        
+    
+    cga.blueScreen("Damn Fucking Error\n I hope that will never happen again\n\n BLUBB \n");
+
+    for(int i = 0; i < PAUSE; i++)
+    {
+        out.print("\r|\r\\\r-\r/");
+    };
+
     cga.clear();
     cga.setAttr(CgaAttr(CgaAttr::WHITE, CgaAttr::BLACK, false));
-    out.println("Sonderzeichentest:\näöü;,:.-_");
-    
-     out.println("***************** Special character Test *****************");
+    out.println("\n\nSonderzeichentest:\näöü;,:.-_");
     
     out.println();
 
@@ -264,30 +246,48 @@ int main()
     out.print("; y: ");
     out.print(&y);
 	out.println("\n");
-    //delay for 5s 
-    wait(NORMAL_WAIT); 
-/****************** Limitions Test ******************/
-    cga.clear();
-    out.println("\n");
-    out.println("***************** Limit Test *****************");
-    out.println("\n");
-     
+
+
+    out.println("Test von Grenzwerten:");
     unsigned ux = 0;
     out.print("0x0: ");
     out.print(ux, 16);
     out.println();
-    ux = 0x8;
+    ux = 0xFFFFFFFF;
     out.print("0xFFFFFFFF: ");
     out.print(ux, 16);
 
     out.println("\n");
-    out.println("***************** CGA Test Is Over *****************");
+    out.println("Ende.");
     out.println("\n");
 
-    //delay for 5s 
-    wait(NORMAL_WAIT); 
+
+    //kurze Pause
+    //~ 
+    for(int i = 0; i < PAUSE; i++)
+      //for( ; ; )
+    {
+        out.print("\r|\r\\\r-\r/");
+    };
+
     
-    //wait until the user close the window
-   while(true){};
+    for (;;);
     return 0;
+    
+    /*
+    CgaAttr attr = CgaAttr();
+    attr.setBackground(CgaAttr::LIGHT_GRAY);
+    attr.setForeground(CgaAttr::CYAN);
+    attr.setBlinkState(true);
+    attr.setBlinkState(false);
+    cga.setAttr(attr);
+    out.print("Vordergrund: ");
+    out.println((int) attr.getForeground());
+    
+    out.print("Hintergrund: ");
+    out.println((int) attr.getBackground());
+    
+    out.print("Blink: ");
+    out.println((int) attr.getBlinkState());
+    */
 }
