@@ -123,6 +123,8 @@ void CgaScreen::scroll()
 			this->screen[i].setAttr(attr);
 		}
 	}
+	  // Cursor an den Anfang der letzen Zeile setzen
+    setCursor(0, ROWS - 10);
 }
 
 

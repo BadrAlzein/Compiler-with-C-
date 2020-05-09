@@ -89,6 +89,10 @@ public:
 	// setzen der Hintergrundfarbe
 	void setBackground(Color col)
 	{
+        if (col>7){
+            col=BLACK;
+            
+        }
 		/*the format of any attr is : 0b B XXX YYYY (B:=Blinker, X:=bg , Y:=fg)
 		changing X means: 
 		1. mask the current attr to change all X's to 000
