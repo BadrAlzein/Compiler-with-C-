@@ -124,7 +124,7 @@ void CgaScreen::scroll()
 		}
 	}
 	  // Cursor an den Anfang der letzen Zeile setzen
-    setCursor(0, ROWS - 10);
+    setCursor(0, 25 - 1);
 }
 
 
@@ -277,7 +277,6 @@ void CgaScreen::show(char ch, const CgaAttr &attr)
 					2. start a new line 
 				*/
 				scroll();
-				setCursor(0, 25);
 			}
 		}
 	}
