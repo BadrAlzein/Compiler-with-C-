@@ -44,8 +44,8 @@ public:
 
 	// numerische Werte werden zur Basis 'base' Ausgegeben
 	// implementiere die Basen 2, 10 und 16
-	void print(int x, int base = 2);
-	void print(unsigned x, int base = 2);
+	void print(int x, int base = DECIMAL);
+	void print(unsigned x, int base = DECIMAL);
 
 	// Zeigertypen werden immer zur Basis 16 ausgegeben!
 	void print(void* p);
