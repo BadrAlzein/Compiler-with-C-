@@ -16,6 +16,7 @@ class ActivityScheduler: public Dispatcher, public Scheduler {
 public:
 	ActivityScheduler()
 	{
+         isWaiting = false;
 	}
 
 	/* Initialisieren der ersten Aktivität, des Schedulers
@@ -24,6 +25,13 @@ public:
 	 */
 	void start(Activity* act)
 	{
+        /*
+         *
+         * 
+         */
+        
+        isWaiting = false;
+        
 	}
 
 	/* Suspendieren des aktiven Prozesses
@@ -55,7 +63,7 @@ protected:
 	virtual void activate(Schedulable* to);
 
 private:
-
+    bool isWaiting
 };
 
 extern ActivityScheduler scheduler;
