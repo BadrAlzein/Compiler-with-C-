@@ -18,7 +18,7 @@
 
 C Compiling Comands 
 ---
-* nasm -f elf -o main.o main-nasm.asm 
-* gcc -m32 -c -o c.o main.c
-* gcc -m32 -o run main.o c.o
-* ./run
+* ~/bin 
+* make clean bootdisk 
+* bochs
+* 6 
