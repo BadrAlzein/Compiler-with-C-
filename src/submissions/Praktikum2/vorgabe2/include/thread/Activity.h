@@ -23,7 +23,7 @@ public:
 	 */
 	enum State {
 		BLOCKED,	//Prozesse die auf etwas warten
-		READY,      	//Prozesse die aktiviert werden können
+		READY,      	//Prozesse die aktiviert werden kï¿½nnen
 		RUNNING,	//Status des aktiven Prozesses
 		ZOMBIE		//Kindprozesse die vor den Eltern beendet werden
 	};
@@ -36,7 +36,7 @@ public:
 	Activity(void* tos);
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
-	 * Wird nur für den Hauptkontrollfluss "main" benötigt.
+	 * Wird nur fï¿½r den Hauptkontrollfluss "main" benï¿½tigt.
 	 * Es wird hier kein Stack initialisiert.
 	 * Beachte das Activity wegen der Vererbungsbeziehung von
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
@@ -66,45 +66,68 @@ public:
 	void yield();
 
 	/* Diese Aktivitaet wird terminiert. Hier muss eine eventuell
-	 * auf die Beendigung wartende Aktivität geweckt werden.
+	 * auf die Beendigung wartende Aktivitï¿½t geweckt werden.
 	 */
 	void exit();
 
 	/* Der aktuelle Prozess wird solange schlafen gelegt, bis der
 	 * Prozess auf dem join aufgerufen wird beendet ist. Das
-	 * Wecken des wartenden Prozesses übernimmt exit.
+	 * Wecken des wartenden Prozesses ï¿½bernimmt exit.
 	 */
 	void join();
 
 
-	// Folgende Methoden dürfen "inline" implementiert werden
+	// Folgende Methoden dï¿½rfen "inline" implementiert werden
 
-	/* Ändern des Ausführungszustandes. Diese Methode sollte nur vom
+	/* ï¿½ndern des Ausfï¿½hrungszustandes. Diese Methode sollte nur vom
 	 * Scheduler verwendet werden.
 	 */
 	void changeTo(State state)
 	{
+		this->state=state;
 	}
 
-	// Ausführungszustand abfragen.
+	// Ausfï¿½hrungszustand abfragen.
+	// check if the process is in BLOCKED state
 	bool isBlocked()
 	{
+		if (this->state==BLOCKED){
+			return true;
+		}
+		return false;
 	}
-
+// check for the process if its in ready state
 	bool isReady()
 	{
+		if (this->state==READY){
+			return true;
+		}
+		return false;
 	}
-
+//check for the process if its in Running state
 	bool isRunning()
 	{
+		if (this->state==RUNNING){
+			return true;
+		}else
+		return false;
 	}
-
+//check for the process if its in Zombie state
 	bool isZombie()
 	{
+		if (this->state == ZOMBIE){
+			return true;
+		}
+		return false;
 	}
+ Activity* getWaitingElement(){
+	 return this->waitingElement;
+ }
+ Activity* waitingElement;
 
 private:
-
+State state ;
+Activity* activeElement;
 
 };
 
