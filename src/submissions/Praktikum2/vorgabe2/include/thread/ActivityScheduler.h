@@ -69,13 +69,9 @@ public:
 	 */
 	void exit();
 
-<<<<<<< HEAD
-	Activity *getActivity();
+	Activity *getCurrentActivity();
 	
 protected:
-=======
-//protected:
->>>>>>> e9f60784f107cdcfb7d968de91f4979b00d14616
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
 	 * Blocked oder Zombie befindet, wieder auf die Ready-Liste
 	 * zu setzen. Danach ist "to" mittels dispatch die Kontrolle

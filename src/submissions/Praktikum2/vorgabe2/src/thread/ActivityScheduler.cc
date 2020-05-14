@@ -43,17 +43,37 @@ void ActivityScheduler::kill(Activity *process){
 	reschedule(); 
     
 }
-/* Der aktive Prozess ist, sofern er sich nicht im Zustand
-	 * Blocked oder Zombie befindet, wieder auf die Ready-Liste
-	 * zu setzen. Danach ist "to" mittels dispatch die Kontrolle
-	 * zu übergeben.
+/* 1.Der aktive Prozess ist, sofern er sich
+ 	 * 	1.1. nicht im Zustand Blocked -> not blocked
+	 * 	1.2. oder Zombie befindet, 	-> not zombie 
+	 * 	1.3. wieder auf die Ready-Liste zu setzen. -> not waitint -> is Running currently
+	 *  1.4. Add it to the Ready list
+* 2.Danach ist "to" mittels dispatch die Kontrolle zu übergeben.
 */
 void ActivityScheduler::activate(Schedulable *to){
-    
-    
-    
-}
 
+	Activity *newAct = this->getCurrentActivity(); //get the current activity
+	//define the active process conditions
+	bool notZombie = ! newAct->isZombie();
+	bool notBlocked = ! newAct->isBlocked();
+	bool isRunning = newAct->isRunning();
+	bool isActiveProcess = ((notZombie && notBlocked) && isRunning);
+    
+	//if its active process then add it to the Ready list  
+	if (isActiveProcess){
+		newAct->changeTo(Activity::READY); //change the activity to Ready
+		scheduler.schedule((Schedulable *)newAct);	//add it to the Ready list
+	} 
+	Activity *targetAct = (Activity *)to; 
+	if (targetAct == 0){
+		if(isRunning){
+			targetAct = (Activity *)readylist.dequeue();
+		}
+	}else {
+		targetAct->changeTo(Activity::RUNNING);
+		dispatch(targetAct);
+	}
+}
 /* Suspendieren des aktiven Prozesses
 * 1. Der korrekte Ausfuehrungszustand ist zu setzen
 * und danach 
@@ -65,15 +85,15 @@ void ActivityScheduler::suspend(){
 	 * 2. reschedule (activate the first process from the Ready list)
 	 */
 
-	//block the current activity  (getActivity() will get the current Activity) 
-	getActivity()->changeTo(Activity::BLOCKED);
+	//block the current activity  (getCurrentActivity() will get the current Activity) 
+	getCurrentActivity()->changeTo(Activity::BLOCKED);
 	
 	//send the next process on the top of ready list to the scedular
 	reschedule(); 
 }
 
 /*this will return a pointer to the current process Activity from dispatcher*/
-Activity *ActivityScheduler::getActivity()
+Activity *ActivityScheduler::getCurrentActivity()
 {
     return (Activity *)this->active();
     
