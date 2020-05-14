@@ -69,7 +69,7 @@ void ActivityScheduler::activate(Schedulable *to){
 	/*Pending 
 		Nullpointer Exception	
 	 */
-	if (targetAct == 0){
+	while (targetAct == 0){
 		if(! isRunning){
 			targetAct = (Activity *)readylist.dequeue();
 		}
