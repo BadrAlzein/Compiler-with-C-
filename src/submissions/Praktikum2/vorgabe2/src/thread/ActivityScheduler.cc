@@ -57,21 +57,26 @@ void ActivityScheduler::activate(Schedulable *to){
 	bool notZombie = ! newAct->isZombie();
 	bool notBlocked = ! newAct->isBlocked();
 	bool isRunning = newAct->isRunning();
-	bool isActiveProcess = ((notZombie && notBlocked) && isRunning);
+	bool isActiveAct = notZombie && (notBlocked && isRunning);
     
 	//if its active process then add it to the Ready list  
-	if (isActiveProcess){
+	if (isActiveAct){
 		newAct->changeTo(Activity::READY); //change the activity to Ready
 		scheduler.schedule((Schedulable *)newAct);	//add it to the Ready list
 	} 
 	Activity *targetAct = (Activity *)to; 
+
+	/*Pending 
+		Nullpointer Exception	
+	 */
 	if (targetAct == 0){
-		if(isRunning){
+		if(! isRunning){
 			targetAct = (Activity *)readylist.dequeue();
 		}
-	}else {
-		targetAct->changeTo(Activity::RUNNING);
-		dispatch(targetAct);
+	}
+	if (targetAct!=0) {
+		targetAct->changeTo(Activity::RUNNING); //make the target Running
+		dispatch(targetAct); //swich from current active Act to the target Act 
 	}
 }
 /* Suspendieren des aktiven Prozesses
