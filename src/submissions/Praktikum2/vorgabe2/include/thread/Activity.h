@@ -126,7 +126,7 @@ public:
  Activity* waitingElement;
 
 private:
-State state ;
+State state ; //Activity State 
 Activity* activeElement;
 
 };

@@ -92,15 +92,10 @@ void Activity::exit()
 	 */
 void Activity::join()
 {
-    waitingElement = scheduler.activeElement;
-    if ((!isZombie()))
-    {
-        if (this != waitingElement)
-        {
-            waitingElement->sleep();
-        }
-    }
-}
+
+    scheduler.getCurrentActivity()->sleep();
+
+}   
 /* �ndern des Ausf�hrungszustandes. Diese Methode sollte nur vom
 	 * Scheduler verwendet werden.
 	 */
