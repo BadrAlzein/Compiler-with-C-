@@ -52,6 +52,11 @@ void ActivityScheduler::kill(Activity *process){
 */
 void ActivityScheduler::activate(Schedulable *to){
 
+	/* this func send the running act to the ready and take a act from Ready list 
+		and make it to running 
+	*/
+
+
 	Activity *newAct = this->getCurrentActivity(); //get the current activity
 	//define the active process conditions
 	bool notZombie = ! newAct->isZombie();
@@ -59,7 +64,7 @@ void ActivityScheduler::activate(Schedulable *to){
 	bool isRunning = newAct->isRunning();
 	bool isActiveAct = notZombie && (notBlocked && isRunning);
     
-	//if its active process then add it to the Ready list  
+	//if there is an active process then add it to the Ready list  
 	if (isActiveAct){
 		newAct->changeTo(Activity::READY); //change the activity to Ready
 		scheduler.schedule((Schedulable *)newAct);	//add it to the Ready list
@@ -75,6 +80,8 @@ void ActivityScheduler::activate(Schedulable *to){
 		}
 	}
 	if (targetAct!=0) {
+		//make the target Act running
+		
 		targetAct->changeTo(Activity::RUNNING); //make the target Running
 		dispatch(targetAct); //swich from current active Act to the target Act 
 	}
