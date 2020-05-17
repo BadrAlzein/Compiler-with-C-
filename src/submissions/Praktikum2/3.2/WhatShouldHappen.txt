@@ -1,0 +1,3 @@
+Anton ctor;Anton dtor;Berta ctor;Berta body;Berta dtor;
+
+front = &anton = &berta
