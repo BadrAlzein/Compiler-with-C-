@@ -109,7 +109,7 @@ private:
 		void (*coroutine) (Coroutine*); 
 		void *ret;	
 		Coroutine* param;
-	}
+	};
 
 };
 
