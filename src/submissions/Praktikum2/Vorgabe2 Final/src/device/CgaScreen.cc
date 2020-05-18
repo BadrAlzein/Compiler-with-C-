@@ -2,141 +2,229 @@
 #include "device/CgaAttr.h"
 #include "io/IOPort.h"
 
+/**
+ * Diese Klasse wird die Methoden in CgaScreen.h defniieren bzw. implementieren::
+ * CgaScreen()
+ * explicit CgaScreen(CgaAttr attr);
+ * void clear ();
+ * void scroll();
+ * setCursor();
+ * getCursor();
+ * void show(char ch, const CgaAttr& attr);
+ */
+
 // Standardattribute waehlen und Bildschirm loeschen
-// initialisierungslisten
-CgaScreen::CgaScreen(): index(INDEX), data(DATA)
+CgaScreen::CgaScreen() : index(INDEX), data(DATA)
 {
-	// start address sets in the constructor
-	// CgaChar* screen;
-	this->screen = (CgaChar*) OFFSET0;
-	CgaAttr attr = CgaAttr();
-	this->setAttr(attr);
-	// auto filled with standart attributes white font foreground
-	// and black background; blink is false
-	// setze auf schwarz byte = 0b01110000
-	// CgaAttr attr();
-	// CgaAttr();
-	// CgaAttr attr = CgaAttr();
-	// adresse und das was da liegt soll cga attr sein
-	// adresse im video ram
-	// setAttr needs the address of object (no reference)
-	// setAttr(this->attr);
+
+	/* Standardattribute waehlen
+this will create a default (standard) attribut and set the character attribut with it 
+let the paramets on default ->  fg=WHITE bg=BLACK  blink=false
+*/
+	CgaAttr attribut = CgaAttr();
+	this->setAttr(attribut);
+
+	//pass the starting adress of the charachter to the video-RAM
+	this->screen = (CgaChar *)OFFSET0;
+
+	//Bildschirm loeschen
 	clear();
 }
+
 
 // Angegebene Attribute setzen und Bildschirm loeschen
-CgaScreen::CgaScreen(CgaAttr attr): index(INDEX), data(DATA)
+CgaScreen::CgaScreen(CgaAttr attr) : index(INDEX), data(DATA)
 {
-	// start address sets in the constructor
-	// CgaChar* screen;
-	this->screen = (CgaChar*) OFFSET0;
+	/*
+Angegebene Attribute setzen
+just set the given attribut using setAttr() from Class CgaScreen
+*/
 	this->setAttr(attr);
+
+	//pass the starting adress of the charachter to the video-RAM
+	this->screen = (CgaChar *)OFFSET0;
+
+	//delete the screen
 	clear();
 }
 
-// TODO Problem we doesnt use the attributes use attr instead of 0
 // Loeschen des Bildschirms
+/* switch every possible character on the Screen to a blank 
+	that means: 
+	1. reset every Screen Charachter:
+		1.1. zeichen to " "
+		1.2. create a default attr to use it for clearing other attributs
+	2. reset the cursor to the starting position x=0, y = 0 
+*/
 void CgaScreen::clear()
 {
-	// set all ascii chars to empty string
-	// set the background of every row and column to black
-	this->setAttr(CgaAttr());
-	for (unsigned i = 0; i < (COLUMNS * ROWS); i++) {
-		this->screen[i].setChar((char) ' ');
-		this->screen[i].setAttr(this->attr);
+	char blank = ' ';  //switch all charachters with blank
+	int cursorPos = 0; //the starting pos of the cursor
+
+	//every Screen can have max. 80 X 25 character = 2000 Char
+	int screenSize = COLUMNS * ROWS;
+	//create a default attr to use it for clearing other attributs
+	CgaAttr attr = CgaAttr();
+
+	//start reseting from first char to the end
+	for (int i = 0; i < screenSize; i++)
+	{
+		//set the attribut to default
+		this->screen[i].setAttr(attr);
+		//set the "zeichen" to blank
+		this->screen[i].setChar(blank);
 	}
-	// TODO put the cursor to the top left hand corner
-	setCursor(0, 0);
+	//reset the cursor to the starting position x=0, y = 0
+	setCursor(cursorPos, cursorPos);
 }
+
 
 // Verschieben des Bildschirms um eine Zeile
+// read Wiki -> cga 
 void CgaScreen::scroll()
 {
-	// dont know if scroll down or up
-	// delete the first row
-	// put every byte minus amount of ROWS
-	// shift every char and attribute on screen about Screen.COLUMNS (80) * 2 = 160 bytes
-	// ROWS - 1 because one complete column is deleted
-	unsigned int beforeLastRow = COLUMNS * (ROWS - 1);
-	for (unsigned int i = 0; i < beforeLastRow; i++) {
+	/* To Scroll (Wiki): 
+		Um den Bildschirm zu scrollen muss der gesamte Textspeicher 
+		ab der 2. Zeile zur 1. Zeile kopiert werden und die letzte Zeile gelöscht werden.
+	*/
+	int RowBytes = COLUMNS * 2; //bytes cor charachters in one row (every character is 2 bytes)
+	char blank = ' ';			//switch all charachters with blank
+
+	// the bytes for every row wihtout the last one  (rows - 1)
+	int newScreenSize = (RowBytes) * (ROWS - 1);
+
+	//the screen size after deleting + the deleted row = full screen size
+	int fullScreenSize = newScreenSize + RowBytes;
+
+	//move every caracter one row upwords
+	//copy loop
+	for (int i = 0; i < newScreenSize; i++)
+	{
 		this->screen[i] = this->screen[i + COLUMNS];
 	}
-	// delete the last row
-	for (unsigned int i = beforeLastRow; i < beforeLastRow + COLUMNS; i++) {
-		this->screen[i].setChar((char) ' ');
-		this->screen[i].setAttr(this->attr);
+
+	/* delete the last row from the screen 
+		start deleting from Rows-1 until the final row:: (n-1)->(n) 
+		the deleting process: 
+			the screen startes with a charachter and follow up by attribut
+			like 0 is char 1 is attr .. 
+			-> gerade ist char 
+			-> ungerade ist attr
+
+		*/
+	for (int i = newScreenSize; i < fullScreenSize; i++)
+	{
+		if (i % 2 == 0)
+		{
+			this->screen[i].setChar(blank);
+		}
+		else if (i % 2 != 0)
+		{
+			this->screen[i].setAttr(attr);
+		}
 	}
+	  // Cursor an den Anfang der letzen Zeile setzen
+    setCursor(0, 25 - 1);
 }
 
-// Setzen des HW-Cursors
-/*
-Um den Inhalt eines Steuerregisters vom Videocontroller abzufragen oder zu setzen,
-muss zunaechst über das Indexregister der Index des gewünschten Steuerregisters ausgegeben werden.
-Anschließend kann über das Datenregister auf das so adressierte Steuerregister zugegriffen werden.
+
+/* Setzen des HW-Cursors
+ * change the current cursor to a diffrent position
+ * for the I/O use the IOPort8 because its already given in Screen.h
 */
 void CgaScreen::setCursor(int column, int row)
 {
-	// dont multiply by 2 because cursor works without 2 bytes (ascii + CgaAttr)
-	unsigned int cursorAddress = column + row * COLUMNS;
-	// cursorAddress += Video.OFFSET0;
-	// via index register write the index of the control register
-	index = IOPort8(INDEX);
+	/*see Wiki https://www.lowlevel.eu/wiki/Color_Graphics_Adapter#Cursor_Address
+	  Die Register 14 und 15 setzen die Cursor-Adresse, die sich aus der Cursor-Position berechnet.
+	*/
+	unsigned short cursor_address = column + row * COLUMNS; //row * COLUMNS -> now u stay at the start of the right line
+
+//low bytes ************
+	/*
+	verbindung CgaScreen.h mit IOPort.h
+	define the two variabels from CgaScreen.h (data & index)
+	use this two to save registers info inside the Controller Register
+	*/
+
+	index = IOPort8(INDEX); //pass index of Index Register (nur schreiben) 
+	//save the high bytes of the cursor
 	index.write(CURSOR_LOW);
-	// now we can access control register over the data register
-	data = IOPort8(DATA);
-	// 0xff = 255 = 11111111
-	// & bitwise AND shortcut
-	// 1100000 AND 11111111 = 1100000
-	// write low byte
-	// & 0xff norms the binary to 1 byte so 8 bit
-	// this is necessary for the 8 bit port (plausible / Jessis trivial)
-	data.write(cursorAddress & 0xff);
-	// write high cursor byte
+	data = IOPort8(DATA);	//pass the data of data Register (lesen & schreiben) 
+	/*
+	enter cursor_address (low bytes Register 15)
+	0xff is in hex FF which is ...0000 11111111 so 
+	“& 0xff” masks the variable so it leaves only the value in the last 8 bits,
+	and ignores all the rest of the bits.
+	*/
+	data.write(cursor_address & 0xff);	
+
+//HEIGH bytes************
+
+	//enter the low bytes of the cursor
 	index.write(CURSOR_HIGH);
-	// right shift to delete the current above 8 bits
-	// reads the next 8 bits
-	// 00010100 >> 2 = 00000101
-	// write high byte
-	// above bytes have to be set for cursor high
-	// 16 bit cursor
-	data.write((cursorAddress >> 8) & 0xff);
+
+	/*
+	enter cursor_address (high bytesRegister 14)
+	with an 8 bit shift to delete the current address 
+		1. shift the cursor_address to the far right,da cursor_address (its the form HHHHHHHH LLLLLLLL)
+		2. use  & 0xff to enter only the first 8 bits from cursor_address
+	*/
+	data.write((cursor_address >> 8) & 0xff);
+
 }
 
 // Lesen des HW-Cursors
-// the passed address will be filled with the cursor column and row
-void CgaScreen::getCursor(int& column, int& row)
+/*
+	umgekehrt wie set Cursor
+*/
+void CgaScreen::getCursor(int &column, int &row)
 {
-	index = IOPort8(INDEX);
+	unsigned short cursor_address; //the cursor_address of the given pos
+	int low_cursorAddress = 0; //save the loweer bytes of the cursorAddress
+	int hight_cursorAddress = 0; //save the higher bytes of the cursorAddress
+
+//low bytes ************
+
+	/*
+	verbindung CgaScreen.h mit IOPort.h
+	define the two variabels from CgaScreen.h (data & index)
+	use this two to save registers info inside the Controller Register
+	*/
+	index = IOPort8(INDEX); //pass index of Index Register (nur schreiben) 
+	//save the high bytes R 14
 	index.write(CURSOR_LOW);
-	data = IOPort8(DATA);
-	// 8 bits
-	unsigned lowByte = data.read();
+	data = IOPort8(DATA);	//pass the data of data Register (lesen & schreiben) 
+	//enter the low bytes of the cursor
+	low_cursorAddress = data.read();
+	
+//HEIGH bytes************
+
 	index.write(CURSOR_HIGH);
-	// 8 bits
-	unsigned highByte = data.read();
-	// calculate the column and row
-	// left shift and or operation
-	short cursorAdress = (highByte << 8) | lowByte;
-	// column doesnt matter the rows it only counts the last row so modulo 80
-	column = cursorAdress % COLUMNS;
-	// row only accept full columns so 80 chars
-	// and every half row would not accepted
-	row = (int) (cursorAdress / COLUMNS);
+	
+	//return the low and high cursor adsress from data 	hight_cursorAddress= 0000000 HHHHHHH
+	hight_cursorAddress = data.read();
+	//make the hight_cursorAddress = HHHHHHH 0000000 for making place to the lower bytes
+	hight_cursorAddress = hight_cursorAddress<<8; 
+	//form the cursor_address (its the form HHHHHHHH LLLLLLLL)
+	cursor_address = hight_cursorAddress | low_cursorAddress ;
+
+	/*get position from the adress (revers the formel)
+		1. a row is a 80 column so to find a row pos of a cursor simply div 80
+		2. now use the row in the formel :: cursor_address = column + row * COLUMNS to find column
+	*/
+	row	= (int) (cursor_address /COLUMNS);
+	column = cursor_address - (row * COLUMNS); //!!(pending)
 }
 
 // Anzeigen von c an aktueller Cursorposition
 // Darstellung mit angegebenen Bildschirmattributen
-// Implement \n Zeilenvorschub
 void CgaScreen::show(char ch, const CgaAttr& attr)
 {
 	int column;
 	int row;
 	getCursor(column, row);
 	char* cursorAddress = (char*) (2 * (column + row * COLUMNS));
-	// take the right place in vram
 	cursorAddress += OFFSET0;
-
-
 	getCursor(column, row);
 	if (ch == '\n') { 
 		if (row < 24) {
@@ -151,19 +239,11 @@ void CgaScreen::show(char ch, const CgaAttr& attr)
 		setCursor(0, row);
 		getCursor(column, row);
 	}
-	// \n will never be reached here !!!!
 	if ((short) ch > 31 && (short) ch < 127) {
-		// first byte is the char ascii letter
 		*cursorAddress = ch;
-		// second byte -> one address
 		cursorAddress += 1;
-		// the pointer on the design attributes
-		// TODO NOT SURE ABOUT THIS
-		// void setAttr(const CgaAttr& attr)
-		// void getAttr(CgaAttr& attr)
 		this->setAttr(attr);
 		*cursorAddress = this->attr.getAttr();
-
 		if (column < 79) {
 			setCursor(column + 1, row);
 		} else {
@@ -174,7 +254,5 @@ void CgaScreen::show(char ch, const CgaAttr& attr)
 				setCursor(0, 24);
 			}
 		}
-		// shifts the cursor by one
-		// 79 because cursor starts with 0
 	}
 }
