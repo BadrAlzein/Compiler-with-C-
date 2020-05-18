@@ -75,8 +75,7 @@ void Activity::yield()
 {
     //the process gives the processor the first element from the ready list
     //and will queue again at the end of the list
-    // the ready state is where the process is waiting for the processor
-    this->state = READY;
+    changeTo(READY); //(Pending->)
     scheduler.reschedule();
 }
 /* Diese Aktivitaet wird terminiert. Hier muss eine eventuell
