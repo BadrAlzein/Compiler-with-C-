@@ -104,10 +104,3 @@ void Activity::join()
     scheduler.getCurrentActivity()->sleep();
 
 }   
-/* �ndern des Ausf�hrungszustandes. Diese Methode sollte nur vom
-	 * Scheduler verwendet werden.
-	 */
-void Activity::changeTo(State state)
-{
-    this->state = state;
-}
