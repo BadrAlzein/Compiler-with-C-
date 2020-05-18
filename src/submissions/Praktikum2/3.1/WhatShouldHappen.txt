@@ -1,1 +1,0 @@
-main1;Anton ctor;Berta ctor;main2;Anton body;main3;Berta dtor;Anton dtor;
