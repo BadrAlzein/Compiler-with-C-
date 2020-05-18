@@ -23,7 +23,7 @@ void Coroutine :: startup(Coroutine* obj) {
 	 */
 void Coroutine :: setup(void* tos) {
     // Top of the stack can be 0 (defined in the constructor)
-    if(tos = 0) {
+    if(tos == 0) {
 
     } else if (tos != 0) {
         Stack* tos_ptr = (Stack *)tos;
