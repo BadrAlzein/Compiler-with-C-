@@ -101,10 +101,10 @@ void Activity::exit()
 	// 2. töte alle geweckten activities
 	// void ActivityScheduler::kill(Activity *act)
 	// kill terminiert diese Aktivitaet explizit
-	if (blob != 0)
+	if (joinACtivity != 0)
 	{
-		blob->wakeup();
-		blob = 0;
+		joinACtivity->wakeup();
+		joinACtivity = 0;
 	}
 	
     /**** BADR ADD *****/
@@ -121,7 +121,8 @@ void Activity::exit()
 void Activity::join()
 {
     //.getActiveProcessActivity() will get the current active process       //BadrAdd
-	this->blob = scheduler.getCurrentActivity();
+    //blob is the old activity and the new activity would join it 
+	this->joinACtivity = scheduler.getCurrentActivity();
 	scheduler.getCurrentActivity()->sleep(); 
 	
 }

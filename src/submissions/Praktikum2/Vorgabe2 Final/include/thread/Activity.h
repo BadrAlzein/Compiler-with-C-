@@ -154,20 +154,12 @@ public:
 		}
 	}
 		
-	void setBlob(Activity* act) {
-		this->blob = act;
-	}
-	
-	 Activity* getWaitingElement(){
-	 return this->waitingElement;
- }
- Activity* waitingElement;
 
 		
 private:
 	State state; //Activity State 
-	Activity* blob;
-    Activity* activeElement;
+	Activity* joinACtivity; //old activity from join func
+
 };
 
 #endif
