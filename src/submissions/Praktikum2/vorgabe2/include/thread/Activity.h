@@ -51,6 +51,7 @@ public:
 	 * Das Warten auf die Beendigung (mittels join()) muss im Destruktor der
 	 * von Activity am weitesten abgeleiteten Klasse erfolgen.
 	 */
+	
 	virtual ~Activity();
 
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
