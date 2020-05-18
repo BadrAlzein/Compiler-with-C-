@@ -9,11 +9,6 @@
  *	Algorithmus implementiert, der sich auf eine
  *	ready-liste stuetzt, in dem alle lauffaehigen Prozesse
  *	miteinander verkettet sind.
- Als nächstes kommt der Scheduler . h . Er verwaltet alle lauffähigen Objekte auf einer Liste. In der
-ersten Aufgabe ist ein simpler FIFO-Scheduler zu implementieren. Er wird über die Methoden
-schedule , remove und reschedule benutzt. Seinerseits benutzt er die abstrakte Methode activate , um
-dem abgeleiteten Scheduler mitzuteilen, welches Objekt er zur Aktivierung ausgesucht hat. Er
-entfernt dabei das ausgesuchte Objekt aus seiner Ready-Liste.
  */
 
 #include "lib/Queue.h"
@@ -41,6 +36,7 @@ protected:
 
 	// Die Ready-Liste
 	Queue readylist;
+
 };
 
 #endif

@@ -14,38 +14,27 @@ csym switchContext
 
 [SECTION .text]
 
-; switchContext: Der Coroutinenwechsel
-;
-; C-Prototyp:
-;
-;     void switchContext (void*& from, void*& to);
-;
-; 1. Kontext der zu deaktivierenden Coroutine sichern
-; sichere nicht fluechtige Register ebp, ebx, esi und edi oder im Kontrollflussstatusblock sichern
-; esp im Kontrollflussstatusblock sichern
-; 2. Kontext der zu aktivierenden Coroutine wiederherstellen
-; esp aus dem Kontrollflussstatusblock laden
-; edi, esi, ebx, ebp wiederherstellen (man beachte die Reihenfolge)
-; Ruecksprungadresse beachten
+
 switchContext:
 
-	push ebp
-	mov ebp, esp
-	
-	push ebx
-	push esi
-	push edi
+	;Prepare Stack1
+	push ebp			;save basePointer
+	mov ebp, esp		;move the stackpointer to the basePinter (Calling-Conv.)	
+	push ebx			;save all there registers used in Coroutine
+	push esi			;save all there registers used in Coroutine
+	push edi			;save all there registers used in Coroutine
 
-	mov eax, [ebp+8]	;move &from to eax (first parameter)
-	mov [eax+0], esp
+	;save before switching Stacks
+	mov eax, [ebp + 8]	;save the 'from' in eax
+	mov [eax], esp		;save the stackPointer 1 in Adress of 'from'
 
-	mov eax, [ebp+12] 	;&to second parameter
-	mov esp, [eax]
+	;switch the Stack
+	mov eax, [ebp + 12] ;save the to Adress in eax
+	mov esp, [eax]		;return the saved old stackpointer to esp from Stack2
 
-	pop edi
-	pop esi
-	pop ebx
-
-	pop ebp
-	ret		; Ruecksprung zum Aufrufer
-
+	;clean up 
+	pop edi				;return all there registers used in Coroutine
+	pop esi				;return all there registers used in Coroutine
+	pop ebx				;return all there registers used in Coroutine
+	pop ebp				;return basePointer
+	ret					;Ruecksprung zum Aufrufer

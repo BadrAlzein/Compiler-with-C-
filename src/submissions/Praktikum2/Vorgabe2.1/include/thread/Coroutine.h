@@ -15,12 +15,12 @@
  *
  */
 
+
 /* Diese Deklaration verweist auf die von Euch zu
  * implementierende Assemblerprozedur "switchContext".
  */
-extern "C"
-{
-	void switchContext(void *&from, void *&to);
+extern "C" {
+	void switchContext(void*& from, void*& to);
 }
 /* switchContext hat die Aufgabe, die Kontrolle
  * vom Stack der Coroutine "from" auf den Stack der
@@ -44,12 +44,12 @@ extern "C"
  * dem einer Coroutine die "switchContext" aufgerufen hat.
  */
 
-class Coroutine
-{
+
+class Coroutine {
 public:
 	/* Aufsetzen einer neuen Coroutine.
 	*/
-	Coroutine(void *tos = 0)
+	Coroutine(void* tos = 0)
 	{
 		setup(tos);
 	}
@@ -57,9 +57,8 @@ public:
 	/* Kontrolltransfer von dieser Coroutine zu "next"
 	 * Die eigentliche Arbeit erledigt "switchContext"
 	 */
-	void resume(Coroutine *next)
+	void resume(Coroutine* next)
 	{
-		// from this->sp and to next->sp
 		switchContext(this->sp, next->sp);
 	}
 
@@ -75,6 +74,7 @@ public:
 	virtual void exit() = 0;
 
 private:
+
 	/* Diese Funktion hat nur die Aufgabe
 	 * den Rumpf der uebergebenen Coroutine aufzurufen
 	 * und nach der Rueckkehr exit() aufzurufen,
@@ -84,33 +84,33 @@ private:
 	 * Beachte, das "startup" als "static deklariert ist
 	 * und deshalb keinen impliziten "this"-Zeiger uebergeben bekommt.
 	 */
-	static void startup(Coroutine *obj);
+	static void startup(Coroutine* obj);
 
 	/* Aufsetzen einer neuen Coroutine.
 	 * Der Parameter "tos" (top of stack) ist der
 	 * initiale Stackpointerwert fuer die neue Coroutine
 	 * ACHTUNG: tos kann NULL sein (siehe Constructor)!
 	 */
-	void setup(void *tos);
+	void setup(void* tos);
 
-	void *sp; // Der gerettete Stackpointer
+	void* sp; // Der gerettete Stackpointer
 
-	struct Stack
-	{
-		//Registers
+
+	//define a stack struct that will be used at the setup methode
+	struct Stack {
+
+		// define the registers that will be used in the assembly code
 		unsigned edi;
 		unsigned esi;
 		unsigned ebx;
 		void* ebp;
-		// Methode deklarieren 
-		// *coroutine ist ein pointer auf eine funktion
-		// Coroutine* ist die Parameteruebergabe
-		// Parameter werden zur laufzeit bestimmt
-		// Vorlesung Startadresse der Parameter vom Typ (*coroutine)
-		void (*coroutine) (Coroutine*); //(Coroutine*) -> dereferenzierung der Coroutine
-		void *ret;	//Returnaddress, leads to something in a galaxies far far away
+	
+		// derefrencing the coroutine
+		void (*coroutine) (Coroutine*); 
+		void *ret;	
 		Coroutine* param;
 	};
+
 };
 
 #endif
