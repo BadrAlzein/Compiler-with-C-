@@ -16,7 +16,7 @@ Activity::Activity(void *tos) : Coroutine(tos)
 {
 
     this->state = BLOCKED;
-    // waiti
+     waitingElement = 0;
     // the thread will be activated with the help of class Activity
 }
 
@@ -31,6 +31,7 @@ Activity::Activity(void *tos) : Coroutine(tos)
 Activity::Activity()
 {
     this->state = BLOCKED;
+    waitingElement = 0;
     scheduler.start(this);
 }
 /* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.
@@ -100,7 +101,12 @@ void Activity::exit()
     //termnate once the child process is done with the task
 void Activity::join()
 {
-
-    scheduler.getCurrentActivity()->sleep();
+    waitingElement = scheduler.getCurrentActivity();
+    if ((!isZombie())){
+        if (this !=waitingElement){
+            waitingElement -> sleep();
+        }
+    }
+    //scheduler.getCurrentActivity()->sleep();
 
 }   

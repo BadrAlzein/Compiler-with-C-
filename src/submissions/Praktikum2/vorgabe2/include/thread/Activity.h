@@ -16,16 +16,18 @@
 #include "thread/Schedulable.h"
 #include "thread/Coroutine.h"
 
-class Activity: public Schedulable, public Coroutine {
+class Activity : public Schedulable, public Coroutine
+{
 public:
 	/* Die logischen Ausfuehrungszustaende
 	 * fuer diese Aktivitaet
 	 */
-	enum State {
-		BLOCKED,	//Prozesse die auf etwas warten
-		READY,      	//Prozesse die aktiviert werden k�nnen
-		RUNNING,	//Status des aktiven Prozesses
-		ZOMBIE		//Kindprozesse die vor den Eltern beendet werden
+	enum State
+	{
+		BLOCKED, //Prozesse die auf etwas warten
+		READY,	 //Prozesse die aktiviert werden k�nnen
+		RUNNING, //Status des aktiven Prozesses
+		ZOMBIE	 //Kindprozesse die vor den Eltern beendet werden
 	};
 
 	/* Aufsetzen eines Threads, der initiale Zustand ist "Blocked",
@@ -33,7 +35,7 @@ public:
 	 * der abgeleiteten Klasse abgearbeitet ist. Die Aktivierung
 	 * erfolgt von der abgeleiteten Klasse mittels "wakeup".
 	*/
-	Activity(void* tos);
+	Activity(void *tos);
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
 	 * Wird nur f�r den Hauptkontrollfluss "main" ben�tigt.
@@ -51,7 +53,7 @@ public:
 	 * Das Warten auf die Beendigung (mittels join()) muss im Destruktor der
 	 * von Activity am weitesten abgeleiteten Klasse erfolgen.
 	 */
-	
+
 	virtual ~Activity();
 
 	/* Veranlasst den Scheduler, diese Aktivitaet zu suspendieren.
@@ -77,7 +79,6 @@ public:
 	 */
 	void join();
 
-
 	// Folgende Methoden d�rfen "inline" implementiert werden
 
 	/* �ndern des Ausf�hrungszustandes. Diese Methode sollte nur vom
@@ -85,51 +86,56 @@ public:
 	 */
 	void changeTo(State state)
 	{
-		this->state=state;
+		this->state = state;
 	}
 
 	// Ausf�hrungszustand abfragen.
 	// check if the process is in BLOCKED state
 	bool isBlocked()
 	{
-		if (this->state==BLOCKED){
+		if (this->state == BLOCKED)
+		{
 			return true;
 		}
 		return false;
 	}
-// check for the process if its in ready state
+	// check for the process if its in ready state
 	bool isReady()
 	{
-		if (this->state==READY){
+		if (this->state == READY)
+		{
 			return true;
 		}
 		return false;
 	}
-//check for the process if its in Running state
+	//check for the process if its in Running state
 	bool isRunning()
 	{
-		if (this->state==RUNNING){
+		if (this->state == RUNNING)
+		{
 			return true;
-		}else
-		return false;
+		}
+		else
+			return false;
 	}
-//check for the process if its in Zombie state
+	//check for the process if its in Zombie state
 	bool isZombie()
 	{
-		if (this->state == ZOMBIE){
+		if (this->state == ZOMBIE)
+		{
 			return true;
 		}
 		return false;
 	}
- Activity* getWaitingElement(){
-	 return this->waitingElement;
- }
- Activity* waitingElement;
+	Activity* getWaitingElement()
+	{
+		return this->waitingElement;
+	}
+	Activity *waitingElement;
 
 private:
-State state ; //Activity State 
-Activity* activeElement;
-
+	State state; //Activity State
+	Activity *activeElement;
 };
 
 #endif
