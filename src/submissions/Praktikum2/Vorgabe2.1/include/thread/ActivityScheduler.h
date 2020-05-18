@@ -14,7 +14,6 @@ Testet zum Schluss Euer System zun�chst mit dem in mainAct.cc vorgegebenen Pro
 testet zus�tzlich mit einem eigenen Programm die Funktionalit�t von sleep , wakeup und das Ver-
 halten beim Beenden von Prozessen. Dies ist nat�rlich bei der Abgabe zu demonstrieren.
  */
-
 #include "lib/Queue.h"
 #include "thread/Activity.h"
 #include "thread/Dispatcher.h"
@@ -23,27 +22,9 @@ halten beim Beenden von Prozessen. Dies ist nat�rlich bei der Abgabe zu demons
 class ActivityScheduler : public Dispatcher, public Scheduler
 {
 public:
-	/*
-	Scheduler.h 
-
-	// Einfuegen eines neuen Elements in die Ready-Liste.
-	void schedule(Schedulable* sched);
-
-	// Entfernen eines Elements von der Ready-Liste.
-	void remove(Schedulable* sched);
-
-	// Aktiviert das vorderste der Liste mittels activate.
-	void reschedule();
-	// Diese Klasse implementiert die Zustandsverwaltung
- 	// f�r Activities
- 	*/
 	ActivityScheduler()
 	{
-		/* Definieren des ersten Prozesses.
-		 * Wird nur einmal zur Initialisierung aufgerufen!!
-		 */
-		// void init(Coroutine* act)
-		waiting = false;
+		isSchedulerWaiting = false;
 	}
 
 	/* Initialisieren der ersten Aktivit�t, des Schedulers
@@ -52,25 +33,20 @@ public:
 	 */
 	void start(Activity *act)
 	{
-		// init from dispatch first initial coroutine
+		//assigning Activity to the scheduler means that scheduler is not waiting anymore
+		isSchedulerWaiting = false;
+
+		/* 1. init the activity for Scheduler
+         * 2. init the first activity for Dispatcher
+		 * PS. act is not an obj but a pointer
+         */
+
+		//Scheduler
 		act->changeTo(Activity::RUNNING);
-		init((Coroutine *)act);
-		// initialize the first element in Scheduler
-		//this->schedule((Schedulable *)act);
-		// Aendern des Ausfuehrungszustandes. Diese Methode sollte nur vom
-		// Scheduler verwendet werden.
-		// void Activity::changeTo(State state)
-		 
-		// kann changeto mit der uerbergabe benutzen
-		
-		waiting = false;
-		// after starting activity the state is running normally
-		/*act->changeTo(Activity::RUNNING);
-		this->init((Coroutine *) act);
-		this->remove((Schedulable *) act);
-		waiting = false;*/
 
-
+		//Dispatcher
+		Coroutine *activity = (Coroutine*) act; 
+		init(activity);
 	}
 
 	/* Suspendieren des aktiven Prozesses
@@ -93,9 +69,8 @@ public:
 	 */
 	void exit();
 
-	Activity *getActiveProcessActivity();
+	Activity *getCurrentActivity();
 	
-
 protected:
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
 	 * Blocked oder Zombie befindet, wieder auf die Ready-Liste
@@ -104,8 +79,10 @@ protected:
 	 */
 	virtual void activate(Schedulable *to);
 
+    Activity* activeElement;
+
 private:
-	bool waiting;
+	bool isSchedulerWaiting; //will be used to test if the Schedular is free or not 
 };
 
 extern ActivityScheduler scheduler;
