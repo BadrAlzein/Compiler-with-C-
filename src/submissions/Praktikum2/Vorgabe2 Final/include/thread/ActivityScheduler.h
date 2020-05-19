@@ -22,10 +22,7 @@ halten beim Beenden von Prozessen. Dies ist nat�rlich bei der Abgabe zu demons
 class ActivityScheduler : public Dispatcher, public Scheduler
 {
 public:
-	ActivityScheduler()
-	{
-		isSchedulerWaiting = false;
-	}
+	ActivityScheduler(){}
 
 	/* Initialisieren der ersten Aktivit�t, des Schedulers
 	 * und des Dispatchers.
@@ -33,9 +30,6 @@ public:
 	 */
 	void start(Activity *act)
 	{
-		//assigning Activity to the scheduler means that scheduler is not waiting anymore
-		isSchedulerWaiting = false;
-
 		/* 1. init the activity for Scheduler
          * 2. init the first activity for Dispatcher
 		 * PS. act is not an obj but a pointer
@@ -70,7 +64,6 @@ public:
 
     /** this will get the active Act*/
 	Activity *getCurrentActivity(){
-        
         return ((Activity *) active());
     };
 	
@@ -85,7 +78,6 @@ protected:
     Activity* activeElement;
 
 private:
-	bool isSchedulerWaiting; //will be used to test if the Schedular is free or not 
 };
 
 extern ActivityScheduler scheduler;
