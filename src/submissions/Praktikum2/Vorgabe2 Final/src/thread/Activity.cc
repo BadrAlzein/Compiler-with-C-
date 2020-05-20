@@ -49,6 +49,7 @@ Activity::Activity()
 // *Avtivity is the base class pointer that we use to access the base class memebers
 // cpp permits the base pointer to point to any any object derived from the base class, it cann not access
 //the members of the derived class thats why virtual func is used
+//~Activity is the destructor and it destroys the object as soon as it goes out of the scoop
 Activity::~Activity()
 {
 	//kill func taken from Scheduler , kills the current process
@@ -60,7 +61,7 @@ Activity::~Activity()
 	 */
 
 //sleep causes the thread to definitly stop executing for a given amount of time
-//if no other process to e run then CPU will go to power saving mode
+//if no other process or thread needs to be run then CPU will go to power saving mode
 void Activity::sleep()
 {
 	//suspend the active process
