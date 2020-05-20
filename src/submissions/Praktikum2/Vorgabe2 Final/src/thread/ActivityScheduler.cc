@@ -39,9 +39,11 @@ void ActivityScheduler::kill(Activity *process){
     //remove the process from the ready list 
 	remove((Schedulable *)process);
 
-	//send the next process on the top of ready list to the scedular
-	reschedule(); 
-    
+	
+	Activity *Act = this->getCurrentActivity();
+	if (Act->isRunning() && Act==process){
+		reschedule(); 
+	}
 }
 /* 1.Der aktive Prozess ist, sofern er sich
  	 * 	1.1. nicht im Zustand Blocked -> not blocked

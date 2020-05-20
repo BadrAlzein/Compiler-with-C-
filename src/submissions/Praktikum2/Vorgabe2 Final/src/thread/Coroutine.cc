@@ -21,6 +21,7 @@ void Coroutine :: startup(Coroutine* obj) {
 	 * initiale Stackpointerwert fuer die neue Coroutine
 	 * ACHTUNG: tos kann NULL sein (siehe Constructor)!
 	 */
+
 void Coroutine :: setup(void* tos) {
     // Top of the stack can be 0 (defined in the constructor)
     if(tos == 0) {
@@ -30,10 +31,10 @@ void Coroutine :: setup(void* tos) {
 		// stack spacing for getting 1023 not 1024
 		tos_ptr--;
 		// vorhandene daten koennen nicht veraendert werden wenn 0 darin steht
-		tos_ptr->edi = 0;
-		tos_ptr->esi = 0;
-		tos_ptr->ebx = 0;
-		tos_ptr->ebp = 0;
+		//tos_ptr-> edi = 0 ;
+		//tos_ptr-> esi = 0 ;
+		//tos_ptr-> ebx = 0 ;
+		//tos_ptr-> ebp = 0 ;
 		// abstrakte methode definieren
 		// initialisiere methode coroutine mit startup methode die parameter Instanz benoetigt
 		tos_ptr->coroutine = &startup;
