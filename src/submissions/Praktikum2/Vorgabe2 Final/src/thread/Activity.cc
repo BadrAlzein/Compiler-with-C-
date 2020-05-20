@@ -16,7 +16,8 @@ the initail state is blocked and waiting for a
 **/
 Activity::Activity(void *tos) : Coroutine(tos)
 {
-
+	//Blocked: It is a time interval when a process is
+	// waiting for an event like I/O operations to complete.
     this->state = BLOCKED;
     // waiti
     // the thread will be activated with the help of class Activity
@@ -62,6 +63,8 @@ void Activity::sleep()
 {
     //suspend the active process
     //sleep can be called from and active process
+	//Suspended: Suspended state defines the time when a process is ready for
+	// execution but has not been placed in the ready queue by OS.
     scheduler.suspend();
 }
 
