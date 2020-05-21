@@ -108,7 +108,7 @@ private:
 		// derefrencing the coroutine
 		void (*coroutine) (Coroutine*); 
 		void *ret;	
-		Coroutine* param;
+		Coroutine* stackCoroutine;
 	};
 
 };

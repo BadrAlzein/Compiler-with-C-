@@ -48,8 +48,9 @@ SYSTEM_CC = \
 	thread/ActivityScheduler.cc\
 	thread/Coroutine.cc\
 	thread/Scheduler.cc\
-	ActivitySchedulerTest.cc
-	#mainAct.cc
+	mainAct.cc
+	#ActivitySchedulerTest.cc
+	
 
 
 ##############################################################################

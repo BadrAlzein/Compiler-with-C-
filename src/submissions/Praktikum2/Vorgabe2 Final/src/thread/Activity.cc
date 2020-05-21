@@ -133,7 +133,7 @@ void Activity::join()
 	//.getCurrentActivity() will get the current active process
 	// joinActivity is the new activity
 	joinACtivity = scheduler.getCurrentActivity();
-	if ((!isZombie()))
+	if ((!isZombie())) // ignore if its a zombie state, 
 	{
 		if (this != joinACtivity)
 		{

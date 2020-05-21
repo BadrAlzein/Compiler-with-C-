@@ -21,9 +21,9 @@ switchContext:
 	push ebp			;save basePointer
 	
 	mov ebp, esp		;move the stackpointer to the basePinter (Calling-Conv.)
-	push ebx			;save all there callee-saved registers used in Coroutine
-	push esi			;save all there callee-saved registers used in Coroutine
-	push edi			;save all there callee-saved registers used in Coroutine
+	push edi			;save all there callee-saved registers 
+	push esi			;save all there callee-saved registers 
+	push ebx			;save all there callee-saved registers 
 	
 	;save before switching Stacks (using two registers eax & edx)
 	mov eax, [ebp + 8]	;save the 'from' in eax
@@ -42,9 +42,9 @@ switchContext:
     
     
 	;clean up
-	pop edi				;load new callee-saved registers
-	pop esi				;load new callee-saved registers
 	pop ebx				;load new callee-saved registers
+	pop esi				;load new callee-saved registers
+	pop edi				;load new callee-saved registers
 	
 	pop ebp				;return basePointer
 	ret					;Ruecksprung zum Aufrufer
