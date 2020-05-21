@@ -23,21 +23,13 @@ void Coroutine :: startup(Coroutine* obj) {
 	 */
 
 void Coroutine :: setup(void* tos) {
-    // Top of the stack can be 0 (defined in the constructor)
-    if(tos == 0) {
-
-    } else if (tos != 0) {
-        Stack* tos_ptr = (Stack *)tos;
-		// stack spacing for getting 1023 not 1024
-		tos_ptr--;
-		// vorhandene daten koennen nicht veraendert werden wenn 0 darin steht
-		// abstrakte methode definieren
-		// initialisiere methode coroutine mit startup methode die parameter Instanz benoetigt
-		tos_ptr->coroutine = &startup;
-		tos_ptr->ret = 0;
-		// instanz von der klasse coroutine
-		tos_ptr->param = this;
-		// stack pointer zuweisen
-		this->sp = tos_ptr;
+  if (tos != 0) {
+        Stack* st = (Stack *)tos;
+        /** set the couroutine to the methode startup 
+         *  Startu act like the tinit in stackframe (die Methode die, die Coroutine startet)
+         */
+		st->coroutine = &startup
+		st->stackCoroutine = this;    
+		this->sp = st;
     }
 }
