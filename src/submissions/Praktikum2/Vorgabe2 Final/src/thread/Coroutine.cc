@@ -28,7 +28,7 @@ void Coroutine :: setup(void* tos) {
         /** set the couroutine to the methode startup 
          *  Startu act like the tinit in stackframe (die Methode die, die Coroutine startet)
          */
-		st->coroutine = &startup
+		st->coroutine = &startup;
 		st->stackCoroutine = this;    
 		this->sp = st;
     }
