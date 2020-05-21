@@ -31,10 +31,6 @@ void Coroutine :: setup(void* tos) {
 		// stack spacing for getting 1023 not 1024
 		tos_ptr--;
 		// vorhandene daten koennen nicht veraendert werden wenn 0 darin steht
-		//tos_ptr-> edi = 0 ;
-		//tos_ptr-> esi = 0 ;
-		//tos_ptr-> ebx = 0 ;
-		//tos_ptr-> ebp = 0 ;
 		// abstrakte methode definieren
 		// initialisiere methode coroutine mit startup methode die parameter Instanz benoetigt
 		tos_ptr->coroutine = &startup;
@@ -44,5 +40,4 @@ void Coroutine :: setup(void* tos) {
 		// stack pointer zuweisen
 		this->sp = tos_ptr;
     }
-
 }
