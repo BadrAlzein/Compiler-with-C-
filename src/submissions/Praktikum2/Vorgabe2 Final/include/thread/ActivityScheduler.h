@@ -67,7 +67,7 @@ public:
         return ((Activity *) active());
     };
 	
-protected:
+//protected:
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
 	 * Blocked oder Zombie befindet, wieder auf die Ready-Liste
 	 * zu setzen. Danach ist "to" mittels dispatch die Kontrolle
@@ -75,7 +75,8 @@ protected:
 	 */
 	virtual void activate(Schedulable *to);
 
-    Activity* activeElement;
+   // Activity* activeElement;
+   Activity* getCurrentActivity();
 
 private:
 };

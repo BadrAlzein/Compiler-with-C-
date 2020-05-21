@@ -132,12 +132,12 @@ void Activity::join()
 {
 	//.getCurrentActivity() will get the current active process
 	// joinActivity is the new activity
-
-	if (this->joinACtivity !=scheduler.getCurrentActivity() ){
-		this->joinACtivity = scheduler.getCurrentActivity();
-		
-	}else {
-		
-		exit();
+	joinACtivity = scheduler.getCurrentActivity();
+	if ((!isZombie()))
+	{
+		if (this != joinACtivity)
+		{
+			joinACtivity->sleep();
+		}
 	}
 }
