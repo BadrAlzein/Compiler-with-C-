@@ -135,9 +135,11 @@ void Activity::join()
 
 	if (this->joinACtivity !=scheduler.getCurrentActivity() ){
 		this->joinACtivity = scheduler.getCurrentActivity();
+        scheduler.getCurrentActivity()->sleep();
 		
 	}else {
 		
 		exit();
 	}
+	
 }
