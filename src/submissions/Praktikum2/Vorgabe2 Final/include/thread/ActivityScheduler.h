@@ -76,7 +76,7 @@ public:
 	virtual void activate(Schedulable *to);
 
    // Activity* activeElement;
-   Activity* getCurrentActivity();
+ 
 
 private:
 };

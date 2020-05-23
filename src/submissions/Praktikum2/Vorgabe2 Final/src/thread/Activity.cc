@@ -135,7 +135,7 @@ void Activity::join()
     // i set the new process (child process) to the current running process and put the parent process on sleep untill the chiled process completes the task
     Activity *runningProcess = scheduler.getCurrentActivity();
     
-   if ( this != runningProcess || !(this->isZombie())){
+   if ( this != runningProcess && !(this->isZombie())){
        
         this->joinACtivity =runningProcess;
         
