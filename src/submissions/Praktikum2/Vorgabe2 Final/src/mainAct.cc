@@ -31,10 +31,10 @@ public:
 
 	~Hello()
 	{
-
+        this->join();
 		cout.print("!Hallo Destruktor! (Destruktor:=Welt;), ");
 		cout.println(this->name);
-		this->join();
+		
 	}
 
 	void body()

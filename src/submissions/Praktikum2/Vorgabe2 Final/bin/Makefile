@@ -44,11 +44,12 @@ SYSTEM_CC = \
 	device/CgaChannel.cc \
         device/CgaScreen.cc \
 	lib/Queue.cc \
+	thread/Coroutine.cc\
 	thread/Activity.cc\
 	thread/ActivityScheduler.cc\
-	thread/Coroutine.cc\
 	thread/Scheduler.cc\
 	mainAct.cc
+	#mainCo.cc
 	#ActivitySchedulerTest.cc
 	
 
