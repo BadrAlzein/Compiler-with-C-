@@ -31,7 +31,8 @@ STARTUP_S = \
 
 MACHINE_S = \
 	io/ports.asm \
-	thread/switchContext.asm 
+	thread/switchContext.asm\
+	cpu/cpu.asm
 
 SYSTEM_C = \
 	lib/tools.c
@@ -44,12 +45,19 @@ SYSTEM_CC = \
 	device/CgaChannel.cc \
         device/CgaScreen.cc \
 	lib/Queue.cc \
+	device/PIC.cc\
+	device/PIT.cc\
+	interrupts/Gate.cc\
+	interrupts/InterruptGuardian.cc\
+	interrupts/PageFaultGate.cc\
+	interrupts/PanicGate.cc\
+	interrupts/SpuriousGate.cc\
+	device/Clock.cc\
 	thread/Activity.cc\
 	thread/ActivityScheduler.cc\
 	thread/Coroutine.cc\
 	thread/Scheduler.cc\
-	ActivitySchedulerTest.cc
-	#mainAct.cc
+	mainPre.cc
 
 
 ##############################################################################

@@ -130,13 +130,33 @@ after that it will resume its execution
 
 void Activity::join()
 {
+    
+    //active transfers the pointer on the active process(from dispatcher)
+    // i set the new process (child process) to the current running process and put the parent process on sleep untill the chiled process completes the task
+    Activity *runningProcess = scheduler.getCurrentActivity();
+    
+   if ( this != runningProcess && !(this->isZombie())){
+       
+        this->joinACtivity =runningProcess;
+        
+       scheduler.suspend();
+   }
+    
+   // runningProcess->sleep();
 	//.getCurrentActivity() will get the current active process
 	// joinActivity is the new activity
-
-	if (this->joinACtivity ==scheduler.getCurrentActivity() ){
-		this->joinACtivity = scheduler.getCurrentActivity();
-		scheduler.getCurrentActivity()->sleep();
-	}else {
-		exit();
+	
+    /*
+    joinACtivity = scheduler.getCurrentActivity();
+    
+	if ((!isZombie())) // ignore if its a zombie state, 
+	{
+		if (this != joinACtivity)
+		{
+			joinACtivity->sleep();
+		}
 	}
+	*/
+    
+    
 }
