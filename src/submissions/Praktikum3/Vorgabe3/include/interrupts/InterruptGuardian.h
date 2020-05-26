@@ -8,9 +8,9 @@ class InterruptGuardian {
 public:
 	InterruptGuardian();
 
-	static void handle(unsigned num);
+	static void handle(int num);
 
-	static void registerGate(Gate* gate, unsigned num);
+	static void registerGate(Gate* gate, int num);
 
 private:
 	static Gate* vectorTable[NrOfInterrupts];
