@@ -1,18 +1,29 @@
 #include "device/PIC.h"
 
-/**
- * this class implements the head PIC.h and work as a control class for 
- * Programmable Interrupt Controler (PIC) 
-*/
+void PIC::enable (int num)
+{
+	if (num < 8) // PIC 1
+		imr1.write (imr1.read () & (~(1 << num)));
+	else         // PIC 2
+		imr2.write (imr2.read () & (~(1 << (num-8))));
+}
 
-	// Anstellen von Interrupt "num"
-	void enable (int num);
 
-	// Abstellen von Interrupt "num"
-	void disable (int num);
+void PIC::disable (int num)
+{
+	if (num < 8) // PIC 1
+		imr1.write (imr1.read () | (1 << num));
+	else         // PIC 2
+		imr2.write (imr2.read () | (1 << (num-8)));
+}
 
-	// Die Behandlung von Interrupt "num" best"atigen
-	void ack (int num);
+void PIC::ack (int num)
+{
+	ack();
+}
 
-	// Unspezifische Best"atigung des aktuellen Interrupts
-	void ack ();
+void PIC::ack ()
+{
+	ctrl1.write (ACK); // Unspez. EOI-Befehl an PIC 1
+	ctrl2.write (ACK); // Unspez. EOI-Befehl an PIC 2
+}
