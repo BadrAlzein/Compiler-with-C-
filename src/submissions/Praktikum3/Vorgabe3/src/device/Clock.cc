@@ -1,11 +1,20 @@
 #include "device/Clock.h"
 #include "interrupts/IntLock.h"
+#include "device/PIT.h"
+#include "interrupts/InterruptVector.h"
+#include "thread/ActivityScheduler.h"
 
 	/**	Spaetere Initialisierung...
 	 *	Hier ist nur im Konstruktor dafuer zu sorgen,
 	 *	dass sich Gate korrekt initialisieren kann
 	 */
-	Clock ();
+	// initialise the clock
+	//programable interval time is deifned in PIT.cc
+	
+	Clock::Clock (): Gate(Timer), PIT(){
+
+		this->ticken = 0;
+	}
 
 	/**	Initialisierung des "Ticks" der Uhr
 	 *	Standardmaessig setzen wir das
@@ -15,14 +24,25 @@
 	 *	Zum Testen koennt Ihr bei Bedarf einen hoeheren Wert einstellen
 	 *	Weitere Hinweise zur Implementierung siehe "windup"
 	 */
-	explicit Clock (int us);
+	 Clock::Clock(int us) : Gate(Timer),PIT(us){
+		 windup(us);
+	 }
 
 	/**	Initialisierung des "Ticks" der Uhr
 	 * 	Die Einheit sind Mikrosekunden.
 	 * 	Hier ist der PIT geeignet zu initialisieren
 	 * 	und der PIT beim PIC anzustellen.
 	 */
-	void windup(int us);
+	void Clock::windup(int us){
+		//interval length
+		interval(us);
+		ticken = 0;
+		// set the interrupts
+		//Programmable Interrupt Controller ( PIC.h ) 
+		//interuppt quellen sinf auch in PIT und PIC.h difiniert
+		pic.enable(PIC::PIT);
+
+	}
 
 	/** 	Der Interrupt-Handler fuer die Uhr.
 	 *	Hier ist der Interrupt am PIC zu bestaetigen
@@ -46,7 +66,12 @@
 	 *	die "checkSlice" Methode des Schedulers auf,
 	 *	um diesen ggf. zum praeemptiven Rescheduling zu veranlassen.
 	 */
-	void handle();
+	void Clock::handle(){
+		pic.ack();
+		//ticken = this->
+		//brauche ich checkslice methode aus scheduler
+		//scheduler.
+	}
 
 	/* 	Liefert die Systemzeit in Ticks zurueck
 	 *	Kann hier "inline" implementiert werden
