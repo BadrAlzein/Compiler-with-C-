@@ -6,29 +6,16 @@
 // initialisierungslisten
 CgaScreen::CgaScreen(): index(INDEX_REGISTER), data(DATA_REGISTER)
 {
-	// start address sets in the constructor
-	// CgaChar* screen;
 	this->screen = (CgaChar*) OFFSET0;
 	CgaAttr attr = CgaAttr();
 	this->setAttr(attr);
-	// auto filled with standart attributes white font foreground
-	// and black background; blink is false
-	// setze auf schwarz byte = 0b01110000
-	// CgaAttr attr();
-	// CgaAttr();
-	// CgaAttr attr = CgaAttr();
-	// adresse und das was da liegt soll cga attr sein
-	// adresse im video ram
-	// setAttr needs the address of object (no reference)
-	// setAttr(this->attr);
 	clear();
 }
 
 // Angegebene Attribute setzen und Bildschirm loeschen
 CgaScreen::CgaScreen(CgaAttr attr): index(INDEX_REGISTER), data(DATA_REGISTER)
 {
-	// start address sets in the constructor
-	// CgaChar* screen;
+
 	this->screen = (CgaChar*) OFFSET0;
 	this->setAttr(attr);
 	clear();
@@ -69,11 +56,7 @@ void CgaScreen::scroll()
 }
 
 // Setzen des HW-Cursors
-/*
-Um den Inhalt eines Steuerregisters vom Videocontroller abzufragen oder zu setzen,
-muss zunaechst über das Indexregister der Index des gewünschten Steuerregisters ausgegeben werden.
-Anschließend kann über das Datenregister auf das so adressierte Steuerregister zugegriffen werden.
-*/
+
 void CgaScreen::setCursor(int column, int row)
 {
 	// dont multiply by 2 because cursor works without 2 bytes (ascii + CgaAttr)
@@ -84,21 +67,11 @@ void CgaScreen::setCursor(int column, int row)
 	index.write(CURSOR_LOW);
 	// now we can access control register over the data register
 	data = IOPort8(DATA_REGISTER);
-	// 0xff = 255 = 11111111
-	// & bitwise AND shortcut
-	// 1100000 AND 11111111 = 1100000
-	// write low byte
-	// & 0xff norms the binary to 1 byte so 8 bit
-	// this is necessary for the 8 bit port (plausible / Jessis trivial)
+
 	data.write(cursorAddress & 0xff);
 	// write high cursor byte
 	index.write(CURSOR_HIGH);
-	// right shift to delete the current above 8 bits
-	// reads the next 8 bits
-	// 00010100 >> 2 = 00000101
-	// write high byte
-	// above bytes have to be set for cursor high
-	// 16 bit cursor
+
 	data.write((cursorAddress >> 8) & 0xff);
 }
 
@@ -126,7 +99,6 @@ void CgaScreen::getCursor(int& column, int& row)
 
 // Anzeigen von c an aktueller Cursorposition
 // Darstellung mit angegebenen Bildschirmattributen
-// Implement \n Zeilenvorschub
 void CgaScreen::show(char ch, const CgaAttr& attr)
 {
 	int column;
@@ -155,12 +127,9 @@ void CgaScreen::show(char ch, const CgaAttr& attr)
 	if ((short) ch > 31 && (short) ch < 127) {
 		// first byte is the char ascii letter
 		*cursorAddress = ch;
-		// second byte -> one address
+
 		cursorAddress += 1;
-		// the pointer on the design attributes
-		// TODO NOT SURE ABOUT THIS
-		// void setAttr(const CgaAttr& attr)
-		// void getAttr(CgaAttr& attr)
+
 		this->setAttr(attr);
 		*cursorAddress = this->attr.getByte();
 
@@ -174,7 +143,5 @@ void CgaScreen::show(char ch, const CgaAttr& attr)
 				setCursor(0, 24);
 			}
 		}
-		// shifts the cursor by one
-		// 79 because cursor starts with 0
 	}
 }
