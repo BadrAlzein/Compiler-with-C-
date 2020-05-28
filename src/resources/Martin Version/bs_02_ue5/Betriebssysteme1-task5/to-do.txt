@@ -1,0 +1,4 @@
+Sachen, die noch implementiert werden muessen:
+
+operating_system\src\device\Clock.cc:
+Prologue, Epilogue funktionieren anscheinend noch nicht richtig (oder andere, synchronisationsbedingte Aenderungen von handle()-Methoden in anderen Dateien, wie z.B. in ~\Keyboard.cc)
