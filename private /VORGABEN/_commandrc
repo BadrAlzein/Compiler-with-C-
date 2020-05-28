@@ -1,0 +1,98 @@
+
+# this is the standard license server location
+LM_LICENSE_FILE_tweety=7016@tweety
+LM_LICENSE_FILE=$LM_LICENSE_FILE_tweety
+export LM_LICENSE_FILE
+LM_LICENSE_FILE_cadence=5280@141.43.30.91
+
+PATH=/opt/pkg/Cadence/EDI-ISR3-13.13/bin:$PATH
+export PATH
+
+# some alias to change license server location
+alias lic2tweety='LM_LICENSE_FILE=$LM_LICENSE_FILE_tweety'
+alias lic2cadence='LM_LICENSE_FILE=$LM_LICENSE_FILE_cadence'
+
+function ms ()
+{
+	lic2tweety
+	vsim &
+}
+
+function rtl ()
+{
+	lic2cadence
+	/opt/pkg/Cadence/RC-12.22/bin/rc $*
+}
+
+function enc ()
+{
+	lic2cadence
+	encounter $*
+}
+
+function dft ()
+{
+	lic2tweety
+	/opt/pkg/tessent_v9.4/bin/dftadvisor $*
+}
+
+function test ()
+{
+	lic2tweety
+	/opt/pkg/tessent_v9.4/bin/fastscan $*
+}
+
+
+# set DISPLAY 
+if [ -z ${DISPLAY:=""} ]; then
+	get_xserver
+	if [[ -z ${XSERVER}  || ${XSERVER} == $(hostname) || \
+		${XSERVER} == "unix" ]]; then 
+			DISPLAY=":0.0"          # Display on local host.
+
+	else
+		DISPLAY=${XSERVER}:0.0  # Display on remote host.
+	fi
+fi
+
+export DISPLAY
+
+
+# Define some colors first:
+red='\e[0;31m'
+RED='\e[1;31m'
+blue='\e[0;34m'
+BLUE='\e[1;34m'
+cyan='\e[0;36m'
+CYAN='\e[1;36m'
+NC='\e[0m'              # No Color
+# --> Nice. Has the same effect as using "ansi.sys" in DOS.
+
+
+# echo some information when bash starts
+# Looks best on a terminal with black background.....
+# echo only when in interactive shell mode
+if [[ -n $PS1 ]]; then
+if [ $OS = "Linux" ] ; then
+	linux_aliases
+	std_aliases
+	echo "You Pick up Linux (Red Hat)"
+fi
+
+if [ $OS = "SunOS" ] ; then
+	std_aliases
+	echo "You Pick up SunOS (Solaris)"
+fi
+
+	echo -e "${CYAN}This is BASH ${RED}${BASH_VERSION}\
+	${CYAN} - DISPLAY on ${RED}$DISPLAY${NC}\n"
+	date
+fi
+
+if [[ "${DISPLAY%%:0*}" != "" ]]; then  
+	HILIT=${red}   # remote machine: prompt will be partly red
+else
+	HILIT=${cyan}  # local machine: prompt will be partly cyan
+fi
+
+

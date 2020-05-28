@@ -1,0 +1,1139 @@
+
+model AND2_X1 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _and p1(A1,A2,ZN);)
+)
+
+model AND2_X2 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _and p1(A1,A2,ZN);)
+)
+
+model AND2_X4 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _and p1(A1,A2,ZN);)
+)
+
+model AND3_X1 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _and p1(A1,A2,A3,ZN);)
+)
+
+model AND3_X2 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _and p1(A1,A2,A3,ZN);)
+)
+
+model AND3_X4 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _and p1(A1,A2,A3,ZN);)
+)
+
+model AND4_X1 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _and p1(A1,A2,A3,A4,ZN);)
+)
+
+model AND4_X2 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _and p1(A1,A2,A3,A4,ZN);)
+)
+
+model AND4_X4 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _and p1(A1,A2,A3,A4,ZN);)
+)
+
+//model ANTENNA_X1 (A) (
+//
+//  input (A) ()
+//
+//)
+
+model AOI211_X1 (A, B, C1, C2, ZN) (
+  input (A) ()
+  input (B) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i18) (primitive = _or p1(i19,A,i18);)
+  intern (i19) (primitive = _or p2(i20,B,i19);)
+  intern (i20) (primitive = _and p3(C1,C2,i20);)
+  output (ZN) (primitive = _inv p4(i18,ZN);)
+)
+
+model AOI211_X2 (A, B, C1, C2, ZN) (
+  input (A) ()
+  input (B) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i18) (primitive = _or p1(i19,A,i18);)
+  intern (i19) (primitive = _or p2(i20,B,i19);)
+  intern (i20) (primitive = _and p3(C1,C2,i20);)
+  output (ZN) (primitive = _inv p4(i18,ZN);)
+)
+
+model AOI211_X4 (A, B, C1, C2, ZN) (
+  input (A) ()
+  input (B) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i18) (primitive = _or p1(i19,A,i18);)
+  intern (i19) (primitive = _or p2(i20,B,i19);)
+  intern (i20) (primitive = _and p3(C1,C2,i20);)
+  output (ZN) (primitive = _inv p4(i18,ZN);)
+)
+
+model AOI21_X1 (A, B1, B2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i13) (primitive = _and p1(B1,B2,i13);)
+  intern (i12) (primitive = _or p2(A,i13,i12);)
+  output (ZN) (primitive = _inv p3(i12,ZN);)
+)
+
+model AOI21_X2 (A, B1, B2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i13) (primitive = _and p1(B1,B2,i13);)
+  intern (i12) (primitive = _or p2(A,i13,i12);)
+  output (ZN) (primitive = _inv p3(i12,ZN);)
+)
+
+model AOI21_X4 (A, B1, B2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i13) (primitive = _and p1(B1,B2,i13);)
+  intern (i12) (primitive = _or p2(A,i13,i12);)
+  output (ZN) (primitive = _inv p3(i12,ZN);)
+)
+
+
+model AOI221_X1 (A, B1, B2, C1, C2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_24) (primitive = _or p142(i_25,i_27,i_24);)
+  intern (i_25) (primitive = _or p143(i_26,A,i_25);)
+  intern (i_26) (primitive = _and p144(C1,C2,i_26);)
+  intern (i_27) (primitive = _and p145(B1,B2,i_27);)
+  output (ZN) (primitive = _inv p141(i_24,ZN);)
+)
+
+model AOI221_X2 (A, B1, B2, C1, C2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_24) (primitive = _or p158(i_25,i_27,i_24);)
+  intern (i_25) (primitive = _or p159(i_26,A,i_25);)
+  intern (i_26) (primitive = _and p160(C1,C2,i_26);)
+  intern (i_27) (primitive = _and p161(B1,B2,i_27);)
+  output (ZN) (primitive = _inv p157(i_24,ZN);)
+)
+
+model AOI221_X4 (A, B1, B2, C1, C2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_24) (primitive = _or p175(i_25,i_27,i_24);)
+  intern (i_25) (primitive = _or p176(i_26,A,i_25);)
+  intern (i_26) (primitive = _and p177(C1,C2,i_26);)
+  intern (i_27) (primitive = _and p178(B1,B2,i_27);)
+  output (ZN) (primitive = _inv p174(i_24,ZN);)
+)
+
+model AOI222_X1 (A1, A2, B1, B2, C1, C2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_30) (primitive = _or p193(i_31,i_34,i_30);)
+  intern (i_31) (primitive = _or p194(i_32,i_33,i_31);)
+  intern (i_32) (primitive = _and p195(A1,A2,i_32);)
+  intern (i_33) (primitive = _and p196(B1,B2,i_33);)
+  intern (i_34) (primitive = _and p197(C1,C2,i_34);)
+  output (ZN) (primitive = _inv p192(i_30,ZN);)
+)
+
+model AOI222_X2 (A1, A2, B1, B2, C1, C2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_30) (primitive = _or p212(i_31,i_34,i_30);)
+  intern (i_31) (primitive = _or p213(i_32,i_33,i_31);)
+  intern (i_32) (primitive = _and p214(A1,A2,i_32);)
+  intern (i_33) (primitive = _and p215(B1,B2,i_33);)
+  intern (i_34) (primitive = _and p216(C1,C2,i_34);)
+  output (ZN) (primitive = _inv p211(i_30,ZN);)
+)
+
+model AOI222_X4 (A1, A2, B1, B2, C1, C2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_30) (primitive = _or p231(i_31,i_34,i_30);)
+  intern (i_31) (primitive = _or p232(i_32,i_33,i_31);)
+  intern (i_32) (primitive = _and p233(A1,A2,i_32);)
+  intern (i_33) (primitive = _and p234(B1,B2,i_33);)
+  intern (i_34) (primitive = _and p235(C1,C2,i_34);)
+  output (ZN) (primitive = _inv p230(i_30,ZN);)
+)
+
+model AOI22_X1 (A1, A2, B1, B2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i_18) (primitive = _or p248(i_19,i_20,i_18);)
+  intern (i_19) (primitive = _and p249(A1,A2,i_19);)
+  intern (i_20) (primitive = _and p250(B1,B2,i_20);)
+  output (ZN) (primitive = _inv p247(i_18,ZN);)
+)
+
+model AOI22_X2 (A1, A2, B1, B2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i_18) (primitive = _or p263(i_19,i_20,i_18);)
+  intern (i_19) (primitive = _and p264(A1,A2,i_19);)
+  intern (i_20) (primitive = _and p265(B1,B2,i_20);)
+  output (ZN) (primitive = _inv p262(i_18,ZN);)
+)
+
+model AOI22_X4 (A1, A2, B1, B2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i_18) (primitive = _or p279(i_19,i_20,i_18);)
+  intern (i_19) (primitive = _and p280(A1,A2,i_19);)
+  intern (i_20) (primitive = _and p281(B1,B2,i_20);)
+  output (ZN) (primitive = _inv p278(i_18,ZN);)
+)
+
+model BUF_X1 (A, Z) (
+  input (A) ()
+  output (Z) (primitive = _buf p290(A,Z);)
+)
+
+model BUF_X16 (A, Z) (
+  input (A) ()
+  output (Z) (primitive = _buf p299(A,Z);)
+)
+
+model BUF_X2 (A, Z) (
+  input (A) ()
+  output (Z) (primitive = _buf p308(A,Z);)
+)
+
+model BUF_X32 (A, Z) (
+  input (A) ()
+  output (Z) (primitive = _buf p317(A,Z);)
+)
+
+model BUF_X4 (A, Z) (
+  input (A) ()
+  output (Z) (primitive = _buf p326(A,Z);)
+)
+
+model BUF_X8 (A, Z) (
+  input (A) ()
+  output (Z) (primitive = _buf p336(A,Z);)
+)
+
+model CLKBUF_X1 (A,Z) (
+  input (A) ()
+  output (Z) (primitive = _buf p1(A,Z);)
+)
+
+model CLKBUF_X2 (A,Z) (
+  input (A) ()
+  output (Z) (primitive = _buf p1(A,Z);)
+)
+
+model CLKBUF_X3 (A,Z) (
+  input (A) ()
+  output (Z) (primitive = _buf p1(A,Z);)
+)
+
+//primitive seq3 (IQ, SN, RN, nextstate, CK, NOTIFIER)
+//  output IQ
+//  input (SN) ()
+//  input (RN) ()
+//  input (nextstate) ()
+//  input (CK) ()
+//  input (NOTIFIER) ()
+//  reg IQ
+//
+//  table
+//       // SN          RN   nextstate          CK    NOTIFIER     : @IQ :          IQ
+//           1           ?           0           r           ?       : ? :           0
+//           ?           1           1           r           ?       : ? :           1
+//           1           ?           0           *           ?       : 0 :           0 // reduce pessimism
+//           ?           1           1           *           ?       : 1 :           1 // reduce pessimism
+//           1           1           *           ?           ?       : ? :           - // Ignore all edges on nextstate
+//           1           1           ?           f           ?       : ? :           - // Ignore non-triggering clock edge
+//           0           1           ?           ?           ?       : ? :           1 // SN activated
+//           *           1           ?           ?           ?       : 1 :           1 // Cover all transitions on SN
+//           ?           0           ?           ?           ?       : ? :           0 // RN activated
+//           1           *           ?           ?           ?       : 0 :           0 // Cover all transitions on RN
+//           ?           ?           ?           ?           *       : ? :           x // Any NOTIFIER change
+//  endtable
+//endprimitive
+
+
+//TODO
+model DFFRS_X1 (CK, D, RN, SN, Q, QN) (
+  input (D) ()
+  input(CK) (clock = rise_edge;)
+  input(RN) (active = low;)
+  input(SN) (active = low;)
+  output(Q, QN) (primitive = _dff prim_d(SN, RN, CK, D, Q, QN);)
+)
+
+model DFFRS_X2 (CK, D, RN, SN, Q, QN) (
+  input (D) ()
+  input(CK) (clock = rise_edge;)
+  input(RN) (active = low;)
+  input(SN) (active = low;)
+  output(Q, QN) (primitive = _dff prim_d(SN, RN, CK, D, Q, QN);)
+)
+
+model DFFR_X1 (CK, D, RN, Q, QN) (
+  input (D) ()
+  input(CK) (clock = rise_edge;)
+  input(RN) (active = low;)
+  output(Q, QN) (primitive = _dff prim_d(, RN, CK, D, Q, QN);)
+)
+
+model DFFR_X2 (CK, D, RN, Q, QN) (
+  input (D) ()
+  input(CK) (clock = rise_edge;)
+  input(RN) (active = low;)
+  output(Q, QN) (primitive = _dff prim_d(, RN, CK, D, Q, QN);)
+)
+
+model DFFS_X1 (CK, D, SN, Q, QN) (
+  input (D) ()
+  input(CK) (clock = rise_edge;)
+  input(SN) (active = low;)
+  output(Q, QN) (primitive = _dff prim_d(SN, , CK, D, Q, QN);)
+)
+
+model DFFS_X2 (CK, D, SN, Q, QN) (
+  input (D) ()
+  input(CK) (clock = rise_edge;)
+  input(SN) (active = low;)
+  output(Q, QN) (primitive = _dff prim_d(SN, , CK, D, Q, QN);)
+)
+
+model DFF_X1 (CK, D, Q, QN) (
+  input (D) ()
+  input(CK) (clock = rise_edge;)
+  output(Q, QN) (primitive = _dff prim_d(, , CK, D, Q, QN);)
+)
+
+model DFF_X2 (CK, D, Q, QN) (
+  input (D) ()
+  input(CK) (clock = rise_edge;)
+  output(Q, QN) (primitive = _dff prim_d(, , CK, D, Q, QN);)
+)
+
+//TODO LATCHES
+//model DLH_X1 (D, G, Q) (
+//
+//  input (D) ()
+//  input (G) ()
+//  output Q
+//  reg NOTIFIER
+//
+//  seq3(IQ, nextstate, G, NOTIFIER)
+//  intern (IQN) (primitive = _inv p534(IQ,IQN);)
+//  intern (Q) (primitive = _buf p535(IQ,Q);)
+//  intern (nextstate) (primitive = _buf p536(D,nextstate);)
+//
+//
+//)
+//
+//model DLH_X2 (D, G, Q) (
+//
+//  input (D) ()
+//  input (G) ()
+//  output Q
+//  reg NOTIFIER
+//
+//  seq3(IQ, nextstate, G, NOTIFIER)
+//  intern (IQN) (primitive = _inv p549(IQ,IQN);)
+//  intern (Q) (primitive = _buf p550(IQ,Q);)
+//  intern (nextstate) (primitive = _buf p551(D,nextstate);)
+//
+//
+//)
+//
+//
+//model DLL_X1 (D, GN, Q) (
+//
+//  input (D) ()
+//  input (GN) ()
+//  output Q
+//  reg NOTIFIER
+//
+//  seq3(IQ, nextstate, GN, NOTIFIER)
+//  intern (IQN) (primitive = _inv p565(IQ,IQN);)
+//  intern (Q) (primitive = _buf p566(IQ,Q);)
+//  intern (nextstate) (primitive = _buf p567(D,nextstate);)
+//
+//
+//)
+//
+//
+//model DLL_X2 (D, GN, Q) (
+//
+//  input (D) ()
+//  input (GN) ()
+//  output Q
+//  reg NOTIFIER
+//
+//  seq3(IQ, nextstate, GN, NOTIFIER)
+//  intern (IQN) (primitive = _inv p581(IQ,IQN);)
+//  intern (Q) (primitive = _buf p582(IQ,Q);)
+//  intern (nextstate) (primitive = _buf p583(D,nextstate);)
+//
+//
+//)
+
+model FA_X1 (A, B, CI, CO, S) (
+  input (A) ()
+  input (B) ()
+  input (CI) ()
+  intern (i_24) (primitive = _and p597(A,B,i_24);)
+  intern (i_25) (primitive = _and p598(CI,i_26,i_25);)
+  intern (i_26) (primitive = _or p599(A,B,i_26);)
+  intern (i_30) (primitive = _xor p601(A,B,i_30);)
+  output (CO) (primitive = _or p596(i_24,i_25,CO);)
+  output (S) (primitive = _xor p600(CI,i_30,S);)
+)
+
+
+model HA_X1 (A, B, CO, S) (
+  input (A) ()
+  input (B) ()
+  output (CO) (primitive = _and p613(A,B,CO);)
+  output (S) (primitive = _xor p614(A,B,S);)
+
+)
+
+model INV_X1 (A, ZN) (
+  input (A) ()
+  output (ZN) (primitive = _inv p623(A,ZN);)
+)
+
+model INV_X16 (A, ZN) (
+  input (A) ()
+  output (ZN) (primitive = _inv p632(A,ZN);)
+)
+
+model INV_X2 (A, ZN) (
+  input (A) ()
+  output (ZN) (primitive = _inv p641(A,ZN);)
+)
+
+model INV_X32 (A, ZN) (
+  input (A) ()
+  output (ZN) (primitive = _inv p650(A,ZN);)
+)
+
+model INV_X4 (A, ZN) (
+  input (A) ()
+  output (ZN) (primitive = _inv p659(A,ZN);)
+)
+
+model INV_X8 (A, ZN) (
+  input (A) ()
+  output (ZN) (primitive = _inv p668(A,ZN);)
+)
+
+model LOGIC0_X1 (Z) (
+  output (Z) (primitive = _tie0 p676(Z);)
+)
+
+model LOGIC1_X1 (Z) (
+  output (Z) (primitive = _tie1 p683(Z);)
+)
+
+model MUX2_X1 (A, B, S, Z) (
+  input (A) ()
+  input (B) ()
+  input (S) ()
+  output (Z) (primitive = _mux p693(A,B,S,Z);)
+)
+
+model MUX2_X2 (A, B, S, Z) (
+  input (A) ()
+  input (B) ()
+  input (S) ()
+  output (Z) (primitive = _mux p693(A,B,S,Z);)
+)
+
+model NAND2_X1 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _nand p720(A1,A2,ZN);)
+)
+
+model NAND2_X2 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _nand p720(A1,A2,ZN);)
+)
+
+model NAND2_X4 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _nand p720(A1,A2,ZN);)
+)
+
+model NAND3_X1 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _nand p720(A1,A2,A3,ZN);)
+)
+
+model NAND3_X2 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _nand p720(A1,A2,A3,ZN);)
+)
+
+model NAND3_X4 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _nand p720(A1,A2,A3,ZN);)
+)
+
+model NAND4_X1 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _nand p720(A1,A2,A3,A4,ZN);)
+)
+
+model NAND4_X2 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _nand p720(A1,A2,A3,A4,ZN);)
+)
+
+model NAND4_X4 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _nand p720(A1,A2,A3,A4,ZN);)
+)
+
+model NOR2_X1 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _nor p838(A1,A2,ZN);)
+)
+
+model NOR2_X2 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _nor p838(A1,A2,ZN);)
+)
+
+model NOR2_X4 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _nor p838(A1,A2,ZN);)
+)
+
+model NOR3_X1 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _nor p838(A1,A2,A3,ZN);)
+)
+
+model NOR3_X2 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _nor p838(A1,A2,A3,ZN);)
+)
+
+model NOR3_X4 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _nor p838(A1,A2,A3,ZN);)
+)
+
+model NOR4_X1 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _nor p838(A1,A2,A3,A4,ZN);)
+)
+
+model NOR4_X2 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _nor p838(A1,A2,A3,A4,ZN);)
+)
+
+model NOR4_X4 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _nor p838(A1,A2,A3,A4,ZN);)
+)
+
+model OAI211_X1 (A, B, C1, C2, ZN) (
+  input (A) ()
+  input (B) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_18) (primitive = _and p966(i_19,B,i_18);)
+  intern (i_19) (primitive = _and p967(i_20,A,i_19);)
+  intern (i_20) (primitive = _or p968(C1,C2,i_20);)
+  output (ZN) (primitive = _inv p965(i_18,ZN);)
+)
+
+model OAI211_X2 (A, B, C1, C2, ZN) (
+  input (A) ()
+  input (B) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_18) (primitive = _and p982(i_19,B,i_18);)
+  intern (i_19) (primitive = _and p983(i_20,A,i_19);)
+  intern (i_20) (primitive = _or p984(C1,C2,i_20);)
+  output (ZN) (primitive = _inv p981(i_18,ZN);)
+)
+
+model OAI211_X4 (A, B, C1, C2, ZN) (
+  input (A) ()
+  input (B) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_18) (primitive = _and p997(i_19,B,i_18);)
+  intern (i_19) (primitive = _and p998(i_20,A,i_19);)
+  intern (i_20) (primitive = _or p999(C1,C2,i_20);)
+  output (ZN) (primitive = _inv p996(i_18,ZN);)
+
+)
+
+model OAI21_X1 (A, B1, B2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i_12) (primitive = _and p1011(A,i_13,i_12);)
+  intern (i_13) (primitive = _or p1012(B1,B2,i_13);)
+  output (ZN) (primitive = _inv p1010(i_12,ZN);)
+)
+
+model OAI21_X2 (A, B1, B2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i_12) (primitive = _and p1024(A,i_13,i_12);)
+  intern (i_13) (primitive = _or p1025(B1,B2,i_13);)
+  output (ZN) (primitive = _inv p1023(i_12,ZN);)
+
+)
+
+model OAI21_X4 (A, B1, B2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i_12) (primitive = _and p1037(A,i_13,i_12);)
+  intern (i_13) (primitive = _or p1038(B1,B2,i_13);)
+  output (ZN) (primitive = _inv p1036(i_12,ZN);)
+
+)
+
+model OAI221_X1 (A, B1, B2, C1, C2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_24) (primitive = _and p1052(i_25,i_27,i_24);)
+  intern (i_25) (primitive = _and p1053(i_26,A,i_25);)
+  intern (i_26) (primitive = _or p1054(C1,C2,i_26);)
+  intern (i_27) (primitive = _or p1055(B1,B2,i_27);)
+  output (ZN) (primitive = _inv p1051(i_24,ZN);)
+)
+
+model OAI221_X2 (A, B1, B2, C1, C2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_24) (primitive = _and p1069(i_25,i_27,i_24);)
+  intern (i_25) (primitive = _and p1070(i_26,A,i_25);)
+  intern (i_26) (primitive = _or p1071(C1,C2,i_26);)
+  intern (i_27) (primitive = _or p1072(B1,B2,i_27);)
+  output (ZN) (primitive = _inv p1068(i_24,ZN);)
+)
+
+model OAI221_X4 (A, B1, B2, C1, C2, ZN) (
+  input (A) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_24) (primitive = _and p1086(i_25,i_27,i_24);)
+  intern (i_25) (primitive = _and p1087(i_26,A,i_25);)
+  intern (i_26) (primitive = _or p1088(C1,C2,i_26);)
+  intern (i_27) (primitive = _or p1089(B1,B2,i_27);)
+  output (ZN) (primitive = _inv p1085(i_24,ZN);)
+)
+
+model OAI222_X1 (A1, A2, B1, B2, C1, C2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_30) (primitive = _and p1105(i_31,i_34,i_30);)
+  intern (i_31) (primitive = _and p1106(i_32,i_33,i_31);)
+  intern (i_32) (primitive = _or p1107(A1,A2,i_32);)
+  intern (i_33) (primitive = _or p1108(B1,B2,i_33);)
+  intern (i_34) (primitive = _or p1109(C1,C2,i_34);)
+  output (ZN) (primitive = _inv p1104(i_30,ZN);)
+)
+
+model OAI222_X2 (A1, A2, B1, B2, C1, C2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_30) (primitive = _and p1124(i_31,i_34,i_30);)
+  intern (i_31) (primitive = _and p1125(i_32,i_33,i_31);)
+  intern (i_32) (primitive = _or p1126(A1,A2,i_32);)
+  intern (i_33) (primitive = _or p1127(B1,B2,i_33);)
+  intern (i_34) (primitive = _or p1128(C1,C2,i_34);)
+  output (ZN) (primitive = _inv p1123(i_30,ZN);)
+)
+
+model OAI222_X4 (A1, A2, B1, B2, C1, C2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  input (C1) ()
+  input (C2) ()
+  intern (i_30) (primitive = _and p1143(i_31,i_34,i_30);)
+  intern (i_31) (primitive = _and p1144(i_32,i_33,i_31);)
+  intern (i_32) (primitive = _or p1145(A1,A2,i_32);)
+  intern (i_33) (primitive = _or p1146(B1,B2,i_33);)
+  intern (i_34) (primitive = _or p1147(C1,C2,i_34);)
+  output (ZN) (primitive = _inv p1142(i_30,ZN);)
+)
+
+model OAI22_X1 (A1, A2, B1, B2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i_18) (primitive = _and p1160(i_19,i_20,i_18);)
+  intern (i_19) (primitive = _or p1161(A1,A2,i_19);)
+  intern (i_20) (primitive = _or p1162(B1,B2,i_20);)
+  output (ZN) (primitive = _inv p1159(i_18,ZN);)
+)
+
+model OAI22_X2 (A1, A2, B1, B2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i_18) (primitive = _and p1176(i_19,i_20,i_18);)
+  intern (i_19) (primitive = _or p1177(A1,A2,i_19);)
+  intern (i_20) (primitive = _or p1178(B1,B2,i_20);)
+  output (ZN) (primitive = _inv p1175(i_18,ZN);)
+)
+
+model OAI22_X4 (A1, A2, B1, B2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (B1) ()
+  input (B2) ()
+  intern (i_18) (primitive = _and p1192(i_19,i_20,i_18);)
+  intern (i_19) (primitive = _or p1193(A1,A2,i_19);)
+  intern (i_20) (primitive = _or p1194(B1,B2,i_20);)
+  output (ZN) (primitive = _inv p1191(i_18,ZN);)
+)
+
+model OAI33_X1 (A1, A2, A3, B1, B2, B3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (B1) ()
+  input (B2) ()
+  input (B3) ()
+  intern (i_30) (primitive = _and p1209(i_31,i_33,i_30);)
+  intern (i_31) (primitive = _or p1210(i_32,A3,i_31);)
+  intern (i_32) (primitive = _or p1211(A1,A2,i_32);)
+  intern (i_33) (primitive = _or p1212(i_34,B3,i_33);)
+  intern (i_34) (primitive = _or p1213(B1,B2,i_34);)
+  output (ZN) (primitive = _inv p1208(i_30,ZN);)
+)
+
+model OR2_X1 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _or p1223(A1,A2,ZN);)
+)
+
+model OR2_X2 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _or p1233(A1,A2,ZN);)
+)
+
+model OR2_X4 (A1, A2, ZN) (
+  input (A1) ()
+  input (A2) ()
+  output (ZN) (primitive = _or p1244(A1,A2,ZN);)
+)
+
+model OR3_X1 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _or p1256(A1,A2,A3,ZN);)
+)
+
+model OR3_X2 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _or p1256(A1,A2,A3,ZN);)
+)
+
+model OR3_X4 (A1, A2, A3, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  output (ZN) (primitive = _or p1256(A1,A2,A3,ZN);)
+)
+
+model OR4_X1 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _or p1256(A1,A2,A3,A4,ZN);)
+)
+
+model OR4_X2 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _or p1256(A1,A2,A3,A4,ZN);)
+)
+
+model OR4_X4 (A1, A2, A3, A4, ZN) (
+  input (A1) ()
+  input (A2) ()
+  input (A3) ()
+  input (A4) ()
+  output (ZN) (primitive = _or p1256(A1,A2,A3,A4,ZN);)
+)
+
+//primitive seq3 (IQ, SN, RN, nextstate, CK, NOTIFIER)
+//  output IQ
+//  input (SN) ()
+//  input (RN) ()
+//  input (nextstate) ()
+//  input (CK) ()
+//  input (NOTIFIER) ()
+//  reg IQ
+//
+//  table
+//       // SN          RN   nextstate          CK    NOTIFIER     : @IQ :          IQ
+//           1           ?           0           r           ?       : ? :           0
+//           ?           1           1           r           ?       : ? :           1
+//           1           ?           0           *           ?       : 0 :           0 // reduce pessimism
+//           ?           1           1           *           ?       : 1 :           1 // reduce pessimism
+//           1           1           *           ?           ?       : ? :           - // Ignore all edges on nextstate
+//           1           1           ?           f           ?       : ? :           - // Ignore non-triggering clock edge
+//           0           1           ?           ?           ?       : ? :           1 // SN activated
+//           *           1           ?           ?           ?       : 1 :           1 // Cover all transitions on SN
+//           ?           0           ?           ?           ?       : ? :           0 // RN activated
+//           1           *           ?           ?           ?       : 0 :           0 // Cover all transitions on RN
+//           ?           ?           ?           ?           *       : ? :           x // Any NOTIFIER change
+//  endtable
+//endprimitive
+
+model SDFFRS_X1 (CK, D, RN, SE, SI, SN, Q, QN) (
+scan_definition (
+    type = mux_scan;
+    scan_in = SI;
+    scan_enable = SE;
+    scan_out = Q;
+    non_scan_model = DFFRS_X1 (CK, D, RN, SN, Q, QN) ;
+)
+  input(CK) (clock = rise_edge;)
+  input(RN) (active = low;)
+  input(SN) (active = low;)
+  input (D) ()
+  input (SE) ()
+  input (SI) ()
+  intern (next_state) (primitive = _mux prim(D,SI,SE,next_state);)
+  output(Q, QN) (primitive = _dff prim_d(SN, RN, CK, next_state, Q, QN);)
+)
+
+model SDFFRS_X2 (CK, D, RN, SE, SI, SN, Q, QN) (
+scan_definition (
+    type = mux_scan;
+    scan_in = SI;
+    scan_enable = SE;
+    scan_out = Q;
+    non_scan_model = DFFRS_X2 (CK, D, RN, SN, Q, QN) ;
+)
+  input(CK) (clock = rise_edge;)
+  input(RN) (active = low;)
+  input(SN) (active = low;)
+  input (D) ()
+  input (SE) ()
+  input (SI) ()
+  intern (next_state) (primitive = _mux prim(D,SI,SE,next_state);)
+  output(Q, QN) (primitive = _dff prim_d(SN, RN, CK, next_state, Q, QN);)
+)
+
+model SDFFR_X1 (CK, D, RN, SE, SI, Q, QN) (
+scan_definition (
+    type = mux_scan;
+    scan_in = SI;
+    scan_enable = SE;
+    scan_out = Q;
+    non_scan_model = DFFR_X1 (CK, D, RN, Q, QN) ;
+)
+  input(CK) (clock = rise_edge;)
+  input(RN) (active = low;)
+  input (D) ()
+  input (SE) ()
+  input (SI) ()
+  intern (next_state) (primitive = _mux prim(D,SI,SE,next_state);)
+  output(Q, QN) (primitive = _dff prim_d(, RN, CK, next_state, Q, QN);)
+)
+
+model SDFFR_X2 (CK, D, RN, SE, SI, Q, QN) (
+scan_definition (
+    type = mux_scan;
+    scan_in = SI;
+    scan_enable = SE;
+    scan_out = Q;
+    non_scan_model = DFFR_X2 (CK, D, RN, Q, QN) ;
+)
+  input(CK) (clock = rise_edge;)
+  input(RN) (active = low;)
+  input (D) ()
+  input (SE) ()
+  input (SI) ()
+  intern (next_state) (primitive = _mux prim(D,SI,SE,next_state);)
+  output(Q, QN) (primitive = _dff prim_d(, RN, CK, next_state, Q, QN);)
+)
+
+
+model SDFFS_X1 (CK, D, SE, SI, SN, Q, QN) (
+scan_definition (
+    type = mux_scan;
+    scan_in = SI;
+    scan_enable = SE;
+    scan_out = Q;
+    non_scan_model = DFFS_X1 (CK, D, SN, Q, QN) ;
+)
+  input(CK) (clock = rise_edge;)
+  input(SN) (active = low;)
+  input (D) ()
+  input (SE) ()
+  input (SI) ()
+  intern (next_state) (primitive = _mux prim(D,SI,SE,next_state);)
+  output(Q, QN) (primitive = _dff prim_d(SN, , CK, next_state, Q, QN);)
+)
+
+model SDFFS_X2 (CK, D, SE, SI, SN, Q, QN) (
+scan_definition (
+    type = mux_scan;
+    scan_in = SI;
+    scan_enable = SE;
+    scan_out = Q;
+    non_scan_model = DFFS_X2 (CK, D, SN, Q, QN) ;
+)
+  input(CK) (clock = rise_edge;)
+  input(SN) (active = low;)
+  input (D) ()
+  input (SE) ()
+  input (SI) ()
+  intern (next_state) (primitive = _mux prim(D,SI,SE,next_state);)
+  output(Q, QN) (primitive = _dff prim_d(SN, , CK, next_state, Q, QN);)
+)
+
+model SDFF_X1 (CK, D, SE, SI, Q, QN) (
+scan_definition (
+    type = mux_scan;
+    scan_in = SI;
+    scan_enable = SE;
+    scan_out = Q;
+    non_scan_model = DFF_X1 (CK, D, Q, QN) ;
+)
+  input(CK) (clock = rise_edge;)
+  input (D) ()
+  input (SE) ()
+  input (SI) ()
+  intern (next_state) (primitive = _mux prim(D,SI,SE,next_state);)
+  output(Q, QN) (primitive = _dff prim_d(, , CK, next_state, Q, QN);)
+)
+
+
+model SDFF_X2 (CK, D, SE, SI, Q, QN) (
+scan_definition (
+    type = mux_scan;
+    scan_in = SI;
+    scan_enable = SE;
+    scan_out = Q;
+    non_scan_model = DFF_X1 (CK, D, Q, QN) ;
+)
+  input(CK) (clock = rise_edge;)
+  input (D) ()
+  input (SE) ()
+  input (SI) ()
+  intern (next_state) (primitive = _mux prim(D,SI,SE,next_state);)
+  output(Q, QN) (primitive = _dff prim_d(, , CK, next_state, Q, QN);)
+)
+
+model TBUF_X1 (A, EN, Z) (
+  input (A) ()
+  input (EN) ()
+  output (Z) (primitive = _tsl ptbuf(A,EN,Z);)
+)
+
+model TBUF_X16 (A, EN, Z) (
+  input (A) ()
+  input (EN) ()
+  output (Z) (primitive = _tsl ptbuf(A,EN,Z);)
+)
+
+model TBUF_X2 (A, EN, Z) (
+  input (A) ()
+  input (EN) ()
+  output (Z) (primitive = _tsl ptbuf(A,EN,Z);)
+)
+
+model TBUF_X4 (A, EN, Z) (
+  input (A) ()
+  input (EN) ()
+  output (Z) (primitive = _tsl ptbuf(A,EN,Z);)
+)
+
+model TBUF_X8 (A, EN, Z) (
+  input (A) ()
+  input (EN) ()
+  output (Z) (primitive = _tsl ptbuf(A,EN,Z);)
+)
+
+model TINV_X1 (EN, I, ZN) (
+  input (EN) ()
+  input (I) ()
+  output (ZN) (primitive = _tsli ptibuf(I,EN,ZN);)
+)
+
+// TODO TLAT ??
+//model TLAT_X1 (D, G, OE, Q) (
+//
+//  input (D) ()
+//  input (G) ()
+//  input (OE) ()
+//  output Q
+//  reg NOTIFIER
+//
+//  bufif0(Q, Q_in, Q_enable)
+//  intern (Q_enable) (primitive = _inv p1639(OE,Q_enable);)
+//  seq3(IQ, nextstate, G, NOTIFIER)
+//  intern (IQN) (primitive = _inv p1641(IQ,IQN);)
+//  intern (Q_in) (primitive = _buf p1642(IQ,Q_in);)
+//  intern (nextstate) (primitive = _buf p1643(D,nextstate);)
+//)
+
+model XNOR2_X1 (A, B, ZN) (
+  input (A) ()
+  input (B) ()
+  output (ZN) (primitive = _xnor pxnor(A,B,ZN);)
+)
+
+model XNOR2_X2 (A, B, ZN) (
+  input (A) ()
+  input (B) ()
+  output (ZN) (primitive = _xnor pxnor(A,B,ZN);)
+)
+
+model XOR2_X1 (A, B, Z) (
+  input (A) ()
+  input (B) ()
+  output (Z) (primitive = _xor pxor(A,B,Z);)
+)
+
+model XOR2_X2 (A, B, Z) (
+  input (A) ()
+  input (B) ()
+  output (Z) (primitive = _xor pxor(A,B,Z);)
+)
+
+//
+// End of file
+//

@@ -1,0 +1,1 @@
+dft _synth/mult_rtl_synth_tech_mapped.v -verilog -top mult_rtl -lib _atglib -dofile dft.do
