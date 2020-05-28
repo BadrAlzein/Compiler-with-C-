@@ -36,7 +36,6 @@ public:
 		cout.println(this->name);
 		
 	}
-
 	void body()
 	{
 		for (int i = 0; i <= count; i++)
