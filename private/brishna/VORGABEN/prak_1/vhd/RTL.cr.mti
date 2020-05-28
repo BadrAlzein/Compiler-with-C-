@@ -1,0 +1,19 @@
+C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_2/vhd/TB_mult_rtl.vhd {1 {vcom -work work -2002 -explicit C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_2/vhd/TB_mult_rtl.vhd
+Model Technology ModelSim ALTERA vcom 6.6d Compiler 2010.11 Nov  2 2010
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package math_real
+-- Loading package numeric_std
+-- Compiling entity tb_mult_rtl
+-- Compiling architecture testbench of tb_mult_rtl
+-- Loading entity mult_rtl
+
+} {} {}} C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_2/vhd/mult_rtl.vhd {1 {vcom -work work -2002 -explicit C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_2/vhd/mult_rtl.vhd
+Model Technology ModelSim ALTERA vcom 6.6d Compiler 2010.11 Nov  2 2010
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package numeric_std
+-- Compiling entity mult_rtl
+-- Compiling architecture behave of mult_rtl
+
+} {} {}}

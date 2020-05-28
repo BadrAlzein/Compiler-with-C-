@@ -1,0 +1,129 @@
+m255
+K3
+13
+cModel Technology
+dC:\altera\10.1sp1
+Emult_algorithmic
+Z0 w1589545555
+Z1 DPx4 ieee 11 numeric_std 0 22 =NSdli^?T5OD8;4F<blj<3
+Z2 DPx4 ieee 14 std_logic_1164 0 22 GH1=`jDDBJ=`LM;:Ak`kf2
+Z3 dC:\altera\10.1sp1\work\vorgabe\VORGABEN\prak_1\vhd
+Z4 8C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_1/vhd/mult_algorithmic.vhd
+Z5 FC:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_1/vhd/mult_algorithmic.vhd
+l0
+L23
+VgdVUVeoY_k7f<^kQ>]lRj3
+Z6 OV;C;6.6d;45
+32
+Z7 o-work work -2002 -explicit -O0
+Z8 tExplicit 1
+!s100 c?bgV85=6]e>gkm87]2A82
+Aalgorithmic_description
+R1
+R2
+Z9 DEx4 work 16 mult_algorithmic 0 22 gdVUVeoY_k7f<^kQ>]lRj3
+l36
+L33
+V[bH11Z<MFI7FJhZ8mV;fd1
+R6
+32
+Z10 Mx2 4 ieee 14 std_logic_1164
+Z11 Mx1 4 ieee 11 numeric_std
+R7
+R8
+!s100 GnCE^KS?jao28B78HV2f=0
+Emult_rtl
+Z12 w1590685383
+R1
+R2
+R3
+Z13 8C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_2/vhd/mult_rtl.vhd
+Z14 FC:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_2/vhd/mult_rtl.vhd
+l0
+L27
+VV5o[cY1231FEgdc8^Gg2I2
+R6
+32
+R7
+R8
+!s100 H^[`^I87NX8a[;;iG8Pe12
+Abehave
+R1
+R2
+Z15 DEx4 work 8 mult_rtl 0 22 V5o[cY1231FEgdc8^Gg2I2
+l48
+L40
+VOOjKVU]73n5RY2j0hTf0T3
+!s100 [m=KmYIhl6GlNCA6e;bMg1
+R6
+32
+R10
+R11
+R7
+R8
+Etb_mult_algorithmic
+Z16 w1589792377
+R1
+Z17 DPx4 ieee 9 math_real 0 22 zjAF7SKfg_RPI0GT^n1N`1
+R2
+R3
+Z18 8C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_1/vhd/TB_mult_algorithmic.vhd
+Z19 FC:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_1/vhd/TB_mult_algorithmic.vhd
+l0
+L25
+V`JEU^178hfbe[]76EgBe=0
+R6
+32
+R7
+R8
+!s100 MDz19^@cY:<?:A7889lmZ1
+Atestbench
+R9
+R1
+R17
+R2
+DEx4 work 19 tb_mult_algorithmic 0 22 `JEU^178hfbe[]76EgBe=0
+l60
+L30
+Vd<>>_45=TGF06X;mX48m]1
+R6
+32
+Z20 Mx3 4 ieee 14 std_logic_1164
+Z21 Mx2 4 ieee 9 math_real
+R11
+R7
+R8
+!s100 c_GFKGWV=_XROMI[2C^]c0
+Etb_mult_rtl
+Z22 w1590675975
+R1
+R17
+R2
+R3
+Z23 8C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_2/vhd/TB_mult_rtl.vhd
+Z24 FC:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_2/vhd/TB_mult_rtl.vhd
+l0
+L19
+VZlZ`PnOo3c0Ze0i@CMN]=0
+!s100 F8fo>Sn?SK@19aPCBaN8_3
+R6
+32
+R7
+R8
+Atestbench
+R15
+R1
+R17
+R2
+Z25 DEx4 work 11 tb_mult_rtl 0 22 ZlZ`PnOo3c0Ze0i@CMN]=0
+l69
+L24
+Z26 V2[3ID>>ShV8h?m:I?eX=j2
+Z27 !s100 `bKSn8XBQUO_3GiHUFOIL3
+R6
+32
+R20
+R21
+R11
+R7
+R8

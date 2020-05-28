@@ -1,0 +1,19 @@
+C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_1/vhd/TB_mult_algorithmic.vhd {1 {vcom -work work -2002 -explicit C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_1/vhd/TB_mult_algorithmic.vhd
+Model Technology ModelSim ALTERA vcom 6.6d Compiler 2010.11 Nov  2 2010
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package math_real
+-- Loading package numeric_std
+-- Compiling entity tb_mult_algorithmic
+-- Compiling architecture testbench of tb_mult_algorithmic
+-- Loading entity mult_algorithmic
+
+} {} {}} C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_1/vhd/mult_algorithmic.vhd {1 {vcom -work work -2002 -explicit C:/altera/10.1sp1/work/vorgabe/VORGABEN/prak_1/vhd/mult_algorithmic.vhd
+Model Technology ModelSim ALTERA vcom 6.6d Compiler 2010.11 Nov  2 2010
+-- Loading package standard
+-- Loading package std_logic_1164
+-- Loading package numeric_std
+-- Compiling entity mult_algorithmic
+-- Compiling architecture algorithmic_description of mult_algorithmic
+
+} {} {}}
