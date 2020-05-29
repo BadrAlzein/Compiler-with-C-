@@ -38,7 +38,7 @@ csym get_cr2
 ;       C-Prototyp: void int_enable ();
 
 int_enable:
-	sti
+	sti             ;set interrupt flag (after u push this the cpu will start expecting interrupts)
 	ret
 
 ; INT_DISABLE: Interrupts werden ignoriert/verboten
@@ -46,8 +46,8 @@ int_enable:
 ;       C-Prototyp: unsigned int_disable (); flags zurueck
 
 int_disable:
-	pushfd
-	cli
+	pushfd              ;push all 8 general purpose register
+	cli                 ;clear interrupt Falg
 	pop	eax
 	and 	eax, 0x200  ; Maskieren mit InterrupFlag (IF) Bit 9
 	ret

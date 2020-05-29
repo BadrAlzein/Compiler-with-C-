@@ -1,5 +1,8 @@
 #include "device/PIC.h"
 
+/**
+ * this class will controll the PIT **/
+
 void PIC::enable (int num)
 {
 	if (num < 8) // PIC 1

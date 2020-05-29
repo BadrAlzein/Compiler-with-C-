@@ -23,6 +23,7 @@ public:
 
 	// Restaurieren
 	void restore() {
+		//if the interrupts are locked the reopen it 
 		if(previousState){
 			CPU::enableInterrupts();
 		}
