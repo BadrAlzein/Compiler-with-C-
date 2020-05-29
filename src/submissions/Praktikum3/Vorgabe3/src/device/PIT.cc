@@ -31,8 +31,8 @@ void PIT::interval(int us)
 	every Step is from startValue until 0 d.h. 838ns 
 	TODO: delay the interrupt in (us) amout of steps -> that means us * 838ns
 	*/
-	interValue = us * TIME_BASE;
-	
+	interValue = us * TIME_BASE;  
+
 	/** Controling the Hardware*/
 
 	/*
@@ -47,6 +47,8 @@ void PIT::interval(int us)
 	 **/
 
 //(Pending) -> dataPort
+
+//interValue 16 -> (00000000L) (00000000H) 
 
 	//write the low bytes of interValue
 	controlPort.write(0b00010100); //low ->Bit4-5 is 01 -> 00 (01) 010 0
