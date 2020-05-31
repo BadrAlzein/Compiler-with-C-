@@ -1,2 +1,0 @@
-
-rtl -files rc.tcl
