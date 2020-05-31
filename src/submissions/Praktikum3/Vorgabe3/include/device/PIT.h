@@ -39,8 +39,13 @@ private:
 		CONTROL_PORT 	= 0x43,
 		DATA_PORT 	= 0x40
 	};
-
-};
+    
+    //Connection to Hardware Variabels 
+    IOPort8 control_port;
+    IOPort8 data_port;
+    //interval time Variabel of the PIT
+    int intervalTime;
+};  
 
 extern PIT pit;
 #endif
