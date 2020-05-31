@@ -1,1 +1,0 @@
-test _scan/mult_rtl_tech_mapped_scanable.v -verilog -top mult_rtl -lib _atglib -dofile atpg_chain_test.do
