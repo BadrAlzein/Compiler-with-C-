@@ -1,1 +1,0 @@
-vsim -sdftyp /tb_component/=./v_prak_3/mult_synth_logic_ms.sdf -sdfnoerror -t ps work.tb_mult_logic
