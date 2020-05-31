@@ -15,15 +15,14 @@
 #include "io/PrintStream.h"
 #include "interrupts/InterruptVector.h"
 
-
-class Clock: public Gate, public PIT {
+class Clock : public Gate, public PIT
+{
 public:
-
 	/**	Spaetere Initialisierung...
 	 *	Hier ist nur im Konstruktor dafuer zu sorgen,
 	 *	dass sich Gate korrekt initialisieren kann
 	 */
-	Clock ();
+	Clock();
 
 	/**	Initialisierung des "Ticks" der Uhr
 	 *	Standardmaessig setzen wir das
@@ -33,7 +32,7 @@ public:
 	 *	Zum Testen koennt Ihr bei Bedarf einen hoeheren Wert einstellen
 	 *	Weitere Hinweise zur Implementierung siehe "windup"
 	 */
-	explicit Clock (int us);
+	explicit Clock(int us);
 
 	/**	Initialisierung des "Ticks" der Uhr
 	 * 	Die Einheit sind Mikrosekunden.
@@ -71,12 +70,14 @@ public:
 	 */
 	int ticks()
 	{
-return ticken;
+		return ticken;
 	}
-    
+void resetTicks(){
+	ticken = 0;
+}
 private:
-int ticken;
-PIC pic;
+	int ticken;
+	PIC pic;
 };
 
 extern Clock clock;
