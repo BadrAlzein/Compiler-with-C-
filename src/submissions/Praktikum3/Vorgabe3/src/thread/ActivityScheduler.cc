@@ -1,5 +1,6 @@
 #include "thread/ActivityScheduler.h"
 #include "io/PrintStream.h"
+#include "device/Clock.h"
 
 /* This class will implements all func from the class in thread/ActivityScheduler.h
  * exit()
@@ -107,3 +108,13 @@ void ActivityScheduler::suspend(){
 }
 
 
+/** resheduler if the quatum has reached the ticks of the clk then reset the clk */
+void ActivityScheduler::quatumResheduler()
+{
+	Schedulable *active = (Schedulable *)getCurrentActivity();
+	if (active->quantum() == clock.ticks())
+	{
+		//clock.resetTicks();<= BRISHNA 
+		this->reschedule(); //reschedule aufrufen, wenn Zeitscheibe(Quantum) abgelaufen ist
+	}
+}

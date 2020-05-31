@@ -19,6 +19,11 @@ PIT::PIT(int us) :controlPort(CONTROL_PORT), dataPort(DATA_PORT)
 * 
 * BEACHTE: Hier muss die Hardware korrekt programmiert werden.
 * Naeheres steht in der Web-Dokumentation.
+
+(from Project Doko)
+ Zur Einstellung eines 16 Bit Zählerwertes sind damit drei out-Befehle notwendig.
+ Der erste zum Übergeben des Steuerwortes und zwei weitere mit dem nieder- und 
+ dem höherwertigen Byte des Zählerwertes.
 */
 void PIT::interval(int us)
 {
@@ -26,8 +31,8 @@ void PIT::interval(int us)
 	every Step is from startValue until 0 d.h. 838ns 
 	TODO: delay the interrupt in (us) amout of steps -> that means us * 838ns
 	*/
-	interValue = us * TIME_BASE;
-	
+	interValue = us * TIME_BASE;  
+
 	/** Controling the Hardware*/
 
 	/*
@@ -38,10 +43,12 @@ void PIT::interval(int us)
 	 * 	  ausgegeben und der Zähler wird automatisch wieder mit dem Startwert initialisiert,
 	 * 	  worauf der Vorgang wieder von vorn losgeht. 
 	 * 3. Bit4-5: use 10/01 to register the first and secound 6 bytes into the PIT
-	 * 4. Bit6-7: use one of the Counter -> use counter0
+	 * 4. Bit6-7: use the Counter for Periodische Unterbrechung -> use counter0
 	 **/
 
 //(Pending) -> dataPort
+
+//interValue 16 -> (00000000L) (00000000H) 
 
 	//write the low bytes of interValue
 	controlPort.write(0b00010100); //low ->Bit4-5 is 01 -> 00 (01) 010 0
