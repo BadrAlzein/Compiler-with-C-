@@ -19,15 +19,15 @@ class Schedulable: public Chain {
 public:
 	explicit Schedulable(int slice = 1)
 	{ 
-		quantum(slice); 
+		setQuantum(slice); 
 	}
 
-	void quantum(int slice)
+	void setQuantum(int slice)
 	{ 
 		this->slice = slice;
 	}
 
-	int quantum()
+	int getQuantum()
 	{ 
 		return slice;
 	}

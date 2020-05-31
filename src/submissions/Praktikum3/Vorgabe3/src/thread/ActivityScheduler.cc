@@ -109,12 +109,12 @@ void ActivityScheduler::suspend(){
 
 
 /** resheduler if the quatum has reached the ticks of the clk then reset the clk */
-void ActivityScheduler::quatumResheduler()
+void ActivityScheduler::checkSlice()
 {
 	Schedulable *active = (Schedulable *)getCurrentActivity();
-	if (active->quantum() == clock.ticks())
+	if (active->getQuantum() == clock.ticks())
 	{
-		//clock.resetTicks();<= BRISHNA 
+		clock.resetTicks();//<= BRISHNA 
 		this->reschedule(); //reschedule aufrufen, wenn Zeitscheibe(Quantum) abgelaufen ist
 	}
 }

@@ -93,7 +93,7 @@ void Clock::handle()
 	pic.ack();
 	//ticken = this->
 	//brauche ich checkslice methode aus scheduler
-	//scheduler.check
+	scheduler.checkSlice();
 }
 
 /* 	Liefert die Systemzeit in Ticks zurueck

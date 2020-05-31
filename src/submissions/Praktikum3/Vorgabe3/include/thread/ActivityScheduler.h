@@ -78,7 +78,7 @@ public:
 	 */
 	virtual void activate(Schedulable *to);
 
-   // Activity* activeElement;
+   void checkSlice();
  
 
 private:
