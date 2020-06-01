@@ -39,6 +39,7 @@ public:
 	void body() {
 		for(int i=0; i<10; i++) {
 				IntLock lock;
+                cout.print(clock.ticks());
 				cout.print(name);
 				cout.print(" ");
 				cout.print(i);
