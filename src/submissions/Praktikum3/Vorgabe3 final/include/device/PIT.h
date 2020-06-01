@@ -10,16 +10,16 @@
 
 #include "io/IOPort.h"
 
-class PIT {
+class PIT
+{
 public:
-
 	/** Default-Konstruktor. Das Interval wird spaeter
 	  * mit der interval-Methode initialisiert */
-	PIT ();
+	PIT();
 
 	/** Initialisiert den Timers, sodass alle "us" Mikrosekunden ein Interrupt
 	  * ausgeloest wird */
-	explicit PIT (int us);
+	explicit PIT(int us);
 
 	/** Setzt das Timer-Intervall, sodass alle "us" Mikrosekunden ein Interrupt
 	  * ausgeloest wird.
@@ -27,25 +27,32 @@ public:
 	  * BEACHTE: Hier muss die Hardware korrekt programmiert werden.
 	  * Naeheres steht in der Web-Dokumentation.
 	  */
-	void interval (int us);
+	void interval(int us);
+	
+	unsigned getInterval_Value(){
+		return interval_value;
+	}
 
 private:
-	enum Values {
-		TIME_BASE = 838  /* Dauer eines Zaehlticks in ns */
+	unsigned interval_value;
+	enum Values
+	{
+		TIME_BASE = 838 /* Dauer eines Zaehlticks in ns */
 	};
 
 	// Die I/O Ports des PIC
-	enum Ports {
-		CONTROL_PORT 	= 0x43,
-		DATA_PORT 	= 0x40
+	enum Ports
+	{
+		CONTROL_PORT = 0x43,
+		DATA_PORT = 0x40
 	};
-    
-    //Connection to Hardware Variabels 
-    IOPort8 control_port;
-    IOPort8 data_port;
-    //interval time Variabel of the PIT
-    int intervalTime;
-};  
+
+	//Connection to Hardware Variabels
+	IOPort8 control_port;
+	IOPort8 data_port;
+	//interval time Variabel of the PIT
+	int intervalTime;
+};
 
 extern PIT pit;
 #endif

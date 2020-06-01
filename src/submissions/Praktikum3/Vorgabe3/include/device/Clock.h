@@ -68,7 +68,7 @@ public:
 	/* 	Liefert die Systemzeit in Ticks zurueck
 	 *	Kann hier "inline" implementiert werden
 	 */
-	inline int ticks()
+	 int ticks()
 	{
 		return ticken;
 	}
