@@ -18,14 +18,14 @@
 // Das sollte normalerweise *nicht* der Fall sein!
 class Hello: public Activity {
 public:
-	Hello(const char* name, PrintStream& out)
-		: cout(out)
+	Hello(const char* name, PrintStream& out, int quantum)
+		: Activity(quantum), cout(out)
 	{
 		this->name = name;
 	}
 
-	Hello(const char* name, PrintStream& out, void* sp)
-		: Activity(sp), cout(out)
+	Hello(const char* name, PrintStream& out, void* sp, int quantum)
+		: Activity(sp,quantum), cout(out)
 	{
 		this->name = name;
 		wakeup();
@@ -77,10 +77,10 @@ unsigned stack1[1024];
 
 int main()
 {
-	Hello anton("Anton", out); // anton benutzt den Stack von main
-	Hello berta("Berta", out, &stack0[1024]);
-	Hello caesar("Caesar", out, &stack1[1024]);
+	Hello anton("Anton", out,5); // anton benutzt den Stack von main
+	Hello berta("Berta", out, &stack0[1024],10);
+	Hello caesar("Caesar", out, &stack1[1024],15);
 
-	cpu.enableInterrupts();
+	cpu.enableInterrupts(); 
 	anton.body();
 }
