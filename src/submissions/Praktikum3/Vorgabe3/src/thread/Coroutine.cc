@@ -1,4 +1,5 @@
 #include "thread/Coroutine.h"
+#include "device/CPU.h"
 
 /* Diese Funktion hat nur die Aufgabe
 	 * den Rumpf der uebergebenen Coroutine aufzurufen

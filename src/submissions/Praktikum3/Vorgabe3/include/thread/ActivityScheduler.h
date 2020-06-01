@@ -78,7 +78,7 @@ public:
 	 */
 	virtual void activate(Schedulable *to);
 
-   void checkSlice();
+    void checkSlice();
  
 
 private:

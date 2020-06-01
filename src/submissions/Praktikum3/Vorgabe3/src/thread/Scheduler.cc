@@ -1,8 +1,11 @@
 #include "thread/Scheduler.h"
 #include "io/PrintStream.h"
 #include "interrupts/IntLock.h"
-
-
+//#include "thread/ActivityScheduler.h"
+//#include "device/Clock.h"
+//#include "thread/Schedulable.h"
+//#include "thread/Coroutine.h"
+//#include "thread/Dispatcher.h"
 
 void Scheduler::schedule(Schedulable *sched) {
     readylist.enqueue((Chain*)sched);
@@ -18,7 +21,7 @@ void Scheduler::reschedule() {
 	this->activate(head);
 }
 
-void Scheduler :: checkSlice(){
+//void Scheduler :: checkSlice(){
 	//redundanter IntLock weil schon in scheduler geschützt
 	//IntLock safe;
 	/*
@@ -31,10 +34,10 @@ void Scheduler :: checkSlice(){
      *	abgelaufen ist. Führe dazu eine Methode checkSlice () beim Scheduler ein, die überprüft, ob die
 	 *	Zeitscheibe des aktuell laufenden Prozesses abgelaufen ist.
 	 */
-	Schedulable *active = (Schedulable *) getCurrentActivity();
-	if (active->quantum() == clock.ticks())
-	{
-		clock.resetTicks(); //<= BRISHNA
-		reschedule(); //reschedule aufrufen, wenn Zeitscheibe(Quantum) abgelaufen ist
-	}
-}
+	//Schedulable *active = (Schedulable *) getCurrentActivity();
+	//if (active->quantum() == clock.ticks())
+	//{
+	//	clock.resetTicks(); //<= BRISHNA
+	//	reschedule(); //reschedule aufrufen, wenn Zeitscheibe(Quantum) abgelaufen ist
+	//}
+//}

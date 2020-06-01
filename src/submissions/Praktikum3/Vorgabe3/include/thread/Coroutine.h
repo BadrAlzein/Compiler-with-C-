@@ -43,7 +43,9 @@ extern "C" {
  * deshalb ein Stackframe existieren, was gleich aussieht mit
  * dem einer Coroutine die "switchContext" aufgerufen hat.
  */
+#include "device/CPU.h"
 
+extern CPU cpu;
 
 class Coroutine {
 public:

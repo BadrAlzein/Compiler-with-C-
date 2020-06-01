@@ -2,6 +2,8 @@
 #include "io/PrintStream.h"
 #include "device/Clock.h"
 
+extern Clock clock;
+
 /* This class will implements all func from the class in thread/ActivityScheduler.h
  * exit()
  * activate()
