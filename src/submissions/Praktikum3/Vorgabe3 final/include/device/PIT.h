@@ -34,7 +34,7 @@ public:
 	}
 
 private:
-	unsigned interval_value;
+
 	enum Values
 	{
 		TIME_BASE = 838 /* Dauer eines Zaehlticks in ns */
@@ -50,8 +50,9 @@ private:
 	//Connection to Hardware Variabels
 	IOPort8 control_port;
 	IOPort8 data_port;
+	unsigned interval_value;
 	//interval time Variabel of the PIT
-	int intervalTime;
+	//int intervalTime;
 };
 
 extern PIT pit;
