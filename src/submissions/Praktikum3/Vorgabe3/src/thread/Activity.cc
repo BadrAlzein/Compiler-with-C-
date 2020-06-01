@@ -13,7 +13,7 @@ the initail state is blocked and waiting for a
  task to take place
 
 **/
-Activity::Activity(void *tos) : Coroutine(tos)
+Activity::Activity(void *tos, int quantum) :  Schedulable(quantum) , Coroutine(tos)
 {
 	//Blocked: It is a time interval when a process is
 	// waiting for an event like I/O operations to complete.
@@ -31,7 +31,7 @@ Activity::Activity(void *tos) : Coroutine(tos)
 	 */
 // after creating the activity it should be activated
 
-Activity::Activity()
+Activity::Activity(int quantum) : Schedulable(quantum)
 {
 	this->state = BLOCKED;
 	scheduler.start(this);
