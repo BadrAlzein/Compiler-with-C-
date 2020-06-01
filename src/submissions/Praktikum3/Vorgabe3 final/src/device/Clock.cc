@@ -97,7 +97,7 @@ void Clock::handle()
 	//ticken = this->
 	//brauche ich checkslice methode aus scheduler
 	this->ticken = ticks() + 1;
-	if ((ticks() / getInterval_Value()) % 20 == 0)
+	if ((ticks() / getIntervalTime()) % 20 == 0)
 	{
 		scheduler.checkSlice();
 	}

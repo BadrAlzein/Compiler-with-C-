@@ -29,8 +29,8 @@ public:
 	  */
 	void interval(int us);
 	
-	unsigned getInterval_Value(){
-		return interval_value;
+	unsigned getIntervalTime(){
+		return intervalTime;
 	}
 
 private:
@@ -50,7 +50,7 @@ private:
 	//Connection to Hardware Variabels
 	IOPort8 control_port;
 	IOPort8 data_port;
-	unsigned interval_value;
+	unsigned intervalTime;
 	//interval time Variabel of the PIT
 	//int intervalTime;
 };
