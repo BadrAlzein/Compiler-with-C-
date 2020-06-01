@@ -68,7 +68,7 @@ public:
     };
 	
 	/** resheduler if the quatum has reached the ticks of the clk then reset the clk */
-	void quatumResheduler();
+	//void quatumResheduler();
 
 //protected:
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
