@@ -14,6 +14,7 @@
 #include "device/PIC.h"
 #include "io/PrintStream.h"
 #include "interrupts/InterruptVector.h"
+#include "thread/ActivityScheduler.h"
 
 class Clock : public Gate, public PIT
 {
@@ -68,7 +69,7 @@ public:
 	/* 	Liefert die Systemzeit in Ticks zurueck
 	 *	Kann hier "inline" implementiert werden
 	 */
-	int ticks()
+	inline int ticks()// will check wthput inline
 	{
 		return ticken;
 	}
@@ -81,5 +82,6 @@ private:
 };
 
 extern Clock clock;
+extern PrintStream out;
 
 #endif

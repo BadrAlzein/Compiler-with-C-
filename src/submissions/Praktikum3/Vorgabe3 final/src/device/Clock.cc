@@ -27,7 +27,7 @@
 Clock::Clock() : Gate(Timer), PIT()
 {
 
-	this->ticken = 0;
+	ticken = 0;
 }
 
 /**	Initialisierung des "Ticks" der Uhr
@@ -51,8 +51,9 @@ Clock::Clock(int us) : Gate(Timer), PIT(us)
 void Clock::windup(int us)
 {
 	//interval length
-	interval(us);
 	ticken = 0;
+	pit.interval(us);
+	
 	// set the interrupts
 	//Programmable Interrupt Controller ( PIC.h )
 	//interuppt quellen sind auch in PIT und PIC.h difiniert
@@ -91,15 +92,15 @@ on every gate will be transfered to the driver via (through) handle method
 // if the ticks of the clock is equal to the qauntim reset the clock and reschedule it
 void Clock::handle()
 {
-	//IntLock safe;
+	IntLock safe;
 	pic.ack();
 	//ticken = this->
 	//brauche ich checkslice methode aus scheduler
-	//this->ticken = ticks() + 1;
-//	if ((ticks() / getInterval_Value()) % 20 == 0)
-//	{
+	this->ticken = ticks() + 1;
+	if ((ticks() / getInterval_Value()) % 20 == 0)
+	{
 		scheduler.checkSlice();
-//	}
+	}
 }
 
 /* 	Liefert die Systemzeit in Ticks zurueck

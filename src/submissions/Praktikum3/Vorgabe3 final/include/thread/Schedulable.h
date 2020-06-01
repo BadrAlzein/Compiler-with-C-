@@ -19,7 +19,7 @@ class Schedulable: public Chain {
 public:
 	explicit Schedulable(int slice = 1)
 	{ 
-		currentSlice=0;
+		//currentSlice=0;
 		quantum(slice); 
 	}
 
@@ -32,15 +32,15 @@ public:
 	{ 
 		return slice;
 	}
-	void increamentCurrentSlice(){
-		currentSlice++;
-	}
-	void resetCurrentSlice(){
-		currentSlice =0;
-	}
-	int getCurrentSlice(){
-		return currentSlice;
-	}
+	//void increamentCurrentSlice(){
+	//	currentSlice++;
+	//}
+	//void resetCurrentSlice(){
+		//currentSlice =0;
+	//}
+	//int getCurrentSlice(){
+	//	return currentSlice;
+	//}
 
 private:
 	int slice;
