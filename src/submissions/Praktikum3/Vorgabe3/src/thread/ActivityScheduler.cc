@@ -17,6 +17,7 @@ extern Clock clock;
 */
 void ActivityScheduler::exit()
 {
+     IntLock lock; //safe this kritische Abschnitt
 	/** to exit 
 	 * 1. kill the current activity 
 	 * 2. reschedule (activate the first process from the list)
@@ -36,6 +37,7 @@ void ActivityScheduler::exit()
 */
 void ActivityScheduler::kill(Activity *process)
 {
+     IntLock lock; //safe this kritische Abschnitt
 	//change the mode to Process deleteing mode
 	process->changeTo(Activity::ZOMBIE);
 
@@ -58,7 +60,8 @@ void ActivityScheduler::kill(Activity *process)
 */
 void ActivityScheduler::activate(Schedulable *to)
 {
-
+ //IntLock lock; //safe this kritische Abschnitt Otherwise at the end will stop resetting ticks()
+    
 	/* this func send the running act to the ready and take a act from Ready list 
 		and make it to running 
 	*/
