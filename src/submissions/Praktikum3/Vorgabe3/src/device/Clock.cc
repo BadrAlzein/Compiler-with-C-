@@ -92,7 +92,7 @@ on every gate will be transfered to the driver via (through) handle method
 // if the ticks of the clock is equal to the qauntim reset the clock and reschedule it
 void Clock::handle()
 {
-	IntLock safe;
+	IntLock lock; //save kritische Abschnitt
 	pic.ack();
 	//ticken = this->
 	//brauche ich checkslice methode aus scheduler
