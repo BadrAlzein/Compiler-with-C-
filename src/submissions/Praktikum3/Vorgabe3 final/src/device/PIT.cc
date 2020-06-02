@@ -7,8 +7,7 @@ PIT::PIT():control_port(CONTROL_PORT), data_port(DATA_PORT) {}
 
 /** Initialisiert den Timers, sodass alle "us" Mikrosekunden ein Interrupt
  * ausgeloest wird */
-PIT::PIT(int us) 
-:control_port(CONTROL_PORT), data_port(DATA_PORT) 
+PIT::PIT(int us) :control_port(CONTROL_PORT), data_port(DATA_PORT) 
 {
 	//this->controlPort = CONTROL_PORT;
 	//this->dataPort = DATA_PORT;
@@ -28,7 +27,7 @@ PIT::PIT(int us)
 */
 void PIT::interval(int us)
 {
-	/*
+		/*
 	every Step is from startValue until 0 d.h. 838ns 
 	TODO: delay the interrupt in (us) amout of steps -> that means us * 838ns
 	*/
@@ -54,11 +53,10 @@ void PIT::interval(int us)
 
 	//write the low bytes of intervalTime
 	control_port.write(0b00010100); //low ->Bit4-5 is 01 -> 00 (01) 010 0
-	data_port.write(((char)(intervalTime &0xff))); //let (8-1 bits) in & 0xff
+	data_port.write(((char)(intervalTime & 0b11111111))); 
 
 	//write the high bytes of intervalTime
 	control_port.write(0b00100100); //high ->Bit4-5 is 10 -> 00 (01) 010 0
-	data_port.write(((char)((8>>intervalTime) &0xff)));//let (16-8 bits) in & 0xff
-
-
+	data_port.write(((char)((8>>intervalTime) & 0b11111111))); 
+    
 }
