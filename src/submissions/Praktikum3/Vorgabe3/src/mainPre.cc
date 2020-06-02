@@ -44,7 +44,7 @@ public:
 				cout.print(" ");
 				cout.print(i);
 				cout.println();
-				for (int i =0; i<1000000; i++){}
+				for (int i =0; i<10000000; i++){}
 		}
 		
 	}
@@ -78,9 +78,9 @@ unsigned stack1[1024];
 
 int main()
 {
-	Hello anton("Anton", out, 2); // anton benutzt den Stack von main
+	Hello anton("Anton", out, 7); // anton benutzt den Stack von main
 	Hello berta("Berta", out, &stack0[1024], 5);
-	Hello caesar("Caesar", out, &stack1[1024], 7);
+	Hello caesar("Caesar", out, &stack1[1024], 2);
 
 	cpu.enableInterrupts();
 	anton.body();

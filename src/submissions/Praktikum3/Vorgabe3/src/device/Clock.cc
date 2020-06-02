@@ -97,19 +97,18 @@ void Clock::handle()
 	//ticken = this->
 	//brauche ich checkslice methode aus scheduler
 	this->ticken = ticks() + 1;
-	if ((ticks() / getIntervalTime()) % 20 == 0)
-	{
+
         /****** Test of Clk use only mainInt.cc *****/
-        //for(int i = 0; i < 50000; i++)
-        //{
-        //out.print("\r|\r\\\r-\r/");
-        //};
-        //out.println();
+       // for(int i = 0; i < 50000; i++)
+       // {
+       // out.print("\r|\r\\\r-\r/");
+       // };
+       // out.println();
         /******end  Test of Clk *****/
 
         /**** For mainPre****/
 		scheduler.checkSlice();
-	}
+//	}
 }
 
 /* 	Liefert die Systemzeit in Ticks zurueck

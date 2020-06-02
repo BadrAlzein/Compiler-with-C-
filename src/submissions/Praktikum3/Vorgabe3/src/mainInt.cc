@@ -38,7 +38,7 @@ public:
 			//cout.print(i);
 			//cout.println();
 
-			yield();
+			//yield();
 		}
 	}
 
@@ -72,8 +72,8 @@ int main()
 {
 
      Hello anton("Anton", out); // anton benutzt den Stack von main
-	 Hello berta("Berta", out, &stack0[1024]);
-	 Hello caesar("Caesar", out, &stack1[1024]);
+	// Hello berta("Berta", out, &stack0[1024]);
+	// Hello caesar("Caesar", out, &stack1[1024]);
 
 	cpu.enableInterrupts();
 	
