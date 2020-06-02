@@ -53,10 +53,10 @@ void PIT::interval(int us)
 
 	//write the low bytes of intervalTime
 	control_port.write(0b00010100); //low ->Bit4-5 is 01 -> 00 (01) 010 0
-	data_port.write(((char)(intervalTime & 0b11111111))); 
-
+	//data_port.write(((char)(intervalTime & 0b11111111))); 
+    data_port.write(((char)(intervalTime & 0x00FF))); 
 	//write the high bytes of intervalTime
 	control_port.write(0b00100100); //high ->Bit4-5 is 10 -> 00 (01) 010 0
-	data_port.write(((char)((8>>intervalTime) & 0b11111111))); 
-    
+	//data_port.write(((char)((8>>intervalTime) & 0b11111111))); 
+    data_port.write((char)((intervalTime>>8) & 0x00FF)); 
 }
