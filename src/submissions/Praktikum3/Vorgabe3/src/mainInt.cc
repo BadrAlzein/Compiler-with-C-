@@ -18,13 +18,13 @@
 class Hello: public Activity {
 public:
 	Hello(const char* name, PrintStream& out)
-		: cout(out)
+		:  Activity(5), cout(out)
 	{
 		this->name = name;
 	}
 
 	Hello(const char* name, PrintStream& out, void* sp)
-		: Activity(sp), cout(out)
+		: Activity(sp,5), cout(out)
 	{
 		this->name = name;
 		wakeup();
@@ -33,10 +33,10 @@ public:
 	void body()
 	{
 		for(int i=0; i<10; i++) {
-			cout.print(name);
-			cout.print(" ");
-			cout.print(i);
-			cout.println();
+			//cout.print(name);
+			//cout.print(" ");
+			//cout.print(i);
+			//cout.println();
 
 			yield();
 		}
@@ -71,13 +71,13 @@ unsigned stack1[1024];
 int main()
 {
 
-    // Hello anton("Anton", out); // anton benutzt den Stack von main
-	// Hello berta("Berta", out, &stack0[1024]);
-	// Hello caesar("Caesar", out, &stack1[1024]);
+     Hello anton("Anton", out); // anton benutzt den Stack von main
+	 Hello berta("Berta", out, &stack0[1024]);
+	 Hello caesar("Caesar", out, &stack1[1024]);
 
 	cpu.enableInterrupts();
 	
-    // anton.body();
+     anton.body();
 	
     while(1);
 }
