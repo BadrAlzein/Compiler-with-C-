@@ -101,16 +101,24 @@ void Clock::handle()
 	//1 second is 1000000 us(microseconds)
 	//actual time is number of ticks multi by interval time 
 	//brauche ich checkslice methode aus scheduler
-	this->ticken = ticks() + 1;
-
-	/****** Test of Clk use only mainInt.cc *****/
-	// for(int i = 0; i < 50000; i++)
-	// {
-	// out.print("\r|\r\\\r-\r/");
-	// };
-	// out.println();
-	/******end  Test of Clk *****/
-
+/*
+	    if (((ticken % 50 == 0) &&  (ticken % 100 != 0)) && ((ticken % 150 != 0) && (ticken % 200 != 0)) ) {         out.print("\r|");
+    }
+    if(ticken % 100 == 0 && ticken % 150 != 0 && ticken % 200 != 0 && ticken % 50 == 0){
+           out.print("\r/");
+   
+    }
+    if (ticken % 150 == 0 && ((ticken % 200) != 0)){
+      out.print("\r-");
+    }
+    if(ticken % 200 == 0 ){
+           out.print("\r\\");
+     //  out.println();
+       this->ticken = 0;
+    }
+    this->ticken= ticks()+1;
+	/******end  Test of Clk ****
+*/
 	/**** For mainPre****/
 	scheduler.checkSlice();
 	//	}
