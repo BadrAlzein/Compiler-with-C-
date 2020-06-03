@@ -37,7 +37,7 @@ void ActivityScheduler::exit()
 */
 void ActivityScheduler::kill(Activity *process)
 {
-     IntLock lock; //safe this kritische Abschnitt
+     IntLock lock; //safe this kritische Abschnitt wegen exit (coroutine)
 	//change the mode to Process deleteing mode
 	process->changeTo(Activity::ZOMBIE);
 
