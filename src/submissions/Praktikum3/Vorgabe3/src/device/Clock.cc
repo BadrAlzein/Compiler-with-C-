@@ -53,7 +53,7 @@ void Clock::windup(int us)
 	//interval length
 	ticken = 0;
 	pit.interval(us);
-	
+
 	// set the interrupts
 	//Programmable Interrupt Controller ( PIC.h )
 	//interuppt quellen sind auch in PIT und PIC.h difiniert
@@ -83,32 +83,37 @@ void Clock::windup(int us)
 	 *	die "checkSlice" Methode des Schedulers auf,
 	 *	um diesen ggf. zum praeemptiven Rescheduling zu veranlassen.
 	 */
-/*
-the gate object that is created for every interuppt will be added
- to logice-interupt table automatically
-and after this happend the interuppts occured 
-on every gate will be transfered to the driver via (through) handle method
+     /**
+	  * the gate object that is created for every interuppt will be added
+	  * to logice-interupt table automatically and after this happend the interuppts 
+	  * occured on every gate will be transfered to the driver via  handle method
+	  * Sobald dies geschehen ist, werden alle an diesem Gate
+      *	auftretenden Interrupts werden ueber die handle()-Methode an
+      *	dem Treiber mitgeteilt.
 	*/
-// if the ticks of the clock is equal to the qauntim reset the clock and reschedule it
+    // if the ticks of the clock is equal to the qauntom reset the clock and reschedule it
 void Clock::handle()
 {
 	//IntLock lock; //save kritische Abschnitt
+	//Ein geworfener Interrupt muss bestätigt werden, bevor er erneut geworfen werden kann.
+	//ack confirms the thrown interrupt before it can be thrown again(damit ein Interrupt erneut auftreten kann)
 	pic.ack();
-	//ticken = this->
+	//1 second is 1000000 us(microseconds)
+	//actual time is number of ticks multi by interval time 
 	//brauche ich checkslice methode aus scheduler
 	this->ticken = ticks() + 1;
 
-        /****** Test of Clk use only mainInt.cc *****/
-       // for(int i = 0; i < 50000; i++)
-       // {
-       // out.print("\r|\r\\\r-\r/");
-       // };
-       // out.println();
-        /******end  Test of Clk *****/
+	/****** Test of Clk use only mainInt.cc *****/
+	// for(int i = 0; i < 50000; i++)
+	// {
+	// out.print("\r|\r\\\r-\r/");
+	// };
+	// out.println();
+	/******end  Test of Clk *****/
 
-        /**** For mainPre****/
-		scheduler.checkSlice();
-//	}
+	/**** For mainPre****/
+	scheduler.checkSlice();
+	//	}
 }
 
 /* 	Liefert die Systemzeit in Ticks zurueck
