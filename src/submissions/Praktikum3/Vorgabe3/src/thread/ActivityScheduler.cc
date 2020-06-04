@@ -124,8 +124,12 @@ void ActivityScheduler::suspend()
 void ActivityScheduler::checkSlice()
 {
 	Schedulable *active = (Schedulable *) getCurrentActivity();
-	if (active->quantum() == clock.ticks())
+    
+     //  out.print(active->quantum());
+	if (active->quantum() <=  clock.ticks())
 	{
+     //  out.print("checkslice");
+       // out.println();
 		clock.resetTicks(); //<= BRISHNA
 		reschedule(); //reschedule aufrufen, wenn Zeitscheibe(Quantum) abgelaufen ist
 	}

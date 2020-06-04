@@ -15,6 +15,7 @@ the initail state is blocked and waiting for a
 **/
 Activity::Activity(void *tos, int quantum) :  Schedulable(quantum) , Coroutine(tos)
 {
+       IntLock lock;
 	//Blocked: It is a time interval when a process is
 	// waiting for an event like I/O operations to complete.
 	this->state = BLOCKED;
@@ -75,6 +76,7 @@ void Activity::sleep()
 	 */
 void Activity::wakeup()
 {
+       IntLock lock;
 	if (isBlocked()) //BadrADDD
 	{
 		this->state = READY;
@@ -100,6 +102,7 @@ void Activity::yield()
  */
 void Activity::exit()
 {
+    IntLock lock;
 	/*
 	the activity that is supposed to be terminated , will be wakenup here
 	so basicly we check for all the elements in suspending list and wake all the waiting ativities up
@@ -130,6 +133,7 @@ after that it will resume its execution
 
 void Activity::join()
 {
+     IntLock lock;
     
     //active transfers the pointer on the active process(from dispatcher)
     // i set the new process (child process) to the current running process and put the parent process on sleep untill the chiled process completes the task

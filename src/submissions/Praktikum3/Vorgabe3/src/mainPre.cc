@@ -39,7 +39,7 @@ public:
 	void body() {
 		for(int i=0; i<10; i++) {
 				IntLock lock;
-                cout.print(clock.ticks());
+                //cout.print(clock.ticks());
 				cout.print(name);
 				cout.print(" ");
 				cout.print(i);
@@ -78,9 +78,9 @@ unsigned stack1[1024];
 
 int main()
 {
-	Hello anton("Anton", out, 2); // anton benutzt den Stack von main
-	Hello berta("Berta", out, &stack0[1024], 2);
-	Hello caesar("Caesar", out, &stack1[1024], 1);
+	Hello anton("Anton", out, 1); // anton benutzt den Stack von main
+	Hello berta("Berta", out, &stack0[1024], 3);
+	Hello caesar("Caesar", out, &stack1[1024], 7);
 
 	cpu.enableInterrupts();
 	anton.body();
