@@ -45,11 +45,17 @@ private:
 
 	enum Commands {
 		ACK	= 0x20	// Bestaetigung fuer alle Interr.
+		/** Comand 0x20 in PIC
+		 * Note PIC 1 called Master and PIC 2 calles slave
+		 * The Comand ACK is the end of interrupt (EOI) return if the interrupt ended 
+		*/
+
+
 	};
 
-	IOPort8 imr1;
+	IOPort8 imr1; //G14: The IMR specifies which interrupts are to be ignored 
 	IOPort8 imr2;
-	IOPort8 ctrl1;
+	IOPort8 ctrl1; //G14: When a page fault occurs, the address the program attempted to access is stored in the CR2 register
 	IOPort8 ctrl2;
 };
 
