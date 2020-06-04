@@ -87,10 +87,11 @@ void ActivityScheduler::activate(Schedulable *to)
 	{
 		if (currentAct->isZombie() || currentAct->isBlocked()){ //make sure that the ready list is empty
 			while(targetAct == 0) {
+           
 			//prevent busy waiting
-			cpu.enableInterrupts(); //or call restore()
+			//cpu.enableInterrupts(); //
 			cpu.halt();				//halt until the next Interrupt
-			targetAct = (Activity *)readylist.dequeue();	
+			  targetAct = (Activity *)readylist.dequeue();	
 			cpu.disableInterrupts(); 		
 			}
 		}
@@ -103,58 +104,6 @@ void ActivityScheduler::activate(Schedulable *to)
 		dispatch(targetAct);					//swich from current active Act to the target Act
 	}
 }
-
-
-void ActivityScheduler::activate(Schedulable *to)
-{
-	Activity *destination = (Activity *)to;
-	Activity *active = this->getActiveProcessActivity();
-
-	if (destination == 0) {
-		if((active->isBlocked()) || (active->isZombie())) {
-			while(destination == 0) {
-				//out.println("scheduler");
-				cpu.enableInterrupts();
-				cpu.halt();
-				destination = (Activity*) readylist.dequeue();
-				cpu.disableInterrupts();
-			}	
-			//out.println("geweckt");
-			if(destination != 0) {
-				//out.println("dispatch");
-				destination->changeTo(Activity::RUNNING);
-				dispatch(destination);
-			}		
-		}
-		
-	} else {
-		if (((!(active->isBlocked())) && (!(active->isZombie()))) && active->isRunning())
-		{
-			// Einfuegen eines neuen Elements in die Ready-Liste.
-			active->changeTo(Activity::READY);
-			scheduler.schedule((Schedulable *)active);
-		}
-	
-		destination->changeTo(Activity::RUNNING);
-		dispatch(destination);	
-	}
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* Suspendieren des aktiven Prozesses
