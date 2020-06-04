@@ -18,14 +18,14 @@
 // Das sollte normalerweise *nicht* der Fall sein!
 class Hello: public Activity {
 public:
-	Hello(const char* name, PrintStream& out, int slices)
-		: Activity(slices), cout(out)
+	Hello(const char* name, PrintStream& out, int quantum)
+		: Activity(quantum), cout(out)
 	{
 		this->name = name;
 	}
 
-	Hello(const char* name, PrintStream& out, void* sp, int slices)
-		: Activity(sp,slices), cout(out)
+	Hello(const char* name, PrintStream& out, void* sp, int quantum)
+		: Activity(sp,quantum), cout(out)
 	{
 		this->name = name;
 		wakeup();
