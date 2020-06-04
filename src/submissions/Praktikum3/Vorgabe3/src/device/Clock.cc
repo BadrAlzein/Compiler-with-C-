@@ -120,6 +120,7 @@ void Clock::handle()
 	/******end  Test of Clk ****
 */
 	/**** For mainPre****/
+    this->ticken= ticks()+1;
 	scheduler.checkSlice();
 	//	}
 }
