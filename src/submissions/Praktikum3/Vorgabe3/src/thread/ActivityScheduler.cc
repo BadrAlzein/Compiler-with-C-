@@ -60,19 +60,10 @@ void ActivityScheduler::kill(Activity *process)
 */
 void ActivityScheduler::activate(Schedulable *to)
 {
- //IntLock lock; //safe this kritische Abschnitt Otherwise at the end will stop resetting ticks()
-    
-	/* this func send the running act to the ready and take a act from Ready list 
-		and make it to running 
-	*/
-	Activity *currentAct = this->getCurrentActivity(); //get the current activity
-	//define the active process conditions
-	//bool notZombie = !newAct->isZombie();
-	//bool notBlocked = !newAct->isBlocked();
-	bool isRunning = currentAct->isRunning();
-	//bool isActiveAct = notZombie && (notBlocked && isRunning);
+ IntLock lock; //safe this kritische Abschnitt 
 
-	//if there is an active process then add it to the Ready list
+	Activity *currentAct = this->getCurrentActivity(); //get the current activity
+	bool isRunning = currentAct->isRunning();
 	if (isRunning)
 	{
 		currentAct->changeTo(Activity::READY);		   //change the activity to Ready
@@ -86,20 +77,17 @@ void ActivityScheduler::activate(Schedulable *to)
 	if (targetAct == 0)
 	{
 		if (currentAct->isZombie() || currentAct->isBlocked()){ //make sure that the ready list is empty
+			cpu.enableInterrupts();	//enable for the cpu halt (active waiting)
 			while(targetAct == 0) {
-           
-			//prevent busy waiting
-			//cpu.enableInterrupts(); //
-			cpu.halt();				//halt until the next Interrupt
+					//halt until the next Interrupt
 			  targetAct = (Activity *)readylist.dequeue();	
-			cpu.disableInterrupts(); 		
+				cpu.halt();		
 			}
 		}
 	}
 	if (targetAct != 0)
 	{
 		//make the target Act running
-
 		targetAct->changeTo(Activity::RUNNING); //make the target Running
 		dispatch(targetAct);					//swich from current active Act to the target Act
 	}
@@ -141,4 +129,6 @@ void ActivityScheduler::checkSlice()
 		reschedule(); //reschedule aufrufen, wenn Zeitscheibe(Quantum) abgelaufen ist
 	}
 }
+
+
 
