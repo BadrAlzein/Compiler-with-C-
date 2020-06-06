@@ -102,7 +102,7 @@ void Clock::handle()
 	//actual time is number of ticks multi by interval time 
 	//brauche ich checkslice methode aus scheduler
 /*
-	    if (((ticken % 50 == 0) &&  (ticken % 100 != 0)) && ((ticken % 150 != 0) && (ticken % 200 != 0)) ) {         out.print("\r|");
+    if (((ticken % 50 == 0) &&  (ticken % 100 != 0)) && ((ticken % 150 != 0) && (ticken % 200 != 0)) ) {         out.print("\r|");
     }
     if(ticken % 100 == 0 && ticken % 150 != 0 && ticken % 200 != 0 && ticken % 50 == 0){
            out.print("\r/");
@@ -117,7 +117,7 @@ void Clock::handle()
        this->ticken = 0;
     }
     this->ticken= ticks()+1;
-	/******end  Test of Clk ****
+    
 */
 	/**** For mainPre****/
     this->ticken= ticks()+1;
