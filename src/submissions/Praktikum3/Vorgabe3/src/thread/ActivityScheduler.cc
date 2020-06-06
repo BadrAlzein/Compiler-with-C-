@@ -65,30 +65,34 @@ void ActivityScheduler::activate(Schedulable *to)
 	/* this func send the running act to the ready and take a act from Ready list 
 		and make it to running 
 	*/
-
-	Activity *newAct = this->getCurrentActivity(); //get the current activity
+	Activity *currentAct = this->getCurrentActivity(); //get the current activity
 	//define the active process conditions
 	//bool notZombie = !newAct->isZombie();
 	//bool notBlocked = !newAct->isBlocked();
-	bool isRunning = newAct->isRunning();
+	bool isRunning = currentAct->isRunning();
 	//bool isActiveAct = notZombie && (notBlocked && isRunning);
 
 	//if there is an active process then add it to the Ready list
 	if (isRunning)
 	{
-		newAct->changeTo(Activity::READY);		   //change the activity to Ready
-		scheduler.schedule((Schedulable *)newAct); //add it to the Ready list
+		currentAct->changeTo(Activity::READY);		   //change the activity to Ready
+		scheduler.schedule((Schedulable *)currentAct); //add it to the Ready list
 	}
 	Activity *targetAct = (Activity *)to;
 
 	/*Pending 
 		Nullpointer Exception	
 	 */
-	while (targetAct == 0)
+	if (targetAct == 0)
 	{
-		if (!newAct->isRunning())
-		{
-			targetAct = (Activity *)readylist.dequeue();
+		if (currentAct->isZombie() || currentAct->isBlocked()){ //make sure that the ready list is empty
+			while(targetAct == 0) {
+			//prevent busy waiting
+			cpu.enableInterrupts(); //or call restore()
+			cpu.halt();				//halt until the next Interrupt
+			targetAct = (Activity *)readylist.dequeue();	
+			cpu.disableInterrupts(); 		
+			}
 		}
 	}
 	if (targetAct != 0)
@@ -99,6 +103,60 @@ void ActivityScheduler::activate(Schedulable *to)
 		dispatch(targetAct);					//swich from current active Act to the target Act
 	}
 }
+
+
+void ActivityScheduler::activate(Schedulable *to)
+{
+	Activity *destination = (Activity *)to;
+	Activity *active = this->getActiveProcessActivity();
+
+	if (destination == 0) {
+		if((active->isBlocked()) || (active->isZombie())) {
+			while(destination == 0) {
+				//out.println("scheduler");
+				cpu.enableInterrupts();
+				cpu.halt();
+				destination = (Activity*) readylist.dequeue();
+				cpu.disableInterrupts();
+			}	
+			//out.println("geweckt");
+			if(destination != 0) {
+				//out.println("dispatch");
+				destination->changeTo(Activity::RUNNING);
+				dispatch(destination);
+			}		
+		}
+		
+	} else {
+		if (((!(active->isBlocked())) && (!(active->isZombie()))) && active->isRunning())
+		{
+			// Einfuegen eines neuen Elements in die Ready-Liste.
+			active->changeTo(Activity::READY);
+			scheduler.schedule((Schedulable *)active);
+		}
+	
+		destination->changeTo(Activity::RUNNING);
+		dispatch(destination);	
+	}
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Suspendieren des aktiven Prozesses
 * 1. Der korrekte Ausfuehrungszustand ist zu setzen
 * und danach 
