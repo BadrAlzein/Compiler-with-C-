@@ -25,7 +25,6 @@ public:
 
 	// Aktiviert das vorderste der Liste mittels activate.
 	void reschedule();
-	void checkSlice();
 
 protected:
 	/* Diese pur-virtuelle Methode stellt die Schnittstelle zum

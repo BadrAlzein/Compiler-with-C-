@@ -61,31 +61,66 @@ void ActivityScheduler::kill(Activity *process)
 void ActivityScheduler::activate(Schedulable *to)
 {
  IntLock lock; //safe this kritische Abschnitt 
-
 	Activity *currentAct = this->getCurrentActivity(); //get the current activity
-	bool isRunning = currentAct->isRunning();
-	if (isRunning)
+    
+ /** deal with current Act ***/   
+	if (currentAct->isRunning())
 	{
 		currentAct->changeTo(Activity::READY);		   //change the activity to Ready
 		scheduler.schedule((Schedulable *)currentAct); //add it to the Ready list
 	}
-	Activity *targetAct = (Activity *)to;
 
-	/*Pending 
-		Nullpointer Exception	
-	 */
+/**deal with target Activity */
+
+  Activity *targetAct = (Activity *)to;
+	
+ /** deal with empty readylist***/   
 	if (targetAct == 0)
 	{
-		if (currentAct->isZombie() || currentAct->isBlocked()){ //make sure that the ready list is empty
-			cpu.enableInterrupts();	//enable for the cpu halt (active waiting)
-			while(targetAct == 0) {
-					//halt until the next Interrupt
-			  targetAct = (Activity *)readylist.dequeue();	
-				cpu.halt();		
-			}
+        //make sure that the ready list is empty
+		if (currentAct->isZombie() || currentAct->isBlocked()){ 
+			//trigger that will decide if the cpu is busy waiting or not
+           if (IsActiveWaiting){
+               //while there are not activitys in the ready list
+                 while(targetAct == 0) {
+					//switch to halting mode -> not active watiing anymore
+                    IsActiveWaiting=false;
+                   //(cased by Intlock) -> enable Interrupt so halt can wait until an interrupt comes
+                   cpu.enableInterrupts();
+                   //halt the cpu with an enable interrupts
+                   cpu.halt();	
+                    //remove target from ready list
+                   targetAct = (Activity *)readylist.dequeue();	
+                   //(cased by Intlock) -> disable the interrupts again
+                   cpu.disableInterrupts();
+                	
+                }
+                /** Readylist is not empty anymore **/
+                
+                //switch to active waiting mode
+                IsActiveWaiting = true;
+                
+                /** deal with activate a normal target Act ***/ 
+                if (targetAct != 0){
+                    //if the is still a current activity running 
+                    if (currentAct->isRunning())
+                            {
+                                  //change the current activity to Ready
+                                    currentAct->changeTo(Activity::READY);		 
+                                    //add it to the Ready list
+                                    scheduler.schedule((Schedulable *)currentAct); 
+                            }
+                    //deal with the target activity 
+                     targetAct->changeTo(Activity::RUNNING); 
+                     dispatch(targetAct);	
+                    
+                }
+            }
 		}
 	}
-	if (targetAct != 0)
+
+/** deal with activate a normal target Act ***/   
+if (targetAct != 0)
 	{
 		//make the target Act running
 		targetAct->changeTo(Activity::RUNNING); //make the target Running
@@ -115,9 +150,11 @@ void ActivityScheduler::suspend()
 	this->reschedule();
 }
 
+
 /** resheduler if the quatum has reached the ticks of the clk then reset the clk */
 void ActivityScheduler::checkSlice()
 {
+    IntLock lock ;
 	Schedulable *active = (Schedulable *) getCurrentActivity();
     
      //  out.print(active->quantum());

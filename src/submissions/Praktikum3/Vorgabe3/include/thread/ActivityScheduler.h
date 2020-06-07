@@ -82,6 +82,7 @@ public:
     void checkSlice();
  
 private:
+      bool IsActiveWaiting= true;
 };
 
 extern ActivityScheduler scheduler;
