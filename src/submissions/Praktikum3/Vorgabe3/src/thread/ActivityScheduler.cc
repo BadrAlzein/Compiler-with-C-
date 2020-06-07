@@ -89,11 +89,10 @@ void ActivityScheduler::activate(Schedulable *to)
                    cpu.enableInterrupts();
                    //halt the cpu with an enable interrupts
                    cpu.halt();	
-                    //remove target from ready list
-                   targetAct = (Activity *)readylist.dequeue();	
                    //(cased by Intlock) -> disable the interrupts again
                    cpu.disableInterrupts();
-                	
+                 //remove target from ready list
+                   targetAct = (Activity *)readylist.dequeue();	
                 }
                 /** Readylist is not empty anymore **/
                 
