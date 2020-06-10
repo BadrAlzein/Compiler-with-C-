@@ -72,6 +72,41 @@ public:
      *       True wenn es sich um ein Whitespace-Zeichen handelt, sonst false.
      */
     bool isWhitespace(char ch);
+     /**
+     * check if char ch is a (- which is 45), (% which is 37) , (/ which is 47),(* which is 42)  
+     *
+     * @param ch
+     *       Ein ASCII-Zeichen.
+     * @return
+     *       True wenn es sich um ein Whitespace-Zeichen handelt, sonst false.
+     */
+    bool isOperand(char ch);
+    /**
+     * check if char ch is a Hex for adress info
+     *
+     * @param ch
+     *       Ein ASCII-Zeichen.
+     * @return
+     *       True wenn es sich um ein Whitespace-Zeichen handelt, sonst false.
+     */
+    bool isHex(char ch);
+    /**
+     * check if char ch is not Hex
+     * @param ch
+     *       Ein ASCII-Zeichen.
+     * @return
+     *       True wenn es sich um ein Whitespace-Zeichen handelt, sonst false.
+     */
+    bool isNotHex(char ch);
+    /**
+     * check if char ch is a bracket  
+     *
+     * @param ch
+     *       Ein ASCII-Zeichen.
+     * @return
+     *       True wenn es sich um ein Whitespace-Zeichen handelt, sonst false.
+     */
+    bool isBrackets(char ch);
 
 protected:
     /**

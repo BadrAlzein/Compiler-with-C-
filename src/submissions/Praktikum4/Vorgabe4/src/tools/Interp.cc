@@ -1,6 +1,6 @@
 #include "tools/Interp.h"
 
-unsigned Interpreter::eval(char* input, int& result)
+unsigned Interpreter::eval(char *input, int &result)
 {
     if (!input)
         return BAD_BUFFER;
@@ -9,11 +9,13 @@ unsigned Interpreter::eval(char* input, int& result)
     Scanner::init(input);
     status = 0;
 
-    if (lookahead() == '*') {
+    if (lookahead() == '*')
+    {
         consume();
         result = evalDump();
     }
-    else {
+    else
+    {
         result = evalExpr();
     }
     return status;
@@ -35,23 +37,24 @@ int Interpreter::evalSumTail(int lhs)
     consumeWS();
 
     // Passende Regel auswählen
-    switch (lookahead()) {
-        case '+':
-            consume();
-            return lhs + evalSumTail(evalProd());
+    switch (lookahead())
+    {
+    case 43:
+        consume();
+        return lhs + evalSumTail(evalProd());
 
-        case '-':
-            consume();
-            // Operation ist linksassoziativ, muss also von linksbündig ausgewertet werden.
-            return evalSumTail(lhs - evalProd());
+    case 45:
+        consume();
+        // Operation ist linksassoziativ, muss also von linksbündig ausgewertet werden.
+        return evalSumTail(lhs - evalProd());
 
-        // Mögliche Zeichen bei Epsilon-Regel
-        case '\0':
-        case ')':
-            return lhs;
+    // Mögliche Zeichen bei Epsilon-Regel
+    case '\0':
+    case ')':
+        return lhs;
 
-        default:
-            status = UNEXP_SYMBOL;
+    default:
+        status = UNEXP_SYMBOL;
     }
     return 0;
 }
@@ -67,40 +70,41 @@ int Interpreter::evalProdTail(int lhs)
     consumeWS();
 
     // Passende Regel auswählen
-    switch (lookahead()) {
-        case '*':
-            consume();
-            return lhs * evalProdTail(evalFactor());
+    switch (lookahead())
+    {
+    case '*':
+        consume();
+        return lhs * evalProdTail(evalFactor());
 
-        case '/':
-            consume();
-            // Prüfen, ob factor nicht negativ ist (Division durch null ist nicht erlaubt)
-            if (int nextFactor = evalFactor())
-                // Operation ist linksassoziativ, muss also von linksbündig ausgewertet werden.
-                return evalProdTail(lhs / nextFactor);
+    case '/':
+        consume();
+        // Prüfen, ob factor nicht negativ ist (Division durch null ist nicht erlaubt)
+        if (int nextFactor = evalFactor())
+            // Operation ist linksassoziativ, muss also von linksbündig ausgewertet werden.
+            return evalProdTail(lhs / nextFactor);
 
-            status = ARITHM_ERROR;
-            return 0;
+        status = ARITHM_ERROR;
+        return 0;
 
-        case '%':
-            consume();
-            // Prüfen, ob factor nicht negativ ist (Division durch null ist nicht erlaubt)
-            if (int nextFactor = evalFactor())
-                // Operation ist linksassoziativ, muss also von linksbündig ausgewertet werden.
-                return evalProdTail(lhs % nextFactor);
+    case '%':
+        consume();
+        // Prüfen, ob factor nicht negativ ist (Division durch null ist nicht erlaubt)
+        if (int nextFactor = evalFactor())
+            // Operation ist linksassoziativ, muss also von linksbündig ausgewertet werden.
+            return evalProdTail(lhs % nextFactor);
 
-            status = ARITHM_ERROR;
-            return 0;
+        status = ARITHM_ERROR;
+        return 0;
 
-        // Mögliche Zeichen bei Epsilon-Regel
-        case '+':
-        case '-':
-        case ')':
-        case '\0':
-            return lhs;
+    // Mögliche Zeichen bei Epsilon-Regel
+    case '+':
+    case '-':
+    case ')':
+    case '\0':
+        return lhs;
 
-        default:
-            status = UNEXP_SYMBOL;
+    default:
+        status = UNEXP_SYMBOL;
     }
     return 0;
 }
@@ -112,24 +116,29 @@ int Interpreter::evalFactor()
 
     // Passende Regel auswählen
     char LA = lookahead();
-    if (LA == '(') { // Öffnende Klammer
+    if (LA == '(')
+    { // Öffnende Klammer
         consume();
         // Werte geschachtelten Ausdruck aus
         int ret = evalExpr();
-        if (lookahead() != ')') { // Schließende Klammer
+        if (lookahead() != ')')
+        { // Schließende Klammer
             status = UNEXP_SYMBOL;
             return 0;
         }
         consume();
         return ret;
     }
-    else if (isDigit(LA)) { // Ziffer
+    else if (isDigit(LA))
+    { // Ziffer
         return evalNum();
     }
-    else if (LA == '\0') { // Ende des Puffers
+    else if (LA == '\0')
+    { // Ende des Puffers
         status = UNEXP_EOT;
     }
-    else {
+    else
+    {
         status = UNEXP_SYMBOL;
     }
     return 0;
@@ -140,7 +149,8 @@ int Interpreter::evalNum()
     char ch = lookahead();
 
     // Abbrechen, falls Lookahead keine Ziffer ist
-    if (!isDigit(ch)) {
+    if (!isDigit(ch))
+    {
         status = UNEXP_SYMBOL;
         return 0;
     }
@@ -152,18 +162,21 @@ int Interpreter::evalNum()
     int numValue = 0;
 
     // Prüfe auf führende null (mögliches Anzeichen für Formatpräfix wie 0x oder 0b)
-    if (ch == '0') {
+    if (ch == '0')
+    {
 
         // Gehe zu nächsten Symbol (aktuelle Ziffer ist unerheblich für Resultat)
         consume();
         ch = lookahead();
 
         // Prüfe auf Formatpräfix für binäre bzw. hexadezimale Zahlen und passe ggf. die Basis an.
-        if (ch == 'b') {
+        if (ch == 'b')
+        {
             base = 2;
             consume();
         }
-        else if (ch == 'x') {
+        else if (ch == 'x')
+        {
             base = 16;
             consume();
         }
@@ -171,7 +184,8 @@ int Interpreter::evalNum()
 
     // Führe Reduktion mittels Addition über Folge von Ziffern aus.
     // Das Polynom lautet (((0 * base + d0) * base + d1) * ... ) * base + dn.
-    while (lookahead(&ch)) {
+    while (lookahead(&ch))
+    {
         // Multipliziere Basis mit Zwischenergebnis um 'Platz zu schaffen' für nächste Ziffer
         int tmp = numValue * base;
 
@@ -191,8 +205,23 @@ int Interpreter::evalNum()
     }
     return numValue;
 }
-
+/**
+  * Speicherinhalt an einer Adresse ausgeben.
+  * Der Interpreter ist in der lage die Eingabe einer Adress zu erkennen.
+  * arbeiten analog zu  der Grammatik 
+  * ziel ist eine Ausgabe in der art:
+  *  (* 0xfefe = -426770432)
+  * */
 int Interpreter::evalDump()
 {
-    return 0;
+    int number = evalNum();
+    unsigned int *pointer = (unsigned int *)number;
+    if (pointer >= 0 && (pointer <= (unsigned *)0xFFFFFFFF))
+    {
+        return *pointer;
+    }
+    else
+    {
+        return 0;
+    }
 }
