@@ -94,7 +94,7 @@ void Clock::windup(int us)
     // if the ticks of the clock is equal to the qauntom reset the clock and reschedule it
 void Clock::handle()
 {
-	//IntLock lock; //save kritische Abschnitt
+	IntLock lock; //save kritische Abschnitt
 	//Ein geworfener Interrupt muss bestätigt werden, bevor er erneut geworfen werden kann.
 	//ack confirms the thrown interrupt before it can be thrown again(damit ein Interrupt erneut auftreten kann)
 	pic.ack();
