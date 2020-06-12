@@ -38,7 +38,7 @@ public:
 	 * der abgeleiteten Klasse abgearbeitet ist. Die Aktivierung
 	 * erfolgt von der abgeleiteten Klasse mittels "wakeup".
 	*/
-	Activity(void *tos, int quantum);
+	Activity(void *tos, int slices=1);
 
 	/* Verpacken des aktuellen Kontrollflusses als Thread.
 	 * Wird nur f�r den Hauptkontrollfluss "main" ben�tigt.
@@ -47,7 +47,7 @@ public:
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
 	 * aufgerufen werden.
 	 */
-	Activity(int quantum);
+	Activity(int slices =1);
 
 	/* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.
 	 * Das muss geschehen, da aufgrund der Aufrufreihenfolge von
