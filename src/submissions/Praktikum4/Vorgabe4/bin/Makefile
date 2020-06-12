@@ -41,9 +41,9 @@ SYSTEM_C = \
 SYSTEM_CC = \
 	$(INITFINI) \
 	io/PrintStream.cc \
-        device/CgaChar.cc \
+    device/CgaChar.cc \
 	device/CgaChannel.cc \
-        device/CgaScreen.cc \
+    device/CgaScreen.cc \
 	lib/Queue.cc \
 	device/PIC.cc\
 	device/PIT.cc\
@@ -57,7 +57,12 @@ SYSTEM_CC = \
 	thread/ActivityScheduler.cc\
 	thread/Coroutine.cc\
 	thread/Scheduler.cc\
-	mainPre.cc
+	device/Keyboard.cc\
+	device/CodeTable.cc\
+	tools/Calc.cc\
+	tools/Interp.cc\
+	tools/Scanner.cc\
+	mainCalc.cc
 
 
 ##############################################################################
