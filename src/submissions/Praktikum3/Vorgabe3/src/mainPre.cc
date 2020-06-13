@@ -33,7 +33,11 @@ public:
 
 	~Hello()
 	{
+		cout.print("Dest  Anfang" );
+		cout.println(name);
 		join();
+		cout.print("Dest  Ende" );
+		cout.println(name);
 	}
 
 	void body() {
@@ -78,9 +82,9 @@ unsigned stack1[1024];
 
 int main()
 {
-	Hello anton("Anton", out, 1); // anton benutzt den Stack von main
-	Hello berta("Berta", out, &stack0[1024], 3);
-	Hello caesar("Caesar", out, &stack1[1024], 7);
+	Hello anton("Anton", out, 1000000); // anton benutzt den Stack von main
+	Hello berta("Berta", out, &stack0[1024], 1);
+	Hello caesar("Caesar", out, &stack1[1024], 1);
 
 	cpu.enableInterrupts();
 	anton.body();

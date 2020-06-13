@@ -47,11 +47,12 @@ public:
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
 	 * aufgerufen werden.
 	 */
-	Activity(int quantum);
+	Activity(int quantum = 1);
 
 
 	Activity(void *tos);
 
+	
 	/* Im Destruktor muss ein explizites Terminieren dieser Aktivitaet erfolgen.
 	 * Das muss geschehen, da aufgrund der Aufrufreihenfolge von
 	 * Destruktoren bereits der abgeleitete Teil des Activity-Objekts zerstoert

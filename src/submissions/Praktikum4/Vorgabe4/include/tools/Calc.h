@@ -7,6 +7,9 @@
 /** Ein einfacher interaktiver Taschenrechner */
 class Calculator : public Activity
 {
+private:
+    int location;
+
 public:
     /** Erzeugt einen Calculator, der auf dem Kernel-Stack läuft */
     explicit Calculator();

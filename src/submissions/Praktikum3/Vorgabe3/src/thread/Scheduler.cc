@@ -8,13 +8,13 @@
 //#include "thread/Dispatcher.h"
 
 void Scheduler::schedule(Schedulable *sched) {
-     IntLock lock; // lock this Kritische Abschnitt //wegen wakeup
+    IntLock lock; // lock this Kritische Abschnitt //wegen wakeup
     readylist.enqueue((Chain*)sched);
 }
 
 
 void Scheduler::remove(Schedulable *sched) {
-     IntLock lock; // lock this Kritische Abschnitt // wegen kill and exit (coroutine)
+    IntLock lock; // lock this Kritische Abschnitt // wegen kill and exit (coroutine)
     readylist.remove((Chain*) sched);
 }
 
