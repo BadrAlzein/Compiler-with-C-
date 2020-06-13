@@ -11,9 +11,8 @@ void Scanner::consume()
         ++position;
 }
 /**
-     * move the lookahead one position to next character (no whitespace)
-     * the white spaces will be skipped.
-     * Has no effect when the end of buffer is reached 
+     * Bewegt den Lesekopf um eine Position nach rechts.
+     * Hat keinen Effekt wenn das Ende des Puffers erreicht ist.
      */
 void Scanner::consumeWS()
 {
@@ -26,7 +25,7 @@ char Scanner::lookahead()
 {
     // length of string
     if (position >= length)
-        return 0;
+     return 0;
 
     return input[position];
 }
