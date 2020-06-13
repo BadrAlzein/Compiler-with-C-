@@ -8,7 +8,16 @@ unsigned Interpreter::eval(char *input, int &result)
     // Lesenkopf etc. initialisieren
     Scanner::init(input);
     status = 0;
-
+/** Start   -> * Dump | Expr
+    Expr    -> Sum
+    Sum     -> Prod Sum'
+    Sum'    -> + Prod Sum' | - Prod Sum' | eps
+    Prod    -> Factor Prod'
+    Prod'   -> * Factor Prod' | / Factor Prod' | % Factor Prod' | eps
+    Factor  -> Num | Ident | ( Expr )
+    Num     -> (1 | ... | 9) (0 | ... | 9)*
+    Dump    -> Expr
+    */
     if (lookahead() == '*')
     {
         consume();
@@ -39,10 +48,11 @@ int Interpreter::evalSumTail(int lhs)
     // Passende Regel auswählen
     switch (lookahead())
     {
+        // hyphen (-) =43 ascii
     case 43:
         consume();
         return lhs + evalSumTail(evalProd());
-
+        //plus (+) = 45
     case 45:
         consume();
         // Operation ist linksassoziativ, muss also von linksbündig ausgewertet werden.
@@ -212,16 +222,15 @@ int Interpreter::evalNum()
   * ziel ist eine Ausgabe in der art:
   *  (* 0xfefe = -426770432)
   * */
+
 int Interpreter::evalDump()
 {
-    int number = evalNum();
-    unsigned int *pointer = (unsigned int *)number;
-    if (pointer >= 0 && (pointer <= (unsigned *)0xFFFFFFFF))
-    {
-        return *pointer;
-    }
-    else
-    {
-        return 0;
-    }
+
+// save the num inside of a int pointer 
+    unsigned *pointer = (unsigned int*) evalNum();
+ 
+
+    // Return pointers value
+    return *pointer;
+
 }
