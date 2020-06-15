@@ -16,7 +16,7 @@ public:
 
     /** Erzeugt einen Calculator, der auf einem User-Stack läuft */
     explicit Calculator(void *sp);
-
+   void handleInsertAtLocation();
     /**
      * Initialisiert den Calculator.
      *
