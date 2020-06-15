@@ -21,6 +21,7 @@ Calculator::Calculator(void* sp)
 
 void Calculator::init()
 {
+    location=0;//brishna
     clearBuffer();
     cga.clear();
 }
@@ -73,33 +74,66 @@ void Calculator::insert(char c)
 
         if (location <= 32) {
             if(interp.isOperand(c)) {
+                handleInsertAtLocation();
                 buffer[location] = c;
                 out.print(c);
                 location++;
             }
         }
         else if (interp.isDigit(c)) {
+            handleInsertAtLocation();
             buffer[location] = c;
             location++;
             out.print(c);
         }
         else if (interp.isNotHex(c)) {
+            handleInsertAtLocation();
             buffer[location] = c;
             location++;
             out.print(c);
         }
          else if (interp.isHex(c)) {
+             handleInsertAtLocation();
              buffer[location] = c;
              location++;
              out.print(c);
          }
         else if (interp.isWhitespace(c)) {
+            handleInsertAtLocation();
             out.print(' ');
         }
     }
 
 }
-
+void Calculator ::handleInsertAtLocation()
+{
+    if (buffer[location] == 0)
+    {
+        // zahl im buffer 0 hat keine wirkung
+    }
+    else
+    {
+        int j;
+        // alle Elemente rechts von der Position, werden nach rechts fuer den insert verschoben -> Luecke fuer den Insert entsteht
+        for (j = 32; j > location; j--)
+        {
+            buffer[j] = buffer[j - 1];
+        }
+        // 0 fuer eingabe eines zeichens an diese stelle
+        buffer[location] = 0;
+        int col;
+        int row;
+        cga.getCursor(col, row);
+        out.print(' ');
+        unsigned i = 0;
+        // alle Zeichen nach dem Character an Stelle der Position werden nochmal geprinted, damit sie aktualisiert werden
+        for (i = location + 1; i <= 32; i++)
+        {
+            out.print(buffer[i]);
+        }
+        cga.setCursor(col, row);
+    }
+}
 void Calculator::enter()
 {
     int result;

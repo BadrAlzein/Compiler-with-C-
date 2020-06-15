@@ -15,7 +15,7 @@ public:
     explicit Calculator();
 
     /** Erzeugt einen Calculator, der auf einem User-Stack läuft */
-    explicit Calculator(void* sp);
+    explicit Calculator(void *sp);
 
     /**
      * Initialisiert den Calculator.
@@ -54,7 +54,7 @@ public:
      * EXPR_SIZE_MAX).
      */
     void body();
-
+     void updatePosition();//brishna 
 private:
     /** Interne Konstanten */
     enum {
@@ -149,3 +149,4 @@ private:
 };
 
 #endif
+
