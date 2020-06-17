@@ -76,40 +76,33 @@ void Calculator::body()
             this -> moveRight();
         }
         if(button.isAscii()) {
-            switch (c) {
-                case '\n':              // check if the given ASCII code is representation of the the enter button
-                    enter();
-                    break;
-                case 8:              //check for backspace
-                    int column;
-                    int row;
+            if (c == '\n') {
+                enter();
+            } else if (c == '\b') {
+                int column;
+                int row;             
 
-                    cga.getCursor(column,row);
+                cga.getCursor(column,row);
 
                     // check if not at the first column otherwise we can't backspace and get out of cga screen.
                     // if we are not at 0 columns then we should delete the charachter before the cursor and replace it with and 
                     // empty string and move to the left along with cursor
-                    if (column != 0) {
-                        cga.setCursor(column - 1, row);
-                        cga.getCursor(column, row);
-                        location--;
-                        buffer[location] = 0;
-                        out.print(' ');
-                        cga.getCursor(column, row);
-                        cga.setCursor(column - 1, row);
-                        cga.getCursor(column, row);
-                    }
-                    break;
+                if (column != 0) {
+                    cga.setCursor(column - 1, row);
+                    cga.getCursor(column, row);
+                    buffer[column] = 0;
                     
-                    default:
-                    insert(c);         //in case of a normal charachters then insert will handle it
-                    break;
+                    out.print(' ');                
+                    cga.setCursor(column , row);
+                } 
+            }else {
+                insert(c);
+          
             }
         }
             
-        }
-
     }
+}
 
 
 /**
@@ -137,6 +130,7 @@ void Calculator::insert(char c)
         if(buffer[EXPR_SIZE_MAX - 1] != 0) {
             return;
         }
+    
         //in case of writing a charachter that has other charachters on the right side of it, this they should be shifted
         if(buffer[position] !=0) {
             for(int i = EXPR_SIZE_MAX; i > position; i--) {
@@ -144,6 +138,7 @@ void Calculator::insert(char c)
             }
 
             buffer[position] = c;
+            //cga.getCursor(column, row);
             renderBuffer();
         } else {
             //adding a given charachter to the buffer
