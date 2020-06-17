@@ -121,13 +121,8 @@ void Calculator::body()
      *      Ein ASCII-Zeichen
      */
 void Calculator::insert(char c)
-{
-    //if (interp.isDigit(c))
-    //{
-    //}
-    // 8 is backspace
 
-    if (c == 8)
+    if (c == 8) // backspace 
     {
         // Delete und moveLeft/moveRight muss trotzdem ausfuehrbar sein, auch wenn der Buffer voll ist!
         int row;
@@ -145,45 +140,25 @@ void Calculator::insert(char c)
             cga.getCursor(column, row);
         }
     }
-    if (c == 10)
+    else if (c == 10)
         {
             // ascii letter is 10 for new line
             enter();
         }
-    if (location <= 32)
+    else if (location <= EXPR_SIZE_MAX )   //Expr Size
     {
-        if (interp.isOperand(c))
-        {
-            handleInsertAtLocation();
-            buffer[location] = c;
-            out.print(c);
-            location++;
-        }
-        else if (interp.isDigit(c))
-        {
-            handleInsertAtLocation();
-            buffer[location] = c;
-            location++;
-            out.print(c);
-        }
-        else if (interp.isWhitespace(c))
+         if (interp.isWhitespace(c))
         {
             handleInsertAtLocation();
             out.print(' ');
         }
-        else if (interp.isHex(c))
-        {
-            handleInsertAtLocation();
+     
+        else {
+           handleInsertAtLocation();
             buffer[location] = c;
             location++;
             out.print(c);
-        }
-        else if (interp.isNotHex(c))
-        {
-            handleInsertAtLocation();
-            buffer[location] = c;
-            location++;
-            out.print(c);
+
         }
     }
 }
