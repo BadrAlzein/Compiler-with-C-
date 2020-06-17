@@ -51,6 +51,7 @@ bool Scanner::lookahead(char *dest)
     *dest = input[position];
     return (*dest != '\0');
 }
+
 /**
      * Prüft, ob das Zeichen eine Ziffer repräsentiert [0..9]
      *
