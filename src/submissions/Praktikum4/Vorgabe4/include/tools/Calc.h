@@ -54,7 +54,7 @@ public:
      * EXPR_SIZE_MAX).
      */
     void body();
-     void updatePosition();//brishna 
+    void updatePosition();//brishna 
 private:
     /** Interne Konstanten */
     enum {
@@ -106,6 +106,8 @@ private:
      * hierbei etwaige Randfälle.
      */
     void moveLeft();
+
+    void backspace();
 
     /**
      * Behandelt das Betätigen der Pfeil-Rechts-Taste.
