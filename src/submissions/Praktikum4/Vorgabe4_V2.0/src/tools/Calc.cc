@@ -118,7 +118,7 @@ void Calculator::insert(char c)
  { 
      //check if the given charachter is a backspace then we should be able to delete a charachter at that position
      //and move the cursor one step backwards
-    if (c == 8)  
+    if (c == 8) 
     {
         
         int row;
@@ -143,19 +143,19 @@ void Calculator::insert(char c)
             // ascii letter is 10 for new line
             enter();
         }
-    else if (location <= 32 )   //Expr Size
+    else if (location <= EXPR_SIZE_MAX)   //Expr Size
     {
         
          if (interp.isWhitespace(c))
         {
-            handleInsert();
+            helpInInsert();
             out.print(' ');
             
         }
      
         else {
             // here we will be able to add the rest of the charachters to the screen, where we add them to the buffer
-            handleInsert();
+            helpInInsert();
             buffer[location] = c;
             location++;
             out.print(c);
@@ -170,7 +170,7 @@ void Calculator::insert(char c)
  * position, so they can shift to the write and give their place to other charachters
  * 
 */
-void Calculator ::handleInsert()
+void Calculator ::helpInInsert()
 {
     if (buffer[location] == 0)
     {
@@ -193,7 +193,7 @@ void Calculator ::handleInsert()
         for (unsigned i = location + 1; i <= EXPR_SIZE_MAX; i++)
         {
             out.print(buffer[i]);
-        }
+        }// 
         cga.setCursor(col, row);
     }
 }
@@ -286,20 +286,23 @@ void Calculator::moveRight()
     int column, row = 0;
     cga.getCursor(column, row);
 
-    
+
+    if(buffer[location] == 0 && buffer[location+1] == 0) {
+        return;
+    }
     //when we at the end of the screen then we should be able to clear it and go back to the start
-    if (row == 25 && column == 32)
+    if (row == 25 && column == EXPR_SIZE_MAX)
     {
         cga.clear();
         cga.setCursor(0, 0);
         location++;
     }
     //wenn wir über die Spalten rechts rüber laufen
-    if (row != 25 && column > 32)
+    if (row != 25 && column > EXPR_SIZE_MAX)
     {
         //cga.setCursor(column, row);
     }
-    if (row != 25 && column <= 32)
+    if (row != 25 && column <= EXPR_SIZE_MAX)
     {
         cga.setCursor(column + 1, row);
         location++;

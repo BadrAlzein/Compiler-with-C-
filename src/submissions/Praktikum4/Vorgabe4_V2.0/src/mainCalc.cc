@@ -33,7 +33,7 @@ int main()
 {
     Calculator calc;
     cpu.enableInterrupts();
-    calc.quantum(14500);
+    calc.quantum(20000);
     calc.body();
     scheduler.kill(&calc);
 }
