@@ -31,6 +31,7 @@ Calculator::Calculator(void *sp) : Activity(sp)
 void Calculator::init()
 {
     location = 0;
+  //  shiftPressed=false;
     clearBuffer();
     cga.clear();
 }
@@ -61,22 +62,19 @@ void Calculator::init()
 void Calculator::body()
 {
     Key button;
-    //see if the shift Left or Right is pressed
-    if (button.getValue()==42 ||button.getValue()==54 ){
-        shiftPressed=true;
-    }
     // as long as the end or esc button are not pressed we should take input from the user
     // otherwise the programm should print a message that the calculator has been stopeed
     while (button.getValue() != 27) 
-    {
-    
+    {   
+  
+        
         // this methode give back a charachter form the Keyboard buffer
         // this will be blocked when the buffer is empty
         button = keyboard.read();
 
         //check if the button pressed is the left arrow button, then we should be able to move to the left
         //where 75 is a representation of the left arrow (Check Codetable)
-        if (button.getValue() == 75 &&shiftPressed) 
+        if (button.getValue() == 75 ) 
         {
             this->moveLeft();
             
@@ -84,8 +82,9 @@ void Calculator::body()
 
         //check if the button pressed is the right arrow button, then we should be able to move to the right
         //where 77 is a representation of the right arrow (Check Codetable)
-         if (button.getValue() == 77 && shiftPressed) 
+         if (button.getValue() == 77 ) 
         {
+            out.print(button.getValue());
             this->moveRight();
             
         }
@@ -98,6 +97,7 @@ void Calculator::body()
         }
     }
     out.println(" Calculator has stopped.");
+    
 }
 
 /**
@@ -163,6 +163,7 @@ void Calculator::insert(char c)
 
         }
     }
+    
 }
 
 /**
