@@ -116,6 +116,7 @@ void Calculator::body()
      */
 void Calculator::insert(char c)
  { 
+
      //check if the given charachter is a backspace then we should be able to delete a charachter at that position
      //and move the cursor one step backwards
     if (c == 8) 
@@ -128,12 +129,18 @@ void Calculator::insert(char c)
         {
             cga.setCursor(column - 1, row);
             cga.getCursor(column, row);
+             
             location--;
             buffer[location] = 0;
             out.print(' ');
             cga.getCursor(column, row);
             cga.setCursor(column - 1, row);
             cga.getCursor(column, row);
+        for (int j = location; j < EXPR_SIZE_MAX; j++)
+        {
+            buffer[j] = buffer[j + 1];
+        }
+            
         }
     }
     //check if the given charachter is a new line charachter which means that the user pressed the enter button
@@ -227,6 +234,7 @@ void Calculator::enter()
         }
         if (isValied){
             //return Zeichen
+            out.print(buffer);
         }else {
                 printErrorMsg(interp.eval(buffer, result));
         }
@@ -352,7 +360,9 @@ void Calculator::printErrorMsg(unsigned code)
         break;
 
     case Interpreter::UNEXP_SYMBOL:
+        // out.print(buffer);
         out.print("Error: Unexpected symbol!");
+       
         break;
 
     case Interpreter::ARITHM_ERROR:
