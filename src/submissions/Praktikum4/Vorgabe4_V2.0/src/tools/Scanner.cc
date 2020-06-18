@@ -92,38 +92,6 @@ bool Scanner::isOperand(char ch)
 }
 
 /**
-     * check if char ch is a Hex for adress info
-     *
-     * @param ch
-     *       Ein ASCII-Zeichen.
-     * @return
-     *       True wenn es sich um ein Whitespace-Zeichen handelt, sonst false.
-     */
-
-bool Scanner::isHex(char ch)
-{
-
-    if ((((ch >= 97) && (ch <= 102)) || (ch == ' ') || (ch == 120)))
-        return true;
-
-    return false;
-}
-
-/**
-     * check if char ch is not Hex
-     * @param ch
-     *       Ein ASCII-Zeichen.
-     * @return
-     *       True wenn es sich um ein Whitespace-Zeichen handelt, sonst false.
-     */
-bool Scanner::isNotHex(char ch)
-{
-    if ((ch >= 97) && (ch <= 122))
-        return true;
-        
-    return false;
-}
-/**
      * check if char ch is a bracket  
      *
      * @param ch

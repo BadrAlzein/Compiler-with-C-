@@ -61,48 +61,42 @@ void Calculator::init()
 void Calculator::body()
 {
 
-    /** Die Klasse Key beschreibt ein logisches Zeichen,
-      *  das heißt ein ASCII-Zeichen oder ein Steuerzeichen.
-      */
+    
     Key button;
-
-    while (button.getValue() != 27) //solange END/ESC nicht gedrueckt wird
+    
+    // as long as the end or esc button are not pressed we should take input from the user
+    // otherwise the programm should print a message that the calculator has been stopeed
+    while (button.getValue() != 27) 
     {
-        /**
-         * Diese Methode liefert ein Zeichen aus dem Tastaturpuffer
-         * zurück. Diese Methode blockiert, wenn der Puffer leer ist.
-         */
+    
+        // this methode give back a charachter form the Keyboard buffer
+        // this will be blocked when the buffer is empty
         button = keyboard.read();
 
-        if (button.getValue() == 75) //wenn Pfeiltaste links gedrueckt wird, dann wollen wir den Cursor nach links bewegen
+        //check if the button pressed is the left arrow button, then we should be able to move to the left
+        //where 75 is a representation of the left arrow (Check Codetable)
+        if (button.getValue() == 75) 
         {
-            /**
-             * Das Betätigen der Pfeil-Links-Taste soll den Cursor 
-             * genau eine Position nach links bewegen. Beachtet
-             * hierbei etwaige Randfälle.
-             */
             this->moveLeft();
+            
         }
 
-        if (button.getValue() == 77) //rechte Pfeiltaste
+        //check if the button pressed is the right arrow button, then we should be able to move to the right
+        //where 77 is a representation of the right arrow (Check Codetable)
+        if (button.getValue() == 77) 
         {
-            /**
-             * Das Betätigen der Pfeil-Rechts-Taste soll den Cursor
-             * genau eine Position nach rechts bewegen. Beachtet
-             * hierbei etwaige Randfälle.
-             */
             this->moveRight();
+            
         }
 
-        //Wenn ASCII-Zeichen, dann insert
-        if (button.isAscii() == true)
+        // check if the button from type ASCII then it will be handeld in the insert methode
+        if (button.isAscii())
         {
             insert(button.getValue());
-            //count++;
-            //buffer[count];
+        
         }
     }
-    out.println(" Taschenrechner gestoppt.");
+    out.println(" Calculator has stopped.");
 }
 
 /**
@@ -121,10 +115,12 @@ void Calculator::body()
      *      Ein ASCII-Zeichen
      */
 void Calculator::insert(char c)
-
-    if (c == 8) // backspace 
+ { 
+     //check if the given charachter is a backspace then we should be able to delete a charachter at that position
+     //and move the cursor one step backwards
+    if (c == 8)  
     {
-        // Delete und moveLeft/moveRight muss trotzdem ausfuehrbar sein, auch wenn der Buffer voll ist!
+        
         int row;
         int column;
         cga.getCursor(column, row);
@@ -140,6 +136,8 @@ void Calculator::insert(char c)
             cga.getCursor(column, row);
         }
     }
+    //check if the given charachter is a new line charachter which means that the user pressed the enter button
+    //that's why if the user had a valid expression it will be calculated
     else if (c == 10)
         {
             // ascii letter is 10 for new line
@@ -147,14 +145,17 @@ void Calculator::insert(char c)
         }
     else if (location <= EXPR_SIZE_MAX )   //Expr Size
     {
+        
          if (interp.isWhitespace(c))
         {
-            handleInsertAtLocation();
+            handleInsert();
             out.print(' ');
+            
         }
      
         else {
-           handleInsertAtLocation();
+            // here we will be able to add the rest of the charachters to the screen, where we add them to the buffer
+            handleInsert();
             buffer[location] = c;
             location++;
             out.print(c);
@@ -164,34 +165,31 @@ void Calculator::insert(char c)
 }
 
 /**
- * Hilfsmethode, um das Einfuegen zu ermoeglichen, wenn noch
- * Zeichen rechts der Position stehen, indem die Zeichen rechts
- * der Position (von hinten an) nach Rechts verschoben werden,
- * sodass eine Luecke fuer das neue Element entsteht.
- */
-void Calculator ::handleInsertAtLocation()
+ * this methode will help us inserting new charachters when there are other charachters at the right side of our current
+ * position, so they can shift to the write and give their place to other charachters
+ * 
+*/
+void Calculator ::handleInsert()
 {
     if (buffer[location] == 0)
     {
-        // zahl im buffer 0 hat keine wirkung
-    }
-    else
-    {
-        int j;
-        // alle Elemente rechts von der Position, werden nach rechts fuer den insert verschoben -> Luecke fuer den Insert entsteht
-        for (j = 32; j > location; j--)
+        // the number at the buffer 0 will have no effect
+    } 
+    else {
+        // all elements that are the right side of our position will be shifted to the right
+        for (int j = EXPR_SIZE_MAX; j > location; j--)
         {
             buffer[j] = buffer[j - 1];
         }
         // 0 fuer eingabe eines zeichens an diese stelle
         buffer[location] = 0;
-        int col;
-        int row;
+        int col,row;
         cga.getCursor(col, row);
         out.print(' ');
-        unsigned i = 0;
-        // alle Zeichen nach dem Character an Stelle der Position werden nochmal geprinted, damit sie aktualisiert werden
-        for (i = location + 1; i <= 32; i++)
+        //unsigned i = 0;
+    
+        // all charachters after this position will be printed again
+        for (unsigned i = location + 1; i <= EXPR_SIZE_MAX; i++)
         {
             out.print(buffer[i]);
         }
@@ -217,28 +215,18 @@ void Calculator::enter()
     int result;
     out.println();
 
-    /**
-     * Wertet den gegebenen Ausdruck aus. Das Ergebnis wird in 'result' gespeichert.
-     * Tritt während der Auswertung ein Fehler auf, wird ein von null verschiedener
-     * Fehlercode zurückgegeben.
-     * 
-     * @return
-     * Null, wenn die Auswertung erfolgreich war; sonst einen Fehlercode
-     */
-    //wenn interpreter eval != 0, dann falschen ausdruck eingebeben-> error ausprinten
+    // check if the given expression is not valid then we should print the error message
     if (interp.eval(buffer, result) != 0)
     {
         printErrorMsg(interp.eval(buffer, result));
     }
-    //sonst richtig, also Ergebnis printen
+    // if the expression is valid then it will be evaluated the result will be printed to the screen
     if (interp.eval(buffer, result) == 0)
     {
         out.print(result);
     }
     clearBuffer();
     location = 0;
-    //Ergebnis wurde ausgegeben also buffer für nächsten ausdruck vorbereiten
-    //clearBuffer();
     out.println();
 }
 
@@ -248,38 +236,36 @@ void Calculator::enter()
      * Das Betätigen der Pfeil-Links-Taste soll den Cursor
      * genau eine Position nach links bewegen. Beachtet
      * hierbei etwaige Randfälle.
-     */
+*/
 void Calculator::moveLeft()
 {
-    //Column, Row bekommen
+    
     int column, row = 0;
     cga.getCursor(column, row);
 
-    //wenn wir am Anfang einer Spalte sind, dann eine Zeile nach oben und zur letzte Spalte springen
-    /*
-    if (row != 0 && column == 0)
-    {
-        cga.setCursor(EXPR_SIZE_MAX, row - 1);
-    }
-     */
-    //wenn keiner von beiden null, dann einfach eine Spalte zurück
+
+    // check if both row and coulmn are not zero then we can move to the left along the y axis
+    // where we just decrement the column, and move the cursor along with it
     if (row != 0 && column != 0)
     {
         cga.setCursor(column - 1, row);
         location--;
     }
 
+    // do the same as above cause we are moving along the y axis for moving to the left
     if (row == 0 && column != 0)
     {
         cga.setCursor(column - 1, row);
         location--;
     }
-    //nichts tun, sonst laufen wir auß dem cga-Bereich
+    // when we are at 0,0 then we should'nt be able to move to the left
+    // otherwise we will leave cga screen
     if (row == 0 && column == 0)
     {
         location = 0;
         cga.setCursor(0, 0);
     }
+    // do the same as above and stay at the same place
     if (row != 0 && column == 0)
     {
         location = 0;
@@ -299,8 +285,8 @@ void Calculator::moveRight()
     int column, row = 0;
     cga.getCursor(column, row);
 
-    //wenn am ende des Bildschirms, dann clearen und bei 0,0 starten
-    //32, maximale Ausdruckslaenge
+    
+    //when we at the end of the screen then we should be able to clear it and go back to the start
     if (row == 25 && column == 32)
     {
         cga.clear();

@@ -23,7 +23,7 @@ public:
      * der Position (von hinten an) nach Rechts verschoben werden,
      * sodass eine Luecke fuer das neue Element entsteht. 
      **/
-    void handleInsertAtLocation();
+    void handleInsert();
 
     /**
      * Initialisiert den Calculator.
