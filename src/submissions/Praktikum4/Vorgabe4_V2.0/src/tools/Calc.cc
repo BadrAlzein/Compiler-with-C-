@@ -219,7 +219,18 @@ void Calculator::enter()
     // check if the given expression is not valid then we should print the error message
     if (interp.eval(buffer, result) != 0)
     {
-        printErrorMsg(interp.eval(buffer, result));
+        bool isValied = true; 
+        for (int i=0;i<= EXPR_SIZE_MAX;i++){
+            if (interp.isOperand(buffer[i])){
+                isValied = false;
+            }
+        }
+        if (isValied){
+            //return Zeichen
+        }else {
+                printErrorMsg(interp.eval(buffer, result));
+        }
+       
     }
     // if the expression is valid then it will be evaluated the result will be printed to the screen
     if (interp.eval(buffer, result) == 0)
