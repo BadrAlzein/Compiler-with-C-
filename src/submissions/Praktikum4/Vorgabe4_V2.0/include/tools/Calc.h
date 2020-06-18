@@ -9,6 +9,7 @@ class Calculator : public Activity
 {
 private:
     int location;
+    bool shiftPressed=false;
 
 public:
     /** Erzeugt einen Calculator, der auf dem Kernel-Stack läuft */
