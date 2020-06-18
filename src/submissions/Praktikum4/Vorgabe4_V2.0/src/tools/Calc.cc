@@ -84,7 +84,6 @@ void Calculator::body()
         //where 77 is a representation of the right arrow (Check Codetable)
          if (button.getValue() == 77 ) 
         {
-            out.print(button.getValue());
             this->moveRight();
             
         }
@@ -144,7 +143,7 @@ void Calculator::insert(char c)
             // ascii letter is 10 for new line
             enter();
         }
-    else if (location <= EXPR_SIZE_MAX )   //Expr Size
+    else if (location <= 32 )   //Expr Size
     {
         
          if (interp.isWhitespace(c))
