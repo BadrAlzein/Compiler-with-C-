@@ -185,7 +185,7 @@ void Calculator ::helpInInsert()
     } 
     else {
         // all elements that are the right side of our position will be shifted to the right
-        for (int j = EXPR_SIZE_MAX; j > location; j--)
+        for (int j = EXPR_SIZE_MAX-1; j > location; j--)
         {
             buffer[j] = buffer[j - 1];
         }
