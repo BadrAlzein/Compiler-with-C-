@@ -150,7 +150,7 @@ void Calculator::insert(char c)
             // ascii letter is 10 for new line
             enter();
         }
-    else if (location <= EXPR_SIZE_MAX)   //Expr Size
+    else if (location < EXPR_SIZE_MAX)   //Expr Size                                          <----           -----BADR NB
     {
         
          if (interp.isWhitespace(c))
@@ -197,7 +197,7 @@ void Calculator ::helpInInsert()
         //unsigned i = 0;
     
         // all charachters after this position will be printed again
-        for (unsigned i = location + 1; i <= EXPR_SIZE_MAX; i++)
+        for (unsigned i = location + 1; i < EXPR_SIZE_MAX; i++)
         {
             out.print(buffer[i]);
         }// 
@@ -226,6 +226,7 @@ void Calculator::enter()
     // check if the given expression is not valid then we should print the error message
     if (interp.eval(buffer, result) != 0)
     {
+        /*
         bool isValied = true; 
         for (int i=0;i<= EXPR_SIZE_MAX;i++){
             if (interp.isOperand(buffer[i])){
@@ -238,7 +239,8 @@ void Calculator::enter()
         }else {
                 printErrorMsg(interp.eval(buffer, result));
         }
-       
+        */
+         printErrorMsg(interp.eval(buffer, result));
     }
     // if the expression is valid then it will be evaluated the result will be printed to the screen
     if (interp.eval(buffer, result) == 0)
@@ -306,7 +308,7 @@ void Calculator::moveRight()
     cga.getCursor(column, row);
 
 
-    if(buffer[location] == 0 && buffer[location+1] == 0) {
+    if(buffer[location] == 0 && buffer[location+1] == 0) {                                    //< -----BADR NB
         return;
     }
     //when we at the end of the screen then we should be able to clear it and go back to the start
