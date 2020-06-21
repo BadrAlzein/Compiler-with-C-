@@ -63,8 +63,10 @@ SYSTEM_CC = \
 	tools/Interp.cc\
 	tools/Scanner.cc\
 	sync/Monitor.cc\
+	sync/KernelSemaphore.cc\
 	user/Hello.cc\
 	user/Init.cc\
+	system/Console.cc\
 	mainMonitor.cc
 
 

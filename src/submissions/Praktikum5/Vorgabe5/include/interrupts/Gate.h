@@ -1,7 +1,6 @@
 #ifndef Gate_h
 #define Gate_h
 
-#include "lib/Chain.h"
 
 /*
  * Gate: Ein Trap/Interrupt Tor
@@ -17,42 +16,31 @@
  *	Achtung: Gates muessen definiert sein,
  *	*bevor* der zugehoerige Interrupt zugelassen wird!!!!
  */
-class Gate : public Chain {
+class Gate {
 public:
 	// Definition eines Gates fuer Vektornummer "num"
-	Gate (int num);
+	explicit Gate (int num);
 
 	//  Automatisches Abmelden des Gates
 	virtual ~Gate ();
 
+	virtual void handle() = 0;
 
-	/** 	Nur was sofort in der Interruptbehandlung gemacht werden
-	 *	muss, darf im Prolog gemacht werden.
-	 */
-	virtual bool prologue() = 0;
 
-	/** Nicht jeder Interrupthandler muss einen Epilog haben.
-	 */
-	virtual void epilogue(){}
 
 	int getNumber()
 	{
 		return num;
 	}
 
-	bool isDeferred()
-	{
-		return deferred;
-	}
 
-	void setDeferred(bool value)
-	{
-		deferred = value;
-	}
+
+    // alle Klassen mit virtuellen Destruktoren brauchen die
+    // folgende Operator-Ueberladung:
+    static void operator delete(void* p) {}
 
 private:
 	int num;
-	bool deferred;
 };
 
 #endif
