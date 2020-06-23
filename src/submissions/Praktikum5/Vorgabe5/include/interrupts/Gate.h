@@ -23,17 +23,33 @@ public:
 
 	//  Automatisches Abmelden des Gates
 	virtual ~Gate ();
-
+/* P5- 4.1. handle is skipt after using monitor Pro & epilogue
 	virtual void handle() = 0;
-
-
-
+*/
 	int getNumber()
 	{
 		return num;
 	}
 
-
+	/* Monitor */
+	/**
+	 * Während des Prologes sind die Interrupts gesperrt.
+	 * Der Rückgabewert des Prologes bestimmt, ob der Epilog aufgerufen werden soll
+	*/
+	virtual bool prologue() = 0;
+	//die Interrupts sind aktiv
+	virtual void epilogue() {}
+	
+	/* Monitor is marked */
+	bool isDeferred()
+	{
+		return deferred;
+	}
+	/* Monitor set marked */
+	void setDeferred(bool newDeferred)
+	{
+		deferred = newDeferred;
+	}
 
     // alle Klassen mit virtuellen Destruktoren brauchen die
     // folgende Operator-Ueberladung:
@@ -41,6 +57,7 @@ public:
 
 private:
 	int num;
+	bool deferred; //is marked in the monitor
 };
 
 #endif

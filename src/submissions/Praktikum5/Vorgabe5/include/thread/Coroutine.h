@@ -1,6 +1,7 @@
 #ifndef Coroutine_h
 #define Coroutine_h
-
+#include "sync/Monitor.h"
+#include "device/CPU.h"
 /*
  * Coroutine:
  * Diese Klasse implementiert Coroutinen, welche die Basis
@@ -43,9 +44,9 @@ extern "C" {
  * deshalb ein Stackframe existieren, was gleich aussieht mit
  * dem einer Coroutine die "switchContext" aufgerufen hat.
  */
-#include "device/CPU.h"
 
 extern CPU cpu;
+extern Monitor monitor;
 
 class Coroutine {
 public:

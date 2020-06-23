@@ -18,6 +18,7 @@ Keyboard::Keyboard() :
 	pic.enable(PIC::KEYBOARD);
 }
 
+/* P5- 4.1. handle is skipt after using monitor Pro & epilogue
 void Keyboard::handle()
 {
 	if(ctrlPort.read() & AUX_BIT){
@@ -28,7 +29,7 @@ void Keyboard::handle()
 	}
 	pic.ack(PIC::KEYBOARD);
 }
-
+*/
 
 Key Keyboard::read()
 {
@@ -193,7 +194,7 @@ void Keyboard::reboot ()
 	*(unsigned short*) 0x472 = 0x1234;
 
 	waitForWrite();
-	ctrlPort.write (RESET_CODE);     // Reset auslösen
+	ctrlPort.write (RESET_CODE);     // Reset auslï¿½sen
 }
 
 
@@ -269,3 +270,15 @@ void Keyboard::waitForWrite()
 	} while (status & INPUT_BIT);   	// verarbeitet wurde.
 }
 
+
+//////////////Brishna Teil
+bool Keyboard::prologue()
+{
+	
+}
+
+
+void Keyboard::epilogue()
+{
+
+}

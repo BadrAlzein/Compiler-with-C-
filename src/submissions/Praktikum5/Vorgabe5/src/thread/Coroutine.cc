@@ -11,9 +11,8 @@
 	 * und deshalb keinen impliziten "this"-Zeiger uebergeben bekommt.
 	 */
 void Coroutine :: startup(Coroutine* obj) {
-	//for every existing coroutine call enableInterrupts cause for every Interrupt Handler 
-	// context switch should be called
-	cpu.enableInterrupts();
+	//leave monitor -> Interrupts on 
+	monitor.leave();
     //create the body of the coroutine
     obj ->body();
     // terminate the coroutine
