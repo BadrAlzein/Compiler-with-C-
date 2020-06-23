@@ -1,7 +1,7 @@
 #ifndef Gate_h
 #define Gate_h
 
-
+#include "lib/Chain.h"
 /*
  * Gate: Ein Trap/Interrupt Tor
  *
@@ -16,7 +16,7 @@
  *	Achtung: Gates muessen definiert sein,
  *	*bevor* der zugehoerige Interrupt zugelassen wird!!!!
  */
-class Gate {
+class Gate :public Chain{
 public:
 	// Definition eines Gates fuer Vektornummer "num"
 	explicit Gate (int num);
