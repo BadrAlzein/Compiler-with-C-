@@ -11,6 +11,12 @@
 
 #include "interrupts/Gate.h"
 #include "device/PIT.h"
+#include "interrupts/Gate.h"
+#include "device/PIT.h"
+#include "device/PIC.h"
+#include "interrupts/InterruptVector.h"
+#include "io/PrintStream.h"
+#include "thread/ActivityScheduler.h"
 
 class Clock: public Gate, public PIT {
 public:
@@ -70,9 +76,12 @@ public:
 	 */
 	int ticks()
 	{
+		return ticken;
 	}
 
 private:
+int ticken;
+PIC pic;
 };
 
 extern Clock clock;
