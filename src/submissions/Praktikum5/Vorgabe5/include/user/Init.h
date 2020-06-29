@@ -4,11 +4,13 @@
 /** Die erste richtige Anwendung
  */
 #include "system/Thread.h"
+#include "system/Console.h"
+#include "system/Environment.h"
 
 class Init: public Thread {
  public:
  Init(int slice=1) :
-	Thread(slice)
+	Thread(slice), shell(keyboard, screen)
 	{
 	}
 	
@@ -19,6 +21,7 @@ class Init: public Thread {
 	
 	virtual void run();
  private:
+	Console shell;
 };
 
 #endif

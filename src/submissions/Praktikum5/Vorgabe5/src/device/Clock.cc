@@ -60,6 +60,9 @@ void Clock::windup(int us)
 	// betreffende nummer des timers
 	pic.enable(PIC::PIT);
 }
+void Clock::resetTicks() {
+	this-> ticken = 0;
+}
 
 /** 	Der Interrupt-Handler fuer die Uhr.
 	 *	Hier ist der Interrupt am PIC zu bestaetigen
@@ -92,7 +95,25 @@ void Clock::windup(int us)
       *	dem Treiber mitgeteilt.
 	*/
     // if the ticks of the clock is equal to the qauntom reset the clock and reschedule it
-void Clock::handle()
+
+
+
+/*
+	Überlegt, wie die Behandlung von Timer-Interrupts aufgeteilt werden sollte. Sollten Prozess-
+wechsel im Prolog oder Epilog erfolgen?
+	Prozesswechsel sollten natürlich im Epilog erfolgen, da nur einer einen Prozesswechsel im BS Kern ausfuehren soll durch den Monitor
+	 */
+void Clock::epilogue(){
+	scheduler.checkSlice();
+}
+
+bool Clock::prologue(){
+	ticken = ticks() +1;
+	pic.ack();
+	return true;
+}
+
+ /*void Clock::handle()
 {
 	IntLock lock; //save kritische Abschnitt
 	//Ein geworfener Interrupt muss bestätigt werden, bevor er erneut geworfen werden kann.
@@ -118,12 +139,12 @@ void Clock::handle()
     }
     this->ticken= ticks()+1;
     
-*/
+/*
 	/**** For mainPre****/
-    this->ticken= ticks()+1;
-	scheduler.checkSlice();
+  // this->ticken= ticks()+1;
+	//scheduler.checkSlice();
 	//	}
-}
+//}
 
 /* 	Liefert die Systemzeit in Ticks zurueck
 	 *	Kann hier "inline" implementiert werden

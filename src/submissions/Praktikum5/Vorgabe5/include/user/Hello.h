@@ -4,7 +4,7 @@
 #include "system/Thread.h"
 #include "system/Console.h"
 
-class Hello: public Thread {
+class Hello : public Thread {
 public:
 	enum { LINE_SIZE = 512 };
 
