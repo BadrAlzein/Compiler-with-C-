@@ -1,6 +1,7 @@
 #include "thread/Activity.h"
 #include "thread/ActivityScheduler.h"
 #include "io/PrintStream.h"
+#include "user/Hello.h"
 
 /* Aufsetzen eines Threads, der initiale Zustand ist "Blocked",
  * da der Thread erst laufen darf, wenn der spezielle Konstruktor
@@ -31,7 +32,7 @@ Activity::Activity(void *tos, int quantum) :  Schedulable(quantum) , Coroutine(t
 	 */
 // after creating the activity it should be activated
 
-Activity::Activity(int quantum) : Schedulable(quantum)
+Activity::Activity(int quantum) : Schedulable(quantum), Coroutine(), state(BLOCKED)
 {
 	this->state = BLOCKED;
 	scheduler.start(this);

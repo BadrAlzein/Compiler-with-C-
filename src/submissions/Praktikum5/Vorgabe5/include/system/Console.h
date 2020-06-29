@@ -3,13 +3,17 @@
 
 #include "io/InputChannel.h"
 #include "io/OutputChannel.h"
+#include "system/Semaphore.h"
 
 /**
  *  Console:	Die Systemkonsole
  */
 class Console: 	public InputChannel, public OutputChannel{
 public:
-	Console(InputChannel& input, OutputChannel& output);
+	Console(InputChannel& input, OutputChannel& output)
+	: input (input), output(output), onOff(Semaphore(1)){
+		
+	}
 
 	/** 	Konsole reservieren
 	 */
@@ -32,7 +36,7 @@ public:
 	 */
 	virtual int read(char* data, int size);
 
-	/** 	Liefert das nächste Zeichen aus dem Eingabepuffer zurück.
+	/** 	Liefert das nï¿½chste Zeichen aus dem Eingabepuffer zurï¿½ck.
 	 */
 	char read();
 
@@ -44,6 +48,9 @@ public:
         output.blueScreen(msg);
     }
 private:
+	InputChannel &input;
+	OutputChannel &output;
+	Semaphore onOff;
 };
 
 #endif

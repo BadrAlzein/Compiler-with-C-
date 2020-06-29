@@ -78,6 +78,7 @@ public:
 	{
 		return ticken;
 	}
+	void resetTicks();
 
 private:
 int ticken;

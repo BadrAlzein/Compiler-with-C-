@@ -60,6 +60,9 @@ void Clock::windup(int us)
 	// betreffende nummer des timers
 	pic.enable(PIC::PIT);
 }
+void Clock::resetTicks() {
+	this-> ticken = 0;
+}
 
 /** 	Der Interrupt-Handler fuer die Uhr.
 	 *	Hier ist der Interrupt am PIC zu bestaetigen
