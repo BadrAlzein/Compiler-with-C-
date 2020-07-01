@@ -72,7 +72,9 @@ public:
 			return buffer[popPos-1];
 		}
 	}
-
+bool buffer_clear(){
+	return population==0;
+}
 
 private:
 	T buffer[size];
