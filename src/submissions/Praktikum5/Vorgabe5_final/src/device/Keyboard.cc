@@ -17,19 +17,21 @@ Keyboard::Keyboard() : Gate(KeyboardInterrupt),
 }
 
 
-/**	Diese Methode liefert ein Zeichen aus dem Tastaturpuffer
-	 *	zur�ck. Diese Methode blockiert, wenn der Puffer leer ist.
-	 */
+/* P5- 4.1. handle is skipt after using monitor Pro & epilogue
+void Keyboard::handle()
+{
+	if(ctrlPort.read() & AUX_BIT){
+		//behandle hier die Maus
+	}else{
+		scanCode = dataPort.read();
+		analyzeScanCode();
+	}
+	pic.ack(PIC::KEYBOARD);
+}
+*/
 
 Key Keyboard::read()
 {
-	/** Diese Methode wird von Prozessen aufgerufen, um Daten aus dem
-	 *  Puffer zu lesen. 
-	 * //SECTION:empty buffer
-	 * Ist dieser leer wird der lesende Prozess schlafen gelegt.
-	 * //SECTION: sync
-	 * Achtet hier besonders auf die Synchronisierung.
-	 */
 	return buffer.get();
 }
 
@@ -50,11 +52,7 @@ int Keyboard::read(char *data, int size)
 	}
 	return count;
 }
-/**	Diese Methode bestimmt was getan werden muss,
-	 *	wenn Strg-Alt-Entf gedr�ckt wurde, ein Prefixcode von
-	 *	der Tastatur gelesen wurde, oder eine Taste gedr�ckt
-	 *	bzw. losgelassen wurde.
-	 */
+
 void Keyboard::analyzeScanCode()
 {
 	if ((mode & (CTRL_LEFT | ALT_LEFT)) &&
@@ -327,21 +325,33 @@ bool Keyboard::prologue()
 		pic.ack(PIC::KEYBOARD);
 		return true;
 	}
-	return false;   //avoid Warning
 }
 //interrupts sind hier active
 // wenn ein element in buffer schon drin ist dann 
 //interrupt an und aus machen
 void Keyboard::epilogue()
 {
-	CPU ::disableInterrupts();
+	/**  leave:	Wenn der Monitor verlassen wird, m�ssen alle ausstehenden Epiloge sofort
+	 *	abgearbeitet werden.
+	 */
+	//CPU ::disableInterrupts();
+	monitor.leave();
 	while (buffer_clear>0){
 
 		scanCode=this->second_buffer.get();
-		CPU::enableInterrupts();
+		//mit enter, kernel besetzt markieren
+		/** 	Die Methode zum betreten, sperren des Monitors, aus der Anwendung heraus.
+	 */
+		monitor.enter();
+		//CPU::enableInterrupts();
+		/**	Diese Methode bestimmt was getan werden muss,
+	 *	wenn Strg-Alt-Entf gedr�ckt wurde, ein Prefixcode von
+	 *	der Tastatur gelesen wurde, oder eine Taste gedr�ckt
+	 *	bzw. losgelassen wurde.
+	 */
 		analyzeScanCode();
-		CPU::disableInterrupts();
+	//	CPU::disableInterrupts();
 		buffer_clear--;
 	}
-		CPU ::enableInterrupts();
+		//CPU ::enableInterrupts();
 }
