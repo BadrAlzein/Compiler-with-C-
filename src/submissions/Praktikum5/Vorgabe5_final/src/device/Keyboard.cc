@@ -17,21 +17,19 @@ Keyboard::Keyboard() : Gate(KeyboardInterrupt),
 }
 
 
-/* P5- 4.1. handle is skipt after using monitor Pro & epilogue
-void Keyboard::handle()
-{
-	if(ctrlPort.read() & AUX_BIT){
-		//behandle hier die Maus
-	}else{
-		scanCode = dataPort.read();
-		analyzeScanCode();
-	}
-	pic.ack(PIC::KEYBOARD);
-}
-*/
+/**	Diese Methode liefert ein Zeichen aus dem Tastaturpuffer
+	 *	zur�ck. Diese Methode blockiert, wenn der Puffer leer ist.
+	 */
 
 Key Keyboard::read()
 {
+	/** Diese Methode wird von Prozessen aufgerufen, um Daten aus dem
+	 *  Puffer zu lesen. 
+	 * //SECTION:empty buffer
+	 * Ist dieser leer wird der lesende Prozess schlafen gelegt.
+	 * //SECTION: sync
+	 * Achtet hier besonders auf die Synchronisierung.
+	 */
 	return buffer.get();
 }
 
@@ -52,7 +50,11 @@ int Keyboard::read(char *data, int size)
 	}
 	return count;
 }
-
+/**	Diese Methode bestimmt was getan werden muss,
+	 *	wenn Strg-Alt-Entf gedr�ckt wurde, ein Prefixcode von
+	 *	der Tastatur gelesen wurde, oder eine Taste gedr�ckt
+	 *	bzw. losgelassen wurde.
+	 */
 void Keyboard::analyzeScanCode()
 {
 	if ((mode & (CTRL_LEFT | ALT_LEFT)) &&
