@@ -331,14 +331,16 @@ bool Keyboard::prologue()
 //interrupt an und aus machen
 void Keyboard::epilogue()
 {
-	CPU ::disableInterrupts();
+	//CPU ::disableInterrupts();
+	monitor.leave();
 	while (buffer_clear>0){
 
 		scanCode=this->second_buffer.get();
-		CPU::enableInterrupts();
+		monitor.enter();
+		//CPU::enableInterrupts();
 		analyzeScanCode();
-		CPU::disableInterrupts();
+	//	CPU::disableInterrupts();
 		buffer_clear--;
 	}
-		CPU ::enableInterrupts();
+		//CPU ::enableInterrupts();
 }
