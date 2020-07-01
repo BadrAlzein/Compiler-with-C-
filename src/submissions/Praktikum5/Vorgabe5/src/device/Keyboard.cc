@@ -331,6 +331,9 @@ bool Keyboard::prologue()
 //interrupt an und aus machen
 void Keyboard::epilogue()
 {
+	/** 	Wenn der Monitor verlassen wird, m�ssen alle ausstehenden Epiloge sofort
+	 *	abgearbeitet werden.
+	 */
 	//CPU ::disableInterrupts();
 	monitor.leave();
 	while (buffer_clear>0){
