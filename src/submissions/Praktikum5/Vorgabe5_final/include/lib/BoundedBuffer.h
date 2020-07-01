@@ -73,7 +73,9 @@ public:
 		}
 	}
 
-
+bool buffer_clear(){
+	return population==0;
+}
 private:
 	T buffer[size];
 	unsigned population = 0 ; //the population of the buffer
