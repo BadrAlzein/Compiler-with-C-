@@ -73,13 +73,10 @@ public:
 		}
 	}
 
-		bool isCleared() 
-	{
-		return population == 0;
-	}
 	
 	
-bool buffer_clear(){
+	
+  bool buffer_clear(){
 	return population==0;
 }
 private:

@@ -30,9 +30,9 @@ void Keyboard::epilogue()
 	// interrupts aus machen und wieder an weil 
 	//cpu.disableInterrupts();
 	monitor.leave();
-	while (!(this->buffer2.isCleared())) {
+	while (!(this->second_buffer.buffer_clear())) {
 		// IntLock ist schon in get() 
-		this->scanCode = this->buffer2.get();
+		this->scanCode = this->second_buffer.get();
 		//cpu.enableInterrupts();
 		monitor.enter();	
 		this->analyzeScanCode();
@@ -56,7 +56,7 @@ bool Keyboard::prologue()
 		//brauchen neuen Puffer, in dem der ScanCode geschrieben wird
 		this->scanCode = dataPort.read();
 		//buffer merkt sich den scanCode, sodass der epilogue ausgefuehrt werden kann
-		buffer2.add(this->scanCode);
+		second_buffer.add(this->scanCode);
 		pic.ack(PIC::KEYBOARD);
 		return true;
 	}	

@@ -96,7 +96,7 @@ private:
 	Dadurch müssen nicht nur die analysierten Tastatur-Eingaben gepuffert
 	werden, sondern auch die einzelnen ScanCodes. Dazu benötigt ihr einen zweiten Puffer.
 	 */
-	BoundedBuffer<unsigned char, BUFFER_SIZE> buffer2;
+	BoundedBuffer<unsigned char, BUFFER_SIZE> second_buffer;
 
 	IOPort8 dataPort; // Ausgabe- (R) u. Eingabepuffer (W)
 	IOPort8 ctrlPort; // Status- (R) u. Steuerregister (W)
