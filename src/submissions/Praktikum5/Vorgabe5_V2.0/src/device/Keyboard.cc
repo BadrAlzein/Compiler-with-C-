@@ -16,6 +16,51 @@ Keyboard::Keyboard() : Gate(KeyboardInterrupt),
 	pic.enable(PIC::KEYBOARD);
 }
 
+/** Hier:
+ * buffern wir den Scancode, der reinkommt in 
+ * we buffer the scancode that enters the
+ * 'second_buffer'(to be able to analyse every single scancode we need a second buffer)
+ * Then we read the scancode in Epilog
+ * Why buffer here and not in the epilogue?
+  * ---- We absolutely have to save the scan code. As we write something we can land in a kritishe Abschnit.
+
+  The interrupts should not be on.
+  * ----- Save the scan code before 'pick.ack ()' (reactivate interrupts).
+   @return
+ *          true:   epilogue exists
+ *          false:  epilogue does not exist
+*/
+/* 
+Während des Prologes sind die Interrupts gesperrt. Der Rückgabewert des Prologes bestimmt,
+ob der Epilog aufgerufen werden soll. Beim Epilog sind die Interrupts aktiv.
+ */
+bool Keyboard::prologue()
+{
+	//define new buffer to write the scanCode in it
+	if (ctrlPort.read() & AUX_BIT) //handle the mouse
+	{
+	}
+	else
+	{
+		//buffer adds the scancode, to be able to execute the epilog
+		//data.read: bytewise input of a value
+		this->scanCode = dataPort.read();
+		//buffer merkt sich den scanCode, sodass der epilogue ausgefuehrt werden kann
+		/** Diese Methode wird vom Interrupthandler aufgerufen, um
+	 *  ein etwas in den Puffer zu schreiben. 
+	 * //SECTION: buffer Voll 
+	 *  Ist der Puffer voll,werden die zu schreibenden Daten verworfen.
+	 * //SECTION: fair sync 
+	 * Prozesse die auf eine Eingabe warten m�ssen hier geweckt werden.
+	 */
+		second_buffer.add(scanCode);
+		pic.ack(PIC::KEYBOARD);
+		return true;
+	}
+}
+//interrupts sind hier active
+// wenn ein element in buffer schon drin ist dann
+//interrupt an und aus machen
 /*
 Bei der Tastatur soll die Methode analyzeScanCode im Epilog ausgeführt werden. Überlegt,
 warum dies sinnvoll ist. Dadurch müssen nicht nur die analysierten Tastatur-Eingaben gepuffert
@@ -23,57 +68,33 @@ werden, sondern auch die einzelnen ScanCodes. Dazu benötigt ihr einen zweiten P
  */
 void Keyboard::epilogue()
 {
-	// wir probieren's aus; Beim Epilog sind die Interrupts aktiv.
-	// wir brauchen das lock um restoren und locken zu können wie in der vorlesung
-	// wenn da schon ein element im buffer drinne ist dann:
-
-	// interrupts aus machen und wieder an weil 
-	//cpu.disableInterrupts();
+	/** monitor.leave:	Wenn der Monitor verlassen wird, m�ssen alle ausstehenden Epiloge sofort
+	 *	abgearbeitet werden.
+	 */
 	monitor.leave();
-	while (!(this->second_buffer.buffer_clear())) {
-		// IntLock ist schon in get() 
-		this->scanCode = this->second_buffer.get();
-		//cpu.enableInterrupts();
-		monitor.enter();	
-		this->analyzeScanCode();
-	}
-}
-/* 
-Während des Prologes sind die Interrupts gesperrt. Der Rückgabewert des Prologes bestimmt,
-ob der Epilog aufgerufen werden soll. Beim Epilog sind die Interrupts aktiv.
- */
-bool Keyboard::prologue()
-{
-	// KernelLock  nicht noetig da der interrupt mit pic.ack bestaetigt wird 
-	// nachdem der buffer befuellt wurde KernelLock lock;
-	if (AUX_BIT & ctrlPort.read())
+	while (!(second_buffer.buffer_clear()))
 	{
-		//behandle hier die Maus
-		return false;
-	}
-	else
-	{
-		//brauchen neuen Puffer, in dem der ScanCode geschrieben wird
-		this->scanCode = dataPort.read();
-		//buffer merkt sich den scanCode, sodass der epilogue ausgefuehrt werden kann
-		second_buffer.add(this->scanCode);
-		pic.ack(PIC::KEYBOARD);
-		return true;
-	}	
-}
+		// interrupts sind hier angeschaltet
+		/** get: Diese Methode wird von Prozessen aufgerufen, um Daten aus dem
+	 *  Puffer zu lesen. 
+	 * //SECTION:empty buffer
+	 * Ist dieser leer wird der lesende Prozess schlafen gelegt.
+	 * //SECTION: sync
+	 * Achtet hier besonders auf die Synchronisierung.
+	 */
+		scanCode = second_buffer.get();
+		/** monitor.enter:	Die Methode zum betreten, sperren des Monitors, aus der Anwendung heraus.
+	 */
+		monitor.enter();
 
-/*
-void Keyboard::handle()
-{
-	if(ctrlPort.read() & AUX_BIT){
-		//behandle hier die Maus
-	}else{
-		scanCode = dataPort.read();
+		/**	Diese Methode bestimmt was getan werden muss,
+	 *	wenn Strg-Alt-Entf gedr�ckt wurde, ein Prefixcode von
+	 *	der Tastatur gelesen wurde, oder eine Taste gedr�ckt
+	 *	bzw. losgelassen wurde.
+	 */
 		analyzeScanCode();
 	}
-	pic.ack(PIC::KEYBOARD);
 }
- */
 
 Key Keyboard::read()
 {
