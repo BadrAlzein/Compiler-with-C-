@@ -51,28 +51,19 @@ void ActivityScheduler::kill(Activity *process)
 		this->reschedule();
 	}
 }
-/* 1.Der aktive Prozess ist, sofern er sich
- 	 * 	1.1. nicht im Zustand Blocked -> not blocked
-	 * 	1.2. oder Zombie befindet, 	-> not zombie 
-	 * 	1.3. wieder auf die Ready-Liste zu setzen. -> not waitint -> is Running currently
-	 *  1.4. Add it to the Ready list
-* 2.Danach ist "to" mittels dispatch die Kontrolle zu übergeben.
-*/
+/* Der aktive Prozess ist, sofern er sich nicht im Zustand
+ * Blocked oder Zombie befindet, wieder auf die Ready-Liste
+ * zu setzen. Danach ist "to" mittels dispatch die Kontrolle
+ * zu �bergeben.
+ */
 void ActivityScheduler::activate(Schedulable *to)
 {
- //IntLock lock; //safe this kritische Abschnitt 
-	Activity *currentAct = this->getCurrentActivity(); //get the current activity
-    
- /** deal with current Act ***/   
-	if (currentAct->isRunning())
-	{
-		currentAct->changeTo(Activity::READY);		   //change the activity to Ready
-		scheduler.schedule((Schedulable *)currentAct); //add it to the Ready list
-	}
+	
+	if (!IsActiveWaiting) {
 
-/**deal with target Activity */
 
-  Activity *targetAct = (Activity *)to;
+	Activity *targetAct = (Activity *)to;
+	Activity *currentAct = this->getCurrentActivity();
 	
  /** deal with empty readylist***/   
 	if (targetAct == 0)
@@ -80,29 +71,33 @@ void ActivityScheduler::activate(Schedulable *to)
         //make sure that the ready list is empty
 		if (currentAct->isZombie() || currentAct->isBlocked()){ 
 			//trigger that will decide if the cpu is busy waiting or not
-           if (IsActiveWaiting){
+         
                //while there are not activitys in the ready list
                  while(targetAct == 0) {
 					//switch to halting mode -> not active watiing anymore
-                    IsActiveWaiting=false;
-                   //(cased by Intlock) -> enable Interrupt so halt can wait until an interrupt comes
-                   cpu.enableInterrupts();
-                   //halt the cpu with an enable interrupts
+                    IsActiveWaiting=true;
+				monitor.leave();
+				 //halt the cpu with an enable interrupts
                    cpu.halt();
-                   //(cased by Intlock) -> disable the interrupts again
-                   cpu.disableInterrupts();
-                       //remove target from ready list
-                   targetAct = (Activity *)readylist.dequeue();	
-                	
-                }
-                /** Readylist is not empty anymore **/
-                
-                //switch to active waiting mode
-                IsActiveWaiting = true;
-                
-                /** deal with activate a normal target Act ***/ 
+				// monter enter
+				monitor.enter();
+				targetAct = (Activity *)readylist.dequeue();
+			}
+			//switch to active waiting mode
+                IsActiveWaiting = false;
+		   /** deal with activate a normal target Act ***/ 
                 if (targetAct != 0){
-                    //if the is still a current activity running 
+				  //deal with the target activity 
+                     targetAct->changeTo(Activity::RUNNING); 
+                     dispatch(targetAct);
+			}
+		
+	}
+    }
+ 
+                /** deal with activate a normal target Act ***/ 
+              else  if (targetAct != 0){
+	    //if the is still a current activity running 
                     if (currentAct->isRunning())
                             {
                                   //change the current activity to Ready
@@ -110,24 +105,14 @@ void ActivityScheduler::activate(Schedulable *to)
                                     //add it to the Ready list
                                     scheduler.schedule((Schedulable *)currentAct); 
                             }
-                    //deal with the target activity 
+
+		//deal with the target activity 
                      targetAct->changeTo(Activity::RUNNING); 
-                     dispatch(targetAct);	
-                    
-                }
-            }
-		}
+                     dispatch(targetAct);
 	}
-
-/** deal with activate a normal target Act ***/   
-if (targetAct != 0)
-	{
-		//make the target Act running
-		targetAct->changeTo(Activity::RUNNING); //make the target Running
-		dispatch(targetAct);					//swich from current active Act to the target Act
-	}
+    
+    }
 }
-
 
 /* Suspendieren des aktiven Prozesses
 * 1. Der korrekte Ausfuehrungszustand ist zu setzen
