@@ -15,7 +15,18 @@ Keyboard::Keyboard() : Gate(KeyboardInterrupt),
 
 	pic.enable(PIC::KEYBOARD);
 }
-
+/*
+void Keyboard::handle()
+{
+	if(ctrlPort.read() & AUX_BIT){
+		//behandle hier die Maus
+	}else{
+		scanCode = dataPort.read();
+		analyzeScanCode();
+	}
+	pic.ack(PIC::KEYBOARD);
+}
+ */
 /** Hier:
  * buffern wir den Scancode, der reinkommt in 
  * we buffer the scancode that enters the
@@ -34,6 +45,7 @@ Keyboard::Keyboard() : Gate(KeyboardInterrupt),
 Während des Prologes sind die Interrupts gesperrt. Der Rückgabewert des Prologes bestimmt,
 ob der Epilog aufgerufen werden soll. Beim Epilog sind die Interrupts aktiv.
  */
+
 bool Keyboard::prologue()
 {
 	//define new buffer to write the scanCode in it
@@ -72,8 +84,10 @@ void Keyboard::epilogue()
 	 *	abgearbeitet werden.
 	 */
 	monitor.leave();
-	while (!(second_buffer.buffer_clear()))
+	while (!(second_buffer.buffer_clear())) //will bearbeiten every epilog and make the moniter empty for new epilogs
 	{
+		// if buffer is not empty
+
 		// interrupts sind hier angeschaltet
 		/** get: Diese Methode wird von Prozessen aufgerufen, um Daten aus dem
 	 *  Puffer zu lesen. 
@@ -89,6 +103,8 @@ void Keyboard::epilogue()
 		/** monitor.enter:	Die Methode zum betreten, sperren des Monitors, aus der Anwendung heraus.
 	 */
 		//monitor.enter();
+
+
 
 		/**	Diese Methode bestimmt was getan werden muss,
 	 *	wenn Strg-Alt-Entf gedr�ckt wurde, ein Prefixcode von

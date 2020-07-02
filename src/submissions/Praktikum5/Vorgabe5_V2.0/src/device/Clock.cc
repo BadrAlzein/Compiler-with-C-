@@ -142,21 +142,18 @@ void Clock::windup(int us)
 void Clock::epilogue()
 {
 	/*
-	Überlegt, wie die Behandlung von Timer-Interrupts aufgeteilt werden sollte. Sollten Prozess-
-wechsel im Prolog oder Epilog erfolgen?
-	Prozesswechsel sollten natürlich im Epilog erfolgen, da nur einer einen Prozesswechsel im BS Kern ausfuehren soll durch den Monitor
+	
+	durch den monitor ist nur ein processwechsel im BS kern erlaubt, deswegen processwechsel muss in epilog erfolgen. 
 	 */
-	// if (this->isDeferred())
-	// {
+
 	scheduler.checkSlice();
-	// }
+	
 }
 
 bool Clock::prologue()
 {
-	// nicht noetig da pic ack keinen weiteren mehr anstellen laesst KernelLock lock;
-	// da wir jetzt zwei interrupt quellen haben (clock und keyboard) 
-	// muss auch der richtige interrupt behandelt / bestaetigt werden
+	//pic.ack wartet auf eine bestatigung der ubergegebene interrupt, solange the Interuppt nicht komplett 
+	//ausgelost ist,wird kein neue Interuppt erluabt
 
 	this->touretteTicks = this->ticks() + 1;
 	pic.ack(PIC::PIT);
