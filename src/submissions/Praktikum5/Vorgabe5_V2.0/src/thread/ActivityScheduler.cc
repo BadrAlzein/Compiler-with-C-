@@ -17,7 +17,7 @@ extern Clock clock;
 */
 void ActivityScheduler::exit()
 {
-    // IntLock lock; //safe this kritische Abschnitt
+	// IntLock lock; //safe this kritische Abschnitt
 	/** to exit 
 	 * 1. kill the current activity 
 	 * 2. reschedule (activate the first process from the list)
@@ -37,7 +37,7 @@ void ActivityScheduler::exit()
 */
 void ActivityScheduler::kill(Activity *process)
 {
-    // IntLock lock; //safe this kritische Abschnitt wegen exit (coroutine)
+	// IntLock lock; //safe this kritische Abschnitt wegen exit (coroutine)
 	//change the mode to Process deleteing mode
 	process->changeTo(Activity::ZOMBIE);
 
@@ -46,7 +46,7 @@ void ActivityScheduler::kill(Activity *process)
 
 	Activity *Act = this->getCurrentActivity();
 	//if (Act->isRunning() && Act == process)
-    if (Act == process)
+	if (Act == process)
 	{
 		this->reschedule();
 	}
@@ -58,60 +58,62 @@ void ActivityScheduler::kill(Activity *process)
  */
 void ActivityScheduler::activate(Schedulable *to)
 {
-	
-	if (!IsActiveWaiting) {
 
-
-	Activity *targetAct = (Activity *)to;
-	Activity *currentAct = this->getCurrentActivity();
-	
- /** deal with empty readylist***/   
-	if (targetAct == 0)
+	if (!IsActiveWaiting)
 	{
-        //make sure that the ready list is empty
-		if (currentAct->isZombie() || currentAct->isBlocked()){ 
-			//trigger that will decide if the cpu is busy waiting or not
-         
-               //while there are not activitys in the ready list
-                 while(targetAct == 0) {
-					//switch to halting mode -> not active watiing anymore
-                    IsActiveWaiting=true;
-				monitor.leave();
-				 //halt the cpu with an enable interrupts
-                   cpu.halt();
-				// monter enter
-				monitor.enter();
-				targetAct = (Activity *)readylist.dequeue();
-			}
-			//switch to active waiting mode
-                IsActiveWaiting = false;
-		   /** deal with activate a normal target Act ***/ 
-                if (targetAct != 0){
-				  //deal with the target activity 
-                     targetAct->changeTo(Activity::RUNNING); 
-                     dispatch(targetAct);
-			}
-		
-	}
-    }
- 
-                /** deal with activate a normal target Act ***/ 
-              else  if (targetAct != 0){
-	    //if the is still a current activity running 
-                    if (currentAct->isRunning())
-                            {
-                                  //change the current activity to Ready
-                                    currentAct->changeTo(Activity::READY);		 
-                                    //add it to the Ready list
-                                    scheduler.schedule((Schedulable *)currentAct); 
-                            }
 
-		//deal with the target activity 
-                     targetAct->changeTo(Activity::RUNNING); 
-                     dispatch(targetAct);
+		Activity *targetAct = (Activity *)to;
+		Activity *currentAct = this->getCurrentActivity();
+
+		/** deal with empty readylist***/
+		if (targetAct == 0)
+		{
+			//make sure that the ready list is empty
+			if (currentAct->isZombie() || currentAct->isBlocked())
+			{
+				//trigger that will decide if the cpu is busy waiting or not
+
+				//while there are not activitys in the ready list
+				while (targetAct == 0)
+				{
+					//switch to halting mode -> not active watiing anymore
+					IsActiveWaiting = true;
+					monitor.leave();
+					//halt the cpu with an enable interrupts
+					cpu.halt();
+					// monter enter
+					monitor.enter();
+					targetAct = (Activity *)readylist.dequeue();
+				}
+				//switch to active waiting mode
+				IsActiveWaiting = false;
+				/** deal with activate a normal target Act ***/
+				if (targetAct != 0)
+				{
+					//deal with the target activity
+					targetAct->changeTo(Activity::RUNNING);
+					dispatch(targetAct);
+				}
+			}
+		}
+
+		/** deal with activate a normal target Act ***/
+		else if (targetAct != 0)
+		{
+			//if the is still a current activity running
+			if (currentAct->isRunning())
+			{
+				//change the current activity to Ready
+				currentAct->changeTo(Activity::READY);
+				//add it to the Ready list
+				scheduler.schedule((Schedulable *)currentAct);
+			}
+
+			//deal with the target activity
+			targetAct->changeTo(Activity::RUNNING);
+			dispatch(targetAct);
+		}
 	}
-    
-    }
 }
 
 /* Suspendieren des aktiven Prozesses
@@ -121,8 +123,8 @@ void ActivityScheduler::activate(Schedulable *to)
 */
 void ActivityScheduler::suspend()
 {
-   // IntLock lock; //safe this kritische Abschnitt
-    
+	// IntLock lock; //safe this kritische Abschnitt
+
 	/** to make a the Scheduler suspend his current Process 
 	 * 1. get the current process and block it 
 	 * 2. reschedule (activate the first process from the Ready list)
@@ -135,22 +137,18 @@ void ActivityScheduler::suspend()
 	this->reschedule();
 }
 
-
 /** resheduler if the quatum has reached the ticks of the clk then reset the clk */
 void ActivityScheduler::checkSlice()
 {
-    IntLock lock ;
-	Schedulable *active = (Schedulable *) getCurrentActivity();
-    
-     //  out.print(active->quantum());
-	if (active->quantum() ==  clock.ticks())
+	IntLock lock;
+	Schedulable *active = (Schedulable *)getCurrentActivity();
+
+	//  out.print(active->quantum());
+	if (active->quantum() == clock.ticks())
 	{
-     //  out.print("checkslice");
-       // out.println();
+		//  out.print("checkslice");
+		// out.println();
 		clock.resetTicks(); //<= BRISHNA
-		reschedule(); //reschedule aufrufen, wenn Zeitscheibe(Quantum) abgelaufen ist
+		reschedule();		//reschedule aufrufen, wenn Zeitscheibe(Quantum) abgelaufen ist
 	}
 }
-
-
-
