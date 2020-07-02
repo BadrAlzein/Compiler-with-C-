@@ -82,10 +82,13 @@ void Keyboard::epilogue()
 	 * //SECTION: sync
 	 * Achtet hier besonders auf die Synchronisierung.
 	 */
+		monitor.enter();
+		
 		scanCode = second_buffer.get();
+		monitor.leave();
 		/** monitor.enter:	Die Methode zum betreten, sperren des Monitors, aus der Anwendung heraus.
 	 */
-		monitor.enter();
+		//monitor.enter();
 
 		/**	Diese Methode bestimmt was getan werden muss,
 	 *	wenn Strg-Alt-Entf gedr�ckt wurde, ein Prefixcode von

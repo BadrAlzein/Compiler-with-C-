@@ -7,6 +7,9 @@
  * Prozesse oder zur Anwendung innerhalb des Kernels.
  */
 
+// implementing the KernelSepmaphore for the case of cooperative processes
+// as the name suggests it should be protected in the Core
+
 #include "thread/Activity.h"
 #include "thread/ActivityScheduler.h"
 class KernelSemaphore {
@@ -22,10 +25,7 @@ public:
 
 private:
 	Queue queue;
-
-	volatile unsigned int space;
-
-
+	int space;
 };
 
 #endif

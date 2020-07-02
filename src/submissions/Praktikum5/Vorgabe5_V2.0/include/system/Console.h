@@ -7,6 +7,10 @@
 
 /**
  *  Console:	Die Systemkonsole
+ * the implentation of Console to avoid the running processes being interrupted so that nothing
+ * can be manupliated from another process(Example in the assignment with anton's password)
+ * the Console can be accessed only if it's attached and then after that
+ * it should be detached
  */
 class Console: 	public InputChannel, public OutputChannel{
 public:

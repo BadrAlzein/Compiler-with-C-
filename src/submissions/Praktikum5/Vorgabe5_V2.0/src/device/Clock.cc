@@ -157,7 +157,7 @@ bool Clock::prologue()
 	// nicht noetig da pic ack keinen weiteren mehr anstellen laesst KernelLock lock;
 	// da wir jetzt zwei interrupt quellen haben (clock und keyboard) 
 	// muss auch der richtige interrupt behandelt / bestaetigt werden
-	
+
 	this->touretteTicks = this->ticks() + 1;
 	pic.ack(PIC::PIT);
 	return true;

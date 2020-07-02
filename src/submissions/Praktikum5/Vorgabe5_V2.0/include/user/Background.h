@@ -26,6 +26,7 @@ private:
 		out.println("Background is running!");
 
 		for(int i=0;;i++) {
+			
 			if (i % show == 0)
 				out.print("*");
 			yield();

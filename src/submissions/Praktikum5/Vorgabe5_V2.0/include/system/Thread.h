@@ -18,6 +18,9 @@
  *	Da die Methoden hier sehr kurz sind, k�nnen sie alle inline implementiert
  *	werden.
  */
+
+// so far the user programs can manipulate some data stucture from the Kern i.e. Ready List
+// now we should differ between them, so we should be able seperate the user and system
 class Thread: private Activity {
 public:
 	Thread(int slice=1) : Activity(slice)
